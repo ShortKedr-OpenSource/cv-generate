@@ -19,6 +19,11 @@
       "id": "sand",
       "label": "Sand",
       "stylesheet": "styles/themes/sand.css"
+    },
+    {
+      "id": "meadow",
+      "label": "Meadow",
+      "stylesheet": "styles/themes/meadow.css"
     }
   ],
   "defaults": {

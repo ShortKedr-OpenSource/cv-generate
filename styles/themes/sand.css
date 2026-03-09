@@ -24,6 +24,9 @@
     --header-surface: #fff7ed;
     --control-surface: #fff7ed;
     --detail-text: #6b5643;
+    --success: #3f7d3a;
+    --warning: #b45309;
+    --danger: #b5392f;
     --job-line: #ead8c8;
     --timeline-ring: rgba(217, 119, 6, 0.16);
     --print-sidebar-bg: #fff1dd;
