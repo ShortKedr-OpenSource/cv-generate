@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Admin Config</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;700&display=swap');
+
+        :root {
+            --bg-a: #e8f2ff;
+            --bg-b: #f8fbff;
+            --bg-c: #fff7ed;
+            --ink: #142033;
+            --ink-soft: #50627a;
+            --line: rgba(148, 163, 184, 0.28);
+            --panel: rgba(255, 255, 255, 0.82);
+            --panel-strong: #ffffff;
+            --accent: #0f7ae5;
+            --accent-strong: #0a5eb0;
+            --danger: #b91c1c;
+            --success: #15803d;
+            --warning: #b45309;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Manrope', sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, var(--bg-a) 0, transparent 35%),
+                radial-gradient(circle at bottom right, var(--bg-c) 0, transparent 30%),
+                linear-gradient(180deg, var(--bg-b), #ffffff);
+            padding: 28px 18px;
+        }
+
+        .shell { width: min(1120px, 100%); margin: 0 auto; }
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+        }
+
+        .hero {
+            padding: 28px 28px 20px;
+            border-bottom: 1px solid var(--line);
+            background: linear-gradient(135deg, rgba(15, 122, 229, 0.12), rgba(245, 158, 11, 0.08)), var(--panel-strong);
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(28px, 5vw, 42px);
+            letter-spacing: -0.04em;
+        }
+
+        .hero p { margin: 10px 0 0; max-width: 720px; color: var(--ink-soft); }
+        .grid { display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); }
+        .controls, .viewer { padding: 24px 28px 28px; }
+        .controls { border-right: 1px solid var(--line); background: rgba(255, 255, 255, 0.72); }
+        .stack { display: grid; gap: 16px; }
+
+        .field label, .card h2 {
+            display: block;
+            margin: 0 0 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+
+        .field input {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font: inherit;
+            color: var(--ink);
+            background: var(--panel-strong);
+        }
+
+        .toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
+        button {
+            border: 0;
+            border-radius: 999px;
+            padding: 11px 16px;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: #fff;
+            box-shadow: 0 12px 24px rgba(15, 122, 229, 0.22);
+        }
+
+        .ghost {
+            background: #fff;
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+
+        .status {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid var(--line);
+            color: var(--ink-soft);
+        }
+        .status strong { color: var(--ink); }
+        .status.ok { border-color: rgba(21, 128, 61, 0.22); color: var(--success); }
+        .status.error { border-color: rgba(185, 28, 28, 0.2); color: var(--danger); }
+        .status.warn { border-color: rgba(180, 83, 9, 0.22); color: var(--warning); }
+
+        .card {
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .meta-list { display: grid; gap: 10px; }
+        .meta-list div { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+        .meta-list span:first-child { color: var(--ink-soft); }
+
+        pre {
+            margin: 0;
+            padding: 18px;
+            min-height: 420px;
+            overflow: auto;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: #0f172a;
+            color: #dbeafe;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .hint { font-size: 13px; color: var(--ink-soft); }
+
+        @media (max-width: 880px) {
+            .grid { grid-template-columns: 1fr; }
+            .controls { border-right: 0; border-bottom: 1px solid var(--line); }
+        }
+
+        @media (max-width: 560px) {
+            body { padding: 10px; }
+            .hero, .controls, .viewer { padding: 18px; }
+            .toolbar button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="panel">
+            <section class="hero">
+                <h1>CV Admin Config</h1>
+                <p>Minimal read-only admin page for the protected config route. Provide an admin token at runtime, load the current server config, and inspect what the public app is using.</p>
+            </section>
+
+            <div class="grid">
+                <section class="controls">
+                    <div class="stack">
+                        <div class="field">
+                            <label for="admin-route">Admin route</label>
+                            <input id="admin-route" type="text" value="/admin/config/app" autocomplete="off">
+                        </div>
+
+                        <div class="field">
+                            <label for="admin-token">Admin token</label>
+                            <input id="admin-token" type="password" placeholder="Enter ADMIN_CONFIG_TOKEN" autocomplete="off">
+                        </div>
+
+                        <div class="toolbar">
+                            <button id="load-button" class="primary" type="button">Load config</button>
+                            <button id="clear-button" class="ghost" type="button">Clear token</button>
+                        </div>
+
+                        <div id="status" class="status warn">
+                            <strong>Waiting for request.</strong><br>
+                            The page itself is public, but the config route stays protected and deny-by-default.
+                        </div>
+
+                        <div class="card">
+                            <h2>Usage</h2>
+                            <p class="hint">Local development only needs plain HTTP on <code>localhost</code>. For non-local access the route expects HTTPS and a valid admin token.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="viewer">
+                    <div class="stack">
+                        <div class="card">
+                            <h2>Response summary</h2>
+                            <div class="meta-list">
+                                <div><span>Route</span><span id="meta-route">-</span></div>
+                                <div><span>Mode</span><span id="meta-mode">-</span></div>
+                                <div><span>Profile</span><span id="meta-profile">-</span></div>
+                                <div><span>Languages</span><span id="meta-languages">-</span></div>
+                                <div><span>Themes</span><span id="meta-themes">-</span></div>
+                                <div><span>Defaults</span><span id="meta-defaults">-</span></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h2>Raw JSON</h2>
+                            <pre id="config-output">Load the protected config to inspect it here.</pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN_STORAGE_KEY = 'cv-admin-token';
+        const routeInput = document.getElementById('admin-route');
+        const tokenInput = document.getElementById('admin-token');
+        const statusBox = document.getElementById('status');
+        const output = document.getElementById('config-output');
+        const metaRoute = document.getElementById('meta-route');
+        const metaMode = document.getElementById('meta-mode');
+        const metaProfile = document.getElementById('meta-profile');
+        const metaLanguages = document.getElementById('meta-languages');
+        const metaThemes = document.getElementById('meta-themes');
+        const metaDefaults = document.getElementById('meta-defaults');
+
+        function setStatus(kind, title, message) {
+            statusBox.className = `status ${kind}`;
+            statusBox.innerHTML = `<strong>${title}</strong><br>${message}`;
+        }
+
+        function updateSummary(payload) {
+            const config = payload && payload.config ? payload.config : {};
+            const defaults = config.defaults || {};
+            metaRoute.textContent = payload.route || '-';
+            metaMode.textContent = payload.mode || '-';
+            metaProfile.textContent = payload.profile || '-';
+            metaLanguages.textContent = Array.isArray(config.languages) ? config.languages.join(', ') : '-';
+            metaThemes.textContent = Array.isArray(config.themes) ? config.themes.map(theme => theme.id).join(', ') : '-';
+            metaDefaults.textContent = defaults.language && defaults.theme ? `${defaults.language} / ${defaults.theme}` : '-';
+        }
+
+        function resetSummary() {
+            metaRoute.textContent = '-';
+            metaMode.textContent = '-';
+            metaProfile.textContent = '-';
+            metaLanguages.textContent = '-';
+            metaThemes.textContent = '-';
+            metaDefaults.textContent = '-';
+        }
+
+        function persistToken(token) {
+            try {
+                if (token) {
+                    sessionStorage.setItem(TOKEN_STORAGE_KEY, token);
+                } else {
+                    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+                }
+            } catch (error) {
+                console.warn('Token storage is unavailable', error);
+            }
+        }
+
+        async function loadConfig() {
+            const route = routeInput.value.trim() || '/admin/config/app';
+            const token = tokenInput.value.trim();
+
+            if (!token) {
+                setStatus('warn', 'Token required', 'Enter an admin token before loading the protected config.');
+                return;
+            }
+
+            setStatus('warn', 'Loading...', 'Requesting the protected config route.');
+
+            try {
+                const response = await fetch(route, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    const message = await response.text();
+                    throw new Error(`${response.status} ${message}`.trim());
+                }
+
+                const payload = await response.json();
+                persistToken(token);
+                updateSummary(payload);
+                output.textContent = JSON.stringify(payload, null, 2);
+                setStatus('ok', 'Config loaded', 'Protected config was fetched successfully.');
+            } catch (error) {
+                resetSummary();
+                output.textContent = 'Request failed.\n\n' + error.message;
+                setStatus('error', 'Request failed', error.message);
+            }
+        }
+
+        document.getElementById('load-button').addEventListener('click', loadConfig);
+        document.getElementById('clear-button').addEventListener('click', () => {
+            tokenInput.value = '';
+            persistToken('');
+            resetSummary();
+            output.textContent = 'Load the protected config to inspect it here.';
+            setStatus('warn', 'Token cleared', 'Stored session token was removed from the admin page.');
+        });
+
+        try {
+            const storedToken = sessionStorage.getItem(TOKEN_STORAGE_KEY);
+            if (storedToken) {
+                tokenInput.value = storedToken;
+            }
+        } catch (error) {
+            console.warn('Session storage is unavailable', error);
+        }
+    </script>
+</body>
+</html>

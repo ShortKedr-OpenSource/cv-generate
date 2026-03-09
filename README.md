@@ -26,6 +26,33 @@ It currently defines:
 
 
 Localized CV content remains in `locales/*.json`, while app initialization now starts from `config/app.json`.
+## Lightweight admin access
+
+The project now includes a lightweight protected admin config route for the next roadmap phase:
+- route: `/admin/config/app`
+- mode: read-only
+- auth: `Authorization: Bearer <token>` or `x-admin-token`
+- enable it by setting `ADMIN_CONFIG_TOKEN`
+- deny by default: if no token is configured, the route is disabled
+- HTTPS is required for non-local access; plain HTTP is only tolerated for local development on `localhost`
+
+### Local example
+
+```powershell
+$env:ADMIN_CONFIG_TOKEN='dev-token'
+.\.tools\node\node.exe .\server.js
+```
+
+Then request it locally:
+
+```powershell
+Invoke-WebRequest -Uri 'http://localhost:8080/admin/config/app' -Headers @{ Authorization = 'Bearer dev-token' }
+```
+
+Or open the minimal admin page in the browser:
+
+- [admin/index.html](C:/Users/short/OneDrive/Рабочий стол/CV Generated/admin/index.html)
+- URL: `http://localhost:8080/admin/`
 
 ## Roadmap
 
@@ -68,16 +95,16 @@ Administrative operations must be treated as protected from the beginning:
 
 ### WebStorm
 
-This project now includes a shared WebStorm run configuration: `CV App Server`.
+This project now includes shared WebStorm run configurations: `CV App Server`, `CV App Browser`, and `CV App Server + Browser`.
 
 How to run it in WebStorm:
 1. Open the project in WebStorm.
 2. Make sure the project uses the IDE-managed Node interpreter.
-3. Select `CV App Server` in the run configuration dropdown.
-4. Press `Run`.
-5. Open `http://localhost:8080`.
+3. Select CV App Server + Browser in the run configuration dropdown if you want WebStorm to start the server and open the page automatically.
+4. Or select CV App Browser if the server is already running and you only want to open http://localhost:8080.
+5. Press Run.
 
-The shared configuration launches `server.js` directly, so WebStorm can use its own built-in Node runtime without relying on `.tools/node`.
+The shared server configuration launches `server.js` directly with `PORT=8080`, so WebStorm can use its own built-in Node runtime without relying on `.tools/node`. The browser config opens the public page separately, and the compound config runs both together.
 
 ### Recommended CLI start in this repo
 
