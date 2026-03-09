@@ -56,29 +56,30 @@ Or open the minimal admin page in the browser:
 
 ## Roadmap
 
-### Phase 1: Product baseline
-- formalize application data around `languages`, `themes`, `profile content`, and `defaults`
+### Phase 1: File-driven application baseline
+- keep `config/app.json` as the source of truth for languages, themes, defaults, and profile metadata
 - treat the current single-file implementation as a baseline, not the final architecture
-- allow the first admin mechanism to be lightweight and based on protected HTTPS access to web resources or configuration endpoints
+- keep the app fully functional without a frontend build step
 
-### Phase 2: Extensibility
-- keep themes registered in config while moving their actual styles into dedicated CSS theme files
-- make default language and default theme part of application config
-- define what is public-user configurable and what is admin/developer configurable
+### Phase 2: Content model extraction
+- move profile/CV content out of `index.html` into dedicated file-driven resources
+- keep `locales/*.json` responsible for localized content, not only labels
+- define a stable content structure for sections such as summary, experience, education, contacts, and certifications
 
-### Phase 3: User-facing configurability
-- expose stable language and theme selection in the public UI
-- keep PDF export aligned with the currently selected language and theme
+### Phase 3: Theme and locale extensibility
+- keep themes registered in config and implemented as dedicated files in `styles/themes/*.css`
+- make new language and theme addition a file-only workflow with no hardcoded registration outside config
+- validate that configured defaults always point to existing language and theme files
 
-### Phase 4: Admin/developer workflow
-- define the process for adding a language
-- define the process for adding a theme
-- keep room for a future lightweight admin app or protected config layer
+### Phase 4: Public runtime behavior
+- keep language and theme switching driven by discovered config data
+- keep PDF export aligned with the selected language and theme
+- keep screen, mobile, and print rendering consistent with the same file-driven source data
 
 ### Phase 5: Architecture hardening
-- split presentation, locale/content, export/print, server/config, and admin access layers
-- move away from a growing single-file HTML implementation when product complexity requires it
-
+- split presentation, locale/content, export/print, and server/config responsibilities into clearer layers
+- reduce the amount of application logic embedded directly in `index.html`
+- prepare the codebase for future protected admin/config workflows, without making them a near-term priority
 ## Security requirements
 
 Administrative operations must be treated as protected from the beginning:
@@ -173,4 +174,5 @@ This project includes [AGENTS.md](C:/Users/short/OneDrive/Рабочий сто�
 ## Hosting
 
 This repo includes production-ready static hosting config in `Dockerfile` and `nginx.conf`.
+
 
