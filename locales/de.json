@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Lebenslauf - Nikolay Nakoreshko",
   "contact": "Kontakt",
   "linkedin": "LinkedIn",
@@ -70,5 +70,6 @@
     "university": "Staatliche Agraruniversität Kuban",
     "degree": "Bachelor, Angewandte Informatik in der Wirtschaft",
     "date": "(2018 - 2022)"
-  }
+  },
+  "exportPdf": "PDF exportieren"
 }

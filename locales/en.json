@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Resume - Nikolay Nakoreshko",
   "contact": "Contact",
   "linkedin": "LinkedIn",
@@ -70,5 +70,6 @@
     "university": "Kuban State Agrarian University",
     "degree": "Bachelor, Applied Informatics in Economics",
     "date": "(2018 - 2022)"
-  }
+  },
+  "exportPdf": "Export PDF"
 }
