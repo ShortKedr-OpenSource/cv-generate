@@ -1,0 +1,11 @@
+{
+  "exportPdf": "Скачать PDF",
+  "atsTitle": "ATS Score",
+  "atsAction": "Проверить ATS Score",
+  "atsDescription": "Проверьте, как резюме выглядит для ATS, через внешний resume checker.",
+  "atsHintUseCurrentPdf": "Используйте PDF, который вы экспортировали с этой страницы.",
+  "atsExternalNotice": "Проверка выполняется на внешнем сервисе Enhancv в новой вкладке.",
+  "atsUnavailable": "ATS-проверка сейчас недоступна.",
+  "themeLoadError": "Не удалось загрузить тему оформления. Проверьте файл стилей и попробуйте снова.",
+  "exportAtsPdf": "Скачать ATS PDF"
+}

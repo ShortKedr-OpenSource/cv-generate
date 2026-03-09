@@ -1,0 +1,11 @@
+{
+  "exportPdf": "Export PDF",
+  "atsTitle": "ATS Score",
+  "atsAction": "Check ATS Score",
+  "atsDescription": "See how this resume performs for ATS with an external resume checker.",
+  "atsHintUseCurrentPdf": "Use the PDF exported from this page.",
+  "atsExternalNotice": "The analysis runs on the external Enhancv service in a new tab.",
+  "atsUnavailable": "ATS checking is currently unavailable.",
+  "themeLoadError": "Could not load the visual theme. Check the stylesheet file and try again.",
+  "exportAtsPdf": "Export ATS PDF"
+}

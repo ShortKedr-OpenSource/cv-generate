@@ -1,5 +1,9 @@
 {
-  "languages": ["ru", "en", "de"],
+  "languages": [
+    "ru",
+    "en",
+    "de"
+  ],
   "themes": [
     {
       "id": "default",
@@ -23,5 +27,21 @@
   },
   "profile": {
     "id": "nikolay-nakoreshko"
+  },
+  "integrations": {
+    "ats": {
+      "enabled": true,
+      "providerId": "enhancv",
+      "providers": [
+        {
+          "id": "enhancv",
+          "label": "Enhancv ATS Score",
+          "url": "https://enhancv.com/resources/resume-checker/",
+          "openInNewTab": true,
+          "requiresPdf": true,
+          "showDisclaimer": true
+        }
+      ]
+    }
   }
 }

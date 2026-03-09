@@ -17,7 +17,15 @@
                 <div class="theme-switcher"></div>
                 <div class="theme-status" role="status" aria-live="polite" hidden></div>
                 <div class="actions">
-                    <button class="export-button" type="button" data-translate="exportPdf" onclick="exportToPdf()">Export to PDF</button>
+                    <button class="export-button" type="button" data-system-translate="exportPdf" onclick="exportPdf('default')">Export to PDF</button>
+                    <button class="export-button export-button-secondary" type="button" data-system-translate="exportAtsPdf" onclick="exportPdf('ats')">Export ATS PDF</button>
+                    <button class="ats-button" type="button" onclick="openAtsChecker()" hidden>Check ATS Score</button>
+                </div>
+                <div class="ats-info side-card" role="note" hidden>
+                    <p class="ats-info-title" data-system-translate="atsTitle">ATS Score</p>
+                    <p class="ats-info-description" data-system-translate="atsDescription"></p>
+                    <p class="ats-info-hint" data-system-translate="atsHintUseCurrentPdf"></p>
+                    <p class="ats-info-notice" data-system-translate="atsExternalNotice"></p>
                 </div>
 
                 <section class="contact-info side-card">
@@ -75,17 +83,68 @@
         </div>
     </div>
 
+    <div class="ats-print-view" aria-hidden="true">
+        <header class="ats-print-header ats-print-block">
+            <h1 class="ats-print-name"></h1>
+            <p class="ats-print-subtitle"></p>
+            <p class="ats-print-location"></p>
+        </header>
+
+        <section class="ats-print-section ats-print-block ats-print-contact-section">
+            <h2 class="ats-print-section-title"></h2>
+            <p class="ats-print-contact-email"></p>
+            <p class="ats-print-contact-linkedin"></p>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-summary-section">
+            <h2 class="ats-print-section-title"></h2>
+            <div class="ats-print-summary"></div>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-experience-section">
+            <h2 class="ats-print-section-title"></h2>
+            <div class="ats-print-experience"></div>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-skills-section">
+            <h2 class="ats-print-section-title"></h2>
+            <ul class="ats-print-list ats-print-skills"></ul>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-languages-section">
+            <h2 class="ats-print-section-title"></h2>
+            <ul class="ats-print-list ats-print-languages"></ul>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-certifications-section">
+            <h2 class="ats-print-section-title"></h2>
+            <p class="ats-print-certifications"></p>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-education-section">
+            <h2 class="ats-print-section-title"></h2>
+            <div class="ats-print-education-entry">
+                <p class="ats-print-education-university"></p>
+                <p class="ats-print-education-degree"></p>
+                <p class="ats-print-education-date"></p>
+            </div>
+        </section>
+
+        <section class="ats-print-section ats-print-block ats-print-gdpr-section">
+            <p class="ats-print-gdpr"></p>
+        </section>
+    </div>
+
     <script>
         // Встроенные данные локализации (резервные для работы в локальном режиме без сервера)
-        const embeddedTranslations = {
+        const embeddedCvTranslations = {
             "ru": {
                 "title": "Резюме - Николай Накорешко",
                 "contact": "Контакт",
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Ключевые навыки",
                 "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Языки",
-                "exportPdf": "Скачать PDF",
+                "languagesTitle": "Языки",
                 "languages": ["Английский (C1 Advanced)", "Русский (Родной)"],
                 "certificationsTitle": "Сертификаты",
                 "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
@@ -122,8 +181,7 @@
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Key Skills",
                 "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Languages",
-                "exportPdf": "Export PDF",
+                "languagesTitle": "Languages",
                 "languages": ["English (C1 Advanced)", "Russian (Native)"],
                 "certificationsTitle": "Certifications",
                 "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
@@ -160,8 +218,7 @@
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Schlüsselkompetenzen",
                 "skills": ["C#", "Unity", "Spieleentwicklung", "Softwarearchitektur", "Werkzeugentwicklung", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Sprachen",
-                "exportPdf": "PDF exportieren",
+                "languagesTitle": "Sprachen",
                 "languages": ["Englisch (C1 Fortgeschritten)", "Russisch (Muttersprache)"],
                 "certificationsTitle": "Zertifizierungen",
                 "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
@@ -194,6 +251,42 @@
             }
         };
 
+        const embeddedSystemTranslations = {
+            "ru": {
+                "exportPdf": "Скачать PDF",
+                "exportAtsPdf": "Скачать ATS PDF",
+                "atsTitle": "ATS Score",
+                "atsAction": "Проверить ATS Score",
+                "atsDescription": "Проверьте, как резюме выглядит для ATS, через внешний resume checker.",
+                "atsHintUseCurrentPdf": "Используйте PDF, который вы экспортировали с этой страницы.",
+                "atsExternalNotice": "Проверка выполняется на внешнем сервисе Enhancv в новой вкладке.",
+                "atsUnavailable": "ATS-проверка сейчас недоступна.",
+                "themeLoadError": "Не удалось загрузить тему оформления. Проверьте файл стилей и попробуйте снова."
+            },
+            "en": {
+                "exportPdf": "Export PDF",
+                "exportAtsPdf": "Export ATS PDF",
+                "atsTitle": "ATS Score",
+                "atsAction": "Check ATS Score",
+                "atsDescription": "See how this resume performs for ATS with an external resume checker.",
+                "atsHintUseCurrentPdf": "Use the PDF exported from this page.",
+                "atsExternalNotice": "The analysis runs on the external Enhancv service in a new tab.",
+                "atsUnavailable": "ATS checking is currently unavailable.",
+                "themeLoadError": "Could not load the visual theme. Check the stylesheet file and try again."
+            },
+            "de": {
+                "exportPdf": "PDF exportieren",
+                "exportAtsPdf": "ATS-PDF exportieren",
+                "atsTitle": "ATS Score",
+                "atsAction": "ATS Score prüfen",
+                "atsDescription": "Prüfen Sie mit einem externen Resume-Checker, wie gut dieses Profil für ATS geeignet ist.",
+                "atsHintUseCurrentPdf": "Verwenden Sie die PDF-Datei, die Sie von dieser Seite exportiert haben.",
+                "atsExternalNotice": "Die Analyse wird im externen Enhancv-Dienst in einem neuen Tab ausgeführt.",
+                "atsUnavailable": "Die ATS-Prüfung ist derzeit nicht verfügbar.",
+                "themeLoadError": "Das visuelle Thema konnte nicht geladen werden. Prüfen Sie die Stylesheet-Datei und versuchen Sie es erneut."
+            }
+        };
+
         const embeddedAppConfig = {
             languages: ['ru', 'en', 'de'],
             themes: [
@@ -205,20 +298,76 @@
                 language: 'ru',
                 theme: 'default'
             },
+            integrations: {
+                ats: {
+                    enabled: true,
+                    providerId: 'enhancv',
+                    providers: [
+                        {
+                            id: 'enhancv',
+                            label: 'Enhancv ATS Score',
+                            url: 'https://enhancv.com/resources/resume-checker/',
+                            openInNewTab: true,
+                            requiresPdf: true,
+                            showDisclaimer: true
+                        }
+                    ]
+                }
+            },
             profile: {
                 id: 'nikolay-nakoreshko'
             }
         };
 
         const THEME_STORAGE_KEY = 'cv-app-theme';
-        const THEME_LOAD_ERROR_TEXT = 'Не удалось загрузить тему оформления. Проверьте файл стилей и попробуйте снова.';
-        let translations = {};
+        let cvTranslations = {};
+        let systemTranslations = {};
         let supportedLangs = embeddedAppConfig.languages.slice();
         let availableThemes = embeddedAppConfig.themes.slice();
         let defaultLanguage = embeddedAppConfig.defaults.language;
         let defaultTheme = embeddedAppConfig.defaults.theme;
         let selectedTheme = embeddedAppConfig.defaults.theme;
+        let atsIntegration = normalizeAtsIntegration(getEmbeddedAtsConfig());
         let useExternalFiles = false;
+        let activeLanguage = embeddedAppConfig.defaults.language;
+
+        function getEmbeddedAtsConfig() {
+            return embeddedAppConfig.integrations && embeddedAppConfig.integrations.ats
+                ? embeddedAppConfig.integrations.ats
+                : { enabled: false, providerId: '', providers: [] };
+        }
+
+        function normalizeAtsIntegration(config) {
+            const fallback = getEmbeddedAtsConfig();
+            const source = config && typeof config === 'object' ? config : fallback;
+            const providers = Array.isArray(source.providers)
+                ? source.providers.filter(provider => provider
+                    && typeof provider.id === 'string'
+                    && typeof provider.label === 'string'
+                    && typeof provider.url === 'string')
+                : fallback.providers;
+
+            return {
+                enabled: typeof source.enabled === 'boolean' ? source.enabled : fallback.enabled,
+                providerId: typeof source.providerId === 'string' ? source.providerId : fallback.providerId,
+                providers: providers.map(provider => ({
+                    id: provider.id,
+                    label: provider.label,
+                    url: provider.url,
+                    openInNewTab: provider.openInNewTab !== false,
+                    requiresPdf: provider.requiresPdf !== false,
+                    showDisclaimer: provider.showDisclaimer !== false
+                }))
+            };
+        }
+
+        function resolveAtsProvider() {
+            if (!atsIntegration || !atsIntegration.enabled) {
+                return null;
+            }
+
+            return atsIntegration.providers.find(provider => provider.id === atsIntegration.providerId) || null;
+        }
 
         function syncConfigState(config) {
             supportedLangs = Array.isArray(config.languages) && config.languages.length
@@ -241,6 +390,8 @@
             defaultTheme = availableThemes.some(theme => theme.id === configuredDefaultTheme)
                 ? configuredDefaultTheme
                 : embeddedAppConfig.defaults.theme;
+
+            atsIntegration = normalizeAtsIntegration(config.integrations && config.integrations.ats);
         }
 
         async function loadAppConfig() {
@@ -258,14 +409,15 @@
             } catch (e) {
                 console.warn('ℹ Using embedded app config fallback', e);
                 syncConfigState(embeddedAppConfig);
-                translations = embeddedTranslations;
+                cvTranslations = embeddedCvTranslations;
+                systemTranslations = embeddedSystemTranslations;
                 useExternalFiles = false;
                 return false;
             }
         }
 
-        async function loadTranslationFromFile(lang) {
-            if (translations[lang]) {
+        async function loadCvTranslationFromFile(lang) {
+            if (cvTranslations[lang]) {
                 return;
             }
             try {
@@ -273,16 +425,45 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                translations[lang] = await response.json();
+                cvTranslations[lang] = await response.json();
                 console.log(`✓ Загружена локализация: ${lang}`);
             } catch (e) {
                 console.error(`✗ Не удалось загрузить ${lang}.json, использую встроенные данные`, e);
-                if (embeddedTranslations[lang]) {
-                    translations[lang] = embeddedTranslations[lang];
-                } else if (lang !== 'ru' && embeddedTranslations['ru']) {
-                    translations[lang] = embeddedTranslations['ru'];
+                if (embeddedCvTranslations[lang]) {
+                    cvTranslations[lang] = embeddedCvTranslations[lang];
+                } else if (lang !== 'ru' && embeddedCvTranslations['ru']) {
+                    cvTranslations[lang] = embeddedCvTranslations['ru'];
                 }
             }
+        }
+
+        async function loadSystemTranslationFromFile(lang) {
+            if (systemTranslations[lang]) {
+                return;
+            }
+            try {
+                const response = await fetch(`locales/system/${lang}.json`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                systemTranslations[lang] = await response.json();
+                console.log(`✓ System localization loaded: ${lang}`);
+            } catch (e) {
+                console.error(`✗ Could not load locales/system/${lang}.json, using embedded system data`, e);
+                if (embeddedSystemTranslations[lang]) {
+                    systemTranslations[lang] = embeddedSystemTranslations[lang];
+                } else if (lang !== 'ru' && embeddedSystemTranslations['ru']) {
+                    systemTranslations[lang] = embeddedSystemTranslations['ru'];
+                }
+            }
+        }
+
+        function getSystemTranslation(lang) {
+            return systemTranslations[lang]
+                || embeddedSystemTranslations[lang]
+                || embeddedSystemTranslations[defaultLanguage]
+                || embeddedSystemTranslations.ru
+                || {};
         }
 
         function resolveTheme(themeId) {
@@ -425,7 +606,9 @@
                 return true;
             } catch (error) {
                 console.error(`Theme "${theme.id}" could not be loaded`, error);
-                showThemeStatus(`${THEME_LOAD_ERROR_TEXT} (${theme.label})`);
+                const systemData = getSystemTranslation(activeLanguage);
+                const themeLoadError = systemData.themeLoadError || embeddedSystemTranslations.ru.themeLoadError;
+                showThemeStatus(`${themeLoadError} (${theme.label})`);
                 updateThemeSwitcher(selectedTheme || defaultTheme);
                 return false;
             }
@@ -439,8 +622,42 @@
             }
         }
 
-        function exportToPdf() {
+        function setExportMode(mode) {
+            document.documentElement.dataset.exportMode = mode;
+        }
+
+        function clearExportMode() {
+            delete document.documentElement.dataset.exportMode;
+        }
+
+        function exportPdf(mode) {
+            const exportMode = mode === 'ats' ? 'ats' : 'default';
+            setExportMode(exportMode);
+
+            const restoreMode = () => {
+                clearExportMode();
+            };
+
+            window.addEventListener('afterprint', restoreMode, { once: true });
             window.print();
+            window.setTimeout(clearExportMode, 1000);
+        }
+
+        function openAtsChecker() {
+            const provider = resolveAtsProvider();
+            if (!provider) {
+                return;
+            }
+
+            if (provider.openInNewTab === false) {
+                window.location.href = provider.url;
+                return;
+            }
+
+            const newWindow = window.open(provider.url, '_blank', 'noopener,noreferrer');
+            if (newWindow) {
+                newWindow.opener = null;
+            }
         }
 
         async function changeLanguage(lang) {
@@ -449,17 +666,22 @@
             }
 
             if (useExternalFiles) {
-                await loadTranslationFromFile(lang);
+                await Promise.all([
+                    loadCvTranslationFromFile(lang),
+                    loadSystemTranslationFromFile(lang)
+                ]);
             }
 
+            activeLanguage = lang;
             document.documentElement.lang = lang;
             updateContent(lang);
             updateLanguageSwitcher(lang);
         }
 
         function updateContent(lang) {
-            const data = translations[lang];
-            if (!data) {
+            const cvData = cvTranslations[lang];
+            const systemData = getSystemTranslation(lang);
+            if (!cvData) {
                 console.error(`No data for language: ${lang}`);
                 return;
             }
@@ -467,7 +689,7 @@
             document.querySelectorAll('[data-translate]').forEach(el => {
                 const key = el.getAttribute('data-translate');
                 const keys = key.split('.');
-                let value = data;
+                let value = cvData;
                 try {
                     for (const k of keys) {
                         value = value[k];
@@ -482,10 +704,43 @@
                 }
             });
 
+            document.querySelectorAll('[data-system-translate]').forEach(el => {
+                const key = el.getAttribute('data-system-translate');
+                const value = systemData[key];
+                el.innerHTML = typeof value === 'string' ? value : '';
+            });
+
+            updateAtsPrintView(cvData);
+
+            const atsButton = document.querySelector('.ats-button');
+            const atsInfo = document.querySelector('.ats-info');
+            const atsDescription = document.querySelector('.ats-info-description');
+            const atsHint = document.querySelector('.ats-info-hint');
+            const atsNotice = document.querySelector('.ats-info-notice');
+            const atsProvider = resolveAtsProvider();
+
+            if (atsButton && atsInfo) {
+                if (atsProvider) {
+                    atsButton.hidden = false;
+                    atsButton.textContent = systemData.atsAction || atsProvider.label;
+                    atsButton.setAttribute('aria-label', atsProvider.label);
+                    atsInfo.hidden = false;
+                    atsDescription.textContent = systemData.atsDescription || '';
+                    atsHint.hidden = !atsProvider.requiresPdf;
+                    atsHint.textContent = atsProvider.requiresPdf ? (systemData.atsHintUseCurrentPdf || '') : '';
+                    atsNotice.hidden = !atsProvider.showDisclaimer;
+                    atsNotice.textContent = atsProvider.showDisclaimer ? (systemData.atsExternalNotice || '') : '';
+                } else {
+                    atsButton.hidden = true;
+                    atsButton.textContent = systemData.atsUnavailable || '';
+                    atsInfo.hidden = true;
+                }
+            }
+
             const skillsList = document.getElementById('skills-list');
             skillsList.innerHTML = '';
-            if (data.skills) {
-                data.skills.forEach(skill => {
+            if (cvData.skills) {
+                cvData.skills.forEach(skill => {
                     const li = document.createElement('li');
                     li.textContent = skill;
                     skillsList.appendChild(li);
@@ -494,8 +749,8 @@
 
             const languagesList = document.getElementById('languages-list');
             languagesList.innerHTML = '';
-            if (data.languages) {
-                data.languages.forEach(language => {
+            if (cvData.languages) {
+                cvData.languages.forEach(language => {
                     const li = document.createElement('li');
                     li.textContent = language;
                     languagesList.appendChild(li);
@@ -504,8 +759,8 @@
 
             const summaryContent = document.getElementById('summary-content');
             summaryContent.innerHTML = '';
-            if (data.summary) {
-                data.summary.forEach(pText => {
+            if (cvData.summary) {
+                cvData.summary.forEach(pText => {
                     const p = document.createElement('p');
                     p.textContent = pText;
                     summaryContent.appendChild(p);
@@ -514,8 +769,8 @@
 
             const experienceContent = document.getElementById('experience-content');
             experienceContent.innerHTML = '';
-            if (data.experience) {
-                data.experience.forEach(job => {
+            if (cvData.experience) {
+                cvData.experience.forEach(job => {
                     const jobDiv = document.createElement('div');
                     jobDiv.className = 'job';
                     jobDiv.innerHTML = `
@@ -531,7 +786,93 @@
             }
         }
 
+        function populateAtsList(element, items) {
+            if (!element) {
+                return;
+            }
+
+            element.innerHTML = '';
+            (items || []).forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                element.appendChild(li);
+            });
+        }
+
+        function updateAtsPrintView(cvData) {
+            const emailLink = document.querySelector('.contact-info a[href^="mailto:"]');
+            const linkedInLink = document.querySelector('.contact-info a[href*="linkedin.com"]');
+            const experienceContainer = document.querySelector('.ats-print-experience');
+            const summaryContainer = document.querySelector('.ats-print-summary');
+
+            const setText = (selector, value) => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.textContent = value || '';
+                }
+            };
+
+            setText('.ats-print-name', cvData.name);
+            setText('.ats-print-subtitle', cvData.subtitle);
+            setText('.ats-print-location', cvData.location);
+            setText('.ats-print-contact-section .ats-print-section-title', cvData.contact);
+            setText('.ats-print-contact-email', emailLink ? emailLink.textContent.trim() : '');
+            setText('.ats-print-contact-linkedin', linkedInLink ? linkedInLink.textContent.trim() : '');
+            setText('.ats-print-summary-section .ats-print-section-title', cvData.summaryTitle);
+            setText('.ats-print-experience-section .ats-print-section-title', cvData.experienceTitle);
+            setText('.ats-print-skills-section .ats-print-section-title', cvData.skillsTitle);
+            setText('.ats-print-languages-section .ats-print-section-title', cvData.languagesTitle);
+            setText('.ats-print-certifications-section .ats-print-section-title', cvData.certificationsTitle);
+            setText('.ats-print-certifications', cvData.certifications);
+            setText('.ats-print-education-section .ats-print-section-title', cvData.educationTitle);
+            setText('.ats-print-education-university', cvData.education && cvData.education.university);
+            setText('.ats-print-education-degree', cvData.education && cvData.education.degree);
+            setText('.ats-print-education-date', cvData.education && cvData.education.date);
+            setText('.ats-print-gdpr', cvData.gdpr);
+
+            if (summaryContainer) {
+                summaryContainer.innerHTML = '';
+                (cvData.summary || []).forEach(item => {
+                    const paragraph = document.createElement('p');
+                    paragraph.textContent = item;
+                    summaryContainer.appendChild(paragraph);
+                });
+            }
+
+            if (experienceContainer) {
+                experienceContainer.innerHTML = '';
+                (cvData.experience || []).forEach(job => {
+                    const jobBlock = document.createElement('article');
+                    jobBlock.className = 'ats-print-job';
+
+                    const company = document.createElement('p');
+                    company.className = 'ats-print-job-company';
+                    company.textContent = job.company || '';
+
+                    const meta = document.createElement('p');
+                    meta.className = 'ats-print-job-meta';
+                    meta.textContent = [job.title, job.date].filter(Boolean).join(' | ');
+
+                    jobBlock.appendChild(company);
+                    jobBlock.appendChild(meta);
+
+                    if (job.description) {
+                        const description = document.createElement('p');
+                        description.className = 'ats-print-job-description';
+                        description.textContent = job.description;
+                        jobBlock.appendChild(description);
+                    }
+
+                    experienceContainer.appendChild(jobBlock);
+                });
+            }
+
+            populateAtsList(document.querySelector('.ats-print-skills'), cvData.skills);
+            populateAtsList(document.querySelector('.ats-print-languages'), cvData.languages);
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
+            setExportMode('default');
             await loadAppConfig();
             createLanguageSwitcher();
             createThemeSwitcher();
@@ -548,6 +889,9 @@
 
 </body>
 </html>
+
+
+
 
 
 

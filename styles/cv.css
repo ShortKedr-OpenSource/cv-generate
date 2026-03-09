@@ -118,27 +118,119 @@ body {
 
 .actions {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: flex-start;
 }
 
-.export-button {
+.export-button,
+.ats-button {
     width: auto;
     min-width: 160px;
     border: 0;
     border-radius: 999px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-    color: #ffffff;
     font-weight: 700;
     font-size: 14px;
     padding: 12px 18px;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.export-button {
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #ffffff;
     box-shadow: var(--accent-shadow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .export-button:hover {
     transform: translateY(-1px);
     box-shadow: var(--accent-shadow-strong);
+}
+
+.export-button-secondary {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--control-surface) 88%, white), color-mix(in srgb, var(--chip-bg) 92%, white));
+    color: var(--header-title);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+}
+
+.export-button-secondary:hover {
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+.ats-button {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+    background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, var(--control-surface)), color-mix(in srgb, var(--control-surface) 82%, transparent)),
+        linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 90%, transparent), color-mix(in srgb, var(--control-surface) 96%, transparent));
+    color: var(--header-subtitle);
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, #ffffff 55%, transparent),
+        0 10px 22px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.ats-button::before {
+    content: "ATS";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    min-width: 34px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: #ffffff;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    vertical-align: middle;
+    box-shadow: 0 8px 16px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.ats-button:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 78%, var(--line));
+    color: var(--header-title);
+    box-shadow:
+        inset 0 1px 0 color-mix(in srgb, #ffffff 62%, transparent),
+        0 14px 28px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.ats-button:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 64%, transparent);
+    outline-offset: 3px;
+}
+
+.ats-info {
+    padding: 14px 16px;
+}
+
+.ats-info[hidden] {
+    display: none;
+}
+
+.ats-info-title {
+    margin: 0 0 6px;
+    color: var(--header-title);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ats-info-description,
+.ats-info-hint,
+.ats-info-notice {
+    margin: 0;
+    color: var(--detail-text);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ats-info-hint,
+.ats-info-notice {
+    margin-top: 6px;
 }
 
 .language-switcher button,
@@ -376,7 +468,22 @@ body {
     font-size: 13px;
 }
 
+.ats-print-view {
+    display: none;
+}
+
+.ats-print-view p,
+.ats-print-view h1,
+.ats-print-view h2,
+.ats-print-view ul {
+    margin: 0;
+}
+
 @media print {
+    .ats-print-view {
+        display: none !important;
+    }
+
     @page {
         size: A4;
         margin: 0;
@@ -447,7 +554,8 @@ body {
     .language-switcher,
     .theme-switcher,
     .theme-status,
-    .actions {
+    .actions,
+    .ats-info {
         display: none !important;
     }
 
@@ -462,7 +570,8 @@ body {
     .gdpr-compliance,
     .language-switcher,
     .theme-switcher,
-    .actions {
+    .actions,
+    .ats-info {
         order: initial !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -648,6 +757,143 @@ body {
         color: inherit;
         text-decoration: none;
     }
+
+    html[data-export-mode="ats"],
+    html[data-export-mode="ats"] body {
+        width: auto;
+        height: auto;
+        overflow: visible;
+        background: #ffffff !important;
+    }
+
+    html[data-export-mode="ats"] body {
+        color: #111827;
+        line-height: 1.45;
+        background:
+            radial-gradient(circle at top left, rgba(14, 165, 233, 0.08), transparent 32%),
+            linear-gradient(180deg, #f8fbff 0%, #ffffff 24%) !important;
+    }
+
+    html[data-export-mode="ats"] .shell {
+        display: none !important;
+    }
+
+    html[data-export-mode="ats"] .ats-print-view {
+        display: block !important;
+        width: 100%;
+        min-height: auto;
+        padding: 14mm 12mm;
+        background: transparent !important;
+        color: #111827;
+        font-family: 'Manrope', sans-serif;
+    }
+
+    html[data-export-mode="ats"] .ats-print-block {
+        display: block;
+        margin: 0 0 5mm;
+        padding: 4.5mm 5mm;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.92) !important;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    html[data-export-mode="ats"] .ats-print-header {
+        margin-bottom: 6mm;
+        padding: 0 0 5mm;
+        border: 0;
+        border-bottom: 1.5px solid rgba(14, 165, 233, 0.24);
+        border-radius: 0;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    html[data-export-mode="ats"] .ats-print-name {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 25px;
+        line-height: 1.15;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+    }
+
+    html[data-export-mode="ats"] .ats-print-subtitle,
+    html[data-export-mode="ats"] .ats-print-location,
+    html[data-export-mode="ats"] .ats-print-contact-email,
+    html[data-export-mode="ats"] .ats-print-contact-linkedin,
+    html[data-export-mode="ats"] .ats-print-summary p,
+    html[data-export-mode="ats"] .ats-print-job-meta,
+    html[data-export-mode="ats"] .ats-print-job-description,
+    html[data-export-mode="ats"] .ats-print-certifications,
+    html[data-export-mode="ats"] .ats-print-education-degree,
+    html[data-export-mode="ats"] .ats-print-education-date,
+    html[data-export-mode="ats"] .ats-print-gdpr,
+    html[data-export-mode="ats"] .ats-print-list li {
+        font-size: 10.5pt;
+        line-height: 1.48;
+        color: #1f2937;
+    }
+
+    html[data-export-mode="ats"] .ats-print-subtitle {
+        margin-top: 2.2mm;
+        color: #0c4a6e;
+        font-weight: 700;
+    }
+
+    html[data-export-mode="ats"] .ats-print-location {
+        margin-top: 1.4mm;
+        color: #475569;
+    }
+
+    html[data-export-mode="ats"] .ats-print-section-title {
+        margin-bottom: 3mm;
+        padding-bottom: 1.6mm;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 10.5pt;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #0f172a;
+    }
+
+    html[data-export-mode="ats"] .ats-print-summary p + p,
+    html[data-export-mode="ats"] .ats-print-job + .ats-print-job,
+    html[data-export-mode="ats"] .ats-print-contact-linkedin,
+    html[data-export-mode="ats"] .ats-print-certifications,
+    html[data-export-mode="ats"] .ats-print-education-degree,
+    html[data-export-mode="ats"] .ats-print-education-date {
+        margin-top: 2mm;
+    }
+
+    html[data-export-mode="ats"] .ats-print-job {
+        padding-left: 0;
+    }
+
+    html[data-export-mode="ats"] .ats-print-job-company,
+    html[data-export-mode="ats"] .ats-print-education-university {
+        font-size: 11.5pt;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    html[data-export-mode="ats"] .ats-print-job-meta {
+        color: #475569;
+    }
+
+    html[data-export-mode="ats"] .ats-print-list {
+        padding-left: 18px;
+    }
+
+    html[data-export-mode="ats"] .ats-print-list li + li {
+        margin-top: 1.4mm;
+    }
+
+    html[data-export-mode="ats"] .ats-print-gdpr-section {
+        margin-top: 1mm;
+        background: rgba(248, 250, 252, 0.88) !important;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -681,7 +927,8 @@ body {
     .language-switcher,
     .theme-switcher,
     .theme-status,
-    .actions {
+    .actions,
+    .ats-info {
         margin-left: 22px;
         margin-right: 22px;
     }
@@ -690,15 +937,16 @@ body {
     .theme-switcher { order: 2; }
     .theme-status { order: 3; }
     .actions { order: 4; }
-    .header { order: 5; }
-    .contact-info { order: 6; }
-    .summary { order: 7; }
-    .experience { order: 8; }
-    .skills { order: 9; }
-    .languages { order: 10; }
-    .certifications { order: 11; }
-    .education { order: 12; }
-    .gdpr-compliance { order: 13; }
+    .ats-info { order: 5; }
+    .header { order: 6; }
+    .contact-info { order: 7; }
+    .summary { order: 8; }
+    .experience { order: 9; }
+    .skills { order: 10; }
+    .languages { order: 11; }
+    .certifications { order: 12; }
+    .education { order: 13; }
+    .gdpr-compliance { order: 14; }
 
     .language-switcher,
     .theme-switcher {
@@ -733,10 +981,15 @@ body {
 
     .actions {
         justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .ats-info {
         margin-bottom: 14px;
     }
 
-    .export-button {
+    .export-button,
+    .ats-button {
         min-width: 180px;
         min-height: 44px;
         border-radius: 999px;
@@ -819,7 +1072,8 @@ body {
     .language-switcher,
     .theme-switcher,
     .theme-status,
-    .actions {
+    .actions,
+    .ats-info {
         margin-left: 18px;
         margin-right: 18px;
     }
@@ -888,7 +1142,8 @@ body {
     .language-switcher,
     .theme-switcher,
     .theme-status,
-    .actions {
+    .actions,
+    .ats-info {
         margin-left: 14px;
         margin-right: 14px;
     }
@@ -897,15 +1152,16 @@ body {
     .theme-switcher { order: 2; }
     .theme-status { order: 3; }
     .actions { order: 4; }
-    .header { order: 5; }
-    .contact-info { order: 6; }
-    .summary { order: 7; }
-    .experience { order: 8; }
-    .skills { order: 9; }
-    .languages { order: 10; }
-    .certifications { order: 11; }
-    .education { order: 12; }
-    .gdpr-compliance { order: 13; }
+    .ats-info { order: 5; }
+    .header { order: 6; }
+    .contact-info { order: 7; }
+    .summary { order: 8; }
+    .experience { order: 9; }
+    .skills { order: 10; }
+    .languages { order: 11; }
+    .certifications { order: 12; }
+    .education { order: 13; }
+    .gdpr-compliance { order: 14; }
 
     .language-switcher,
     .theme-switcher {
@@ -941,10 +1197,15 @@ body {
 
     .actions {
         justify-content: flex-start;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
-    .export-button {
+    .ats-info {
+        margin-bottom: 12px;
+    }
+
+    .export-button,
+    .ats-button {
         min-width: 150px;
         padding: 10px 14px;
         font-size: 12px;
@@ -1102,7 +1363,8 @@ body {
     .language-switcher,
     .theme-switcher,
     .theme-status,
-    .actions {
+    .actions,
+    .ats-info {
         margin-left: 12px;
         margin-right: 12px;
     }
@@ -1128,6 +1390,8 @@ body {
         font-size: 13px;
     }
 }
+
+
 
 
 
