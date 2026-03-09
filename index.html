@@ -815,9 +815,16 @@
             setText('.ats-print-name', cvData.name);
             setText('.ats-print-subtitle', cvData.subtitle);
             setText('.ats-print-location', cvData.location);
+            const emailText = emailLink
+                ? (emailLink.getAttribute('href') || '').replace(/^mailto:/i, '') || emailLink.textContent.trim()
+                : '';
+            const linkedInText = linkedInLink
+                ? linkedInLink.getAttribute('href') || linkedInLink.textContent.trim()
+                : '';
+
             setText('.ats-print-contact-section .ats-print-section-title', cvData.contact);
-            setText('.ats-print-contact-email', emailLink ? emailLink.textContent.trim() : '');
-            setText('.ats-print-contact-linkedin', linkedInLink ? linkedInLink.textContent.trim() : '');
+            setText('.ats-print-contact-email', emailText);
+            setText('.ats-print-contact-linkedin', linkedInText);
             setText('.ats-print-summary-section .ats-print-section-title', cvData.summaryTitle);
             setText('.ats-print-experience-section .ats-print-section-title', cvData.experienceTitle);
             setText('.ats-print-skills-section .ats-print-section-title', cvData.skillsTitle);
