@@ -199,6 +199,17 @@ const server = http.createServer((req, res) => {
   });
 });
 
+server.on('error', error => {
+  if (error && error.code === 'EADDRINUSE') {
+    console.error(`Port ${port} is already in use. Set PORT to another value and retry.`);
+    process.exitCode = 1;
+    return;
+  }
+
+  console.error('Server failed to start:', error);
+  process.exitCode = 1;
+});
+
 server.listen(port, host, () => {
   console.log(`CV server is running at http://${host}:${port}`);
   if (adminConfigToken) {

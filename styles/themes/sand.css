@@ -1,0 +1,38 @@
+:root[data-theme="sand"] {
+    --ink: #2b2118;
+    --ink-soft: #5d4b3d;
+    --muted: #8a6d58;
+    --line: #ead8c8;
+    --line-strong: rgba(183, 139, 92, 0.28);
+    --panel: rgba(255, 250, 244, 0.84);
+    --panel-strong: #fffaf4;
+    --accent: #d97706;
+    --accent-strong: #b45309;
+    --bg-a: #fde7cc;
+    --bg-b: #fff7ed;
+    --bg-c: #fef3c7;
+    --bg-d: #fffaf4;
+    --chip-border: #efd3b2;
+    --chip-bg: #fff4e4;
+    --chip-text: #9a4d11;
+    --header-title: #3b2415;
+    --header-subtitle: #9a5316;
+    --surface-top: rgba(255, 250, 244, 0.98);
+    --surface-alt: rgba(255, 245, 233, 0.96);
+    --main-surface: #fff9f2;
+    --section-surface: #fffaf4;
+    --header-surface: #fff7ed;
+    --control-surface: #fff7ed;
+    --detail-text: #6b5643;
+    --job-line: #ead8c8;
+    --timeline-ring: rgba(217, 119, 6, 0.16);
+    --print-sidebar-bg: #fff1dd;
+    --container-shadow: 0 32px 80px rgba(74, 43, 16, 0.14);
+    --card-shadow: 0 8px 22px rgba(74, 43, 16, 0.06);
+    --section-shadow: 0 10px 24px rgba(74, 43, 16, 0.08);
+    --accent-shadow: 0 12px 24px rgba(180, 83, 9, 0.22);
+    --accent-shadow-strong: 0 16px 28px rgba(180, 83, 9, 0.3);
+    --active-pill-shadow: 0 8px 14px rgba(217, 119, 6, 0.24);
+    --header-glow-a: rgba(217, 119, 6, 0.1);
+    --header-glow-b: rgba(251, 191, 36, 0.08);
+}

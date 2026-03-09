@@ -1,0 +1,38 @@
+:root[data-theme="graphite"] {
+    --ink: #e5eef7;
+    --ink-soft: #bfd0e2;
+    --muted: #8ea4ba;
+    --line: rgba(159, 181, 204, 0.24);
+    --line-strong: rgba(159, 181, 204, 0.34);
+    --panel: rgba(12, 19, 30, 0.82);
+    --panel-strong: #101a29;
+    --accent: #38bdf8;
+    --accent-strong: #0284c7;
+    --bg-a: #102033;
+    --bg-b: #08111d;
+    --bg-c: #17233a;
+    --bg-d: #0b1220;
+    --chip-border: rgba(125, 166, 205, 0.32);
+    --chip-bg: rgba(17, 33, 50, 0.9);
+    --chip-text: #8fd3ff;
+    --header-title: #f8fbff;
+    --header-subtitle: #7dd3fc;
+    --surface-top: rgba(18, 29, 45, 0.98);
+    --surface-alt: rgba(15, 25, 38, 0.96);
+    --main-surface: #0c1624;
+    --section-surface: #101a29;
+    --header-surface: #132033;
+    --control-surface: #152235;
+    --detail-text: #9fb4c8;
+    --job-line: rgba(125, 166, 205, 0.32);
+    --timeline-ring: rgba(56, 189, 248, 0.18);
+    --print-sidebar-bg: #101b2b;
+    --container-shadow: 0 32px 80px rgba(0, 0, 0, 0.34);
+    --card-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+    --section-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+    --accent-shadow: 0 12px 24px rgba(2, 132, 199, 0.3);
+    --accent-shadow-strong: 0 16px 30px rgba(2, 132, 199, 0.38);
+    --active-pill-shadow: 0 10px 18px rgba(2, 132, 199, 0.32);
+    --header-glow-a: rgba(56, 189, 248, 0.16);
+    --header-glow-b: rgba(14, 165, 233, 0.08);
+}

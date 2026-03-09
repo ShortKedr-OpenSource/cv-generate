@@ -19,7 +19,7 @@ Phase 1 is now grounded around a single read-only app config resource: `config/a
 
 It currently defines:
 - `languages`: public languages available in the UI
-- `themes`: registered visual themes and their tokens
+- `themes`: registered visual themes and their stylesheet metadata
 - `defaults.language`: fallback/default language
 - `defaults.theme`: fallback/default theme
 - `profile`: non-sensitive app-level profile metadata
@@ -62,7 +62,7 @@ Or open the minimal admin page in the browser:
 - allow the first admin mechanism to be lightweight and based on protected HTTPS access to web resources or configuration endpoints
 
 ### Phase 2: Extensibility
-- move themes into a separate configuration model similar to languages
+- keep themes registered in config while moving their actual styles into dedicated CSS theme files
 - make default language and default theme part of application config
 - define what is public-user configurable and what is admin/developer configurable
 
@@ -140,9 +140,10 @@ npm start
 
 ### Register a theme
 
-1. Add a new object to `config/app.json` under `themes`.
-2. Give it a unique `id`, a `label`, and a `tokens` map with CSS variable values. Registered themes appear automatically in the public theme switcher.
-3. If needed later, set it as `defaults.theme`.
+1. Add a new CSS file in `styles/themes/`, for example `styles/themes/forest.css`.
+2. Define the same CSS custom properties as the existing themes under `:root[data-theme="forest"]`.
+3. Register the theme in `config/app.json` with a unique `id`, a `label`, and a `stylesheet` path. Registered themes appear automatically in the public theme switcher.
+4. If needed later, set it as `defaults.theme`.
 
 ### Change defaults
 
@@ -172,3 +173,4 @@ This project includes [AGENTS.md](C:/Users/short/OneDrive/Рабочий сто�
 ## Hosting
 
 This repo includes production-ready static hosting config in `Dockerfile` and `nginx.conf`.
+

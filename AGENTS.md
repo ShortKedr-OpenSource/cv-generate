@@ -8,6 +8,7 @@
 - Main page: `index.html`
 - Admin page: `admin/index.html`
 - App config: `config/app.json`
+- Theme styles: `styles/themes/*.css`
 - Locale files: `locales/*.json`
 - Local HTTP server: `server.js`
 - Production hosting config: `Dockerfile`, `nginx.conf`
@@ -22,7 +23,7 @@
 - Prefer editing `index.html`, `server.js`, `package.json`, `README.md`, `AGENTS.md`, and files in `locales/`.
 - Preserve translation support and avoid breaking existing language keys unless the change explicitly restructures the locale model.
 - Do not hardcode new themes or languages in one isolated place without updating the configuration model.
-- Treat `config/app.json` as the app-level source of truth for languages, themes, and defaults.
+- Treat `config/app.json` as the app-level source of truth for languages, theme metadata, and defaults. Keep actual theme styles in `styles/themes/*.css`.
 - When changing UI or layout, consider desktop, tablet, mobile, and PDF/export behavior together.
 - When adding admin-oriented capabilities, assume the first version may rely on protected HTTPS-based access to web resources or config endpoints rather than a full admin panel. The current baseline includes a protected read-only admin config route at `/admin/config/app`.
 - Follow safe defaults for any admin or config-related work.
@@ -47,7 +48,8 @@
 ## Validation
 - After server-related changes, verify that / returns HTTP 200.
 - Verify that /admin/config/app stays deny-by-default when ADMIN_CONFIG_TOKEN is not set and returns 200 only with valid admin auth when enabled.
-- Verify that `config/app.json` and locale JSON files are served correctly.
+- Verify that `config/app.json`, theme CSS files, and locale JSON files are served correctly.
 - Keep screen layout and PDF export behavior aligned with product expectations.
 - Keep the app functional without a frontend build step unless the architecture is intentionally changed.
 - Keep the shared WebStorm run configuration valid when IDE workflow is part of the project.
+
