@@ -114,7 +114,7 @@ npm start
 ### Register a theme
 
 1. Add a new object to `config/app.json` under `themes`.
-2. Give it a unique `id`, a `label`, and a `tokens` map with CSS variable values.
+2. Give it a unique `id`, a `label`, and a `tokens` map with CSS variable values. Registered themes appear automatically in the public theme switcher.
 3. If needed later, set it as `defaults.theme`.
 
 ### Change defaults
