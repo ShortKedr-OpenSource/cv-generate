@@ -22,6 +22,8 @@
 ## Preferred workflow for Codex
 - Prefer editing `index.html`, `server.js`, `package.json`, `README.md`, `AGENTS.md`, and files in `locales/`.
 - Preserve translation support and avoid breaking existing language keys unless the change explicitly restructures the locale model.
+- Use English for commit messages and for developer-maintained project files by default.
+- Non-English content is allowed only in product-facing content such as localized strings, CV content, and other locale data.
 - Do not hardcode new themes or languages in one isolated place without updating the configuration model.
 - Treat `config/app.json` as the app-level source of truth for languages, theme metadata, and defaults. Keep actual theme styles in `styles/themes/*.css`.
 - When changing UI or layout, consider desktop, tablet, mobile, and PDF/export behavior together.
@@ -52,4 +54,3 @@
 - Keep screen layout and PDF export behavior aligned with product expectations.
 - Keep the app functional without a frontend build step unless the architecture is intentionally changed.
 - Keep the shared WebStorm run configuration valid when IDE workflow is part of the project.
-

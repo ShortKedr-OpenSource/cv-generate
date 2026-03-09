@@ -131,6 +131,22 @@ npm start
 .\.tools\node\node.exe .\server.js
 ```
 
+## PDF export
+
+Both PDF export modes use the browser print flow, so the final output depends on print dialog settings.
+
+For correct export of both the default CV page and the ATS page, use these print settings:
+- Margins: `None`
+- Background graphics: `Enabled`
+
+Recommended flow:
+1. Open the public CV page at `http://localhost:8080`.
+2. Choose the needed language and theme.
+3. Click `Export PDF` for the visual CV version or `Export ATS PDF` for the ATS-friendly version.
+4. In the browser print dialog, set `Margins` to `None`.
+5. In the browser print dialog, enable `Background graphics`.
+6. Save as PDF.
+
 ## Configuration workflow
 
 ### Add a language
@@ -174,5 +190,3 @@ This project includes [AGENTS.md](C:/Users/short/OneDrive/Рабочий сто�
 ## Hosting
 
 This repo includes production-ready static hosting config in `Dockerfile` and `nginx.conf`.
-
-

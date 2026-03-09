@@ -776,16 +776,6 @@ body {
         background: var(--bg-d) !important;
     }
 
-    html[data-export-mode="ats"] body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        background:
-            radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 14%, transparent), transparent 32%),
-            linear-gradient(180deg, var(--bg-b) 0%, var(--bg-d) 24%) !important;
-    }
 
     html[data-export-mode="ats"] .shell {
         display: none !important;
@@ -799,9 +789,27 @@ body {
         min-height: 297mm;
         box-sizing: border-box;
         padding: 14mm 12mm;
-        background: transparent !important;
         color: var(--ink);
         font-family: 'Manrope', sans-serif;
+    }
+
+    html[data-export-mode="ats"] .ats-print-view::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 14%, transparent), transparent 32%),
+            linear-gradient(180deg, var(--bg-b) 0%, var(--bg-d) 100%) !important;
+        background-repeat: no-repeat !important;
+        background-size: 100% 100% !important;
+        background-position: top left !important;
+    }
+
+    html[data-export-mode="ats"] .ats-print-view > * {
+        position: relative;
+        z-index: 1;
     }
 
     html[data-export-mode="ats"] .ats-print-block {
@@ -1406,6 +1414,8 @@ body {
         font-size: 13px;
     }
 }
+
+
 
 
 
