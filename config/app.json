@@ -1,0 +1,29 @@
+{
+  "languages": ["ru", "en", "de"],
+  "themes": [
+    {
+      "id": "default",
+      "label": "Default Sky",
+      "tokens": {
+        "ink": "#111827",
+        "ink-soft": "#334155",
+        "muted": "#64748b",
+        "line": "#dbe2ef",
+        "panel": "rgba(255, 255, 255, 0.78)",
+        "panel-strong": "#ffffff",
+        "accent": "#0ea5e9",
+        "accent-strong": "#0b7fc9",
+        "bg-a": "#e0f2fe",
+        "bg-b": "#f0f9ff",
+        "bg-c": "#eef2ff"
+      }
+    }
+  ],
+  "defaults": {
+    "language": "ru",
+    "theme": "default"
+  },
+  "profile": {
+    "id": "nikolay-nakoreshko"
+  }
+}

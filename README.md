@@ -13,6 +13,20 @@ The product is also intended to be extensible for developers or server administr
 
 At the current stage, the project is still implemented as a lightweight web app baseline, but the product direction is broader than a single static page.
 
+## Current configuration baseline
+
+Phase 1 is now grounded around a single read-only app config resource: `config/app.json`.
+
+It currently defines:
+- `languages`: public languages available in the UI
+- `themes`: registered visual themes and their tokens
+- `defaults.language`: fallback/default language
+- `defaults.theme`: fallback/default theme
+- `profile`: non-sensitive app-level profile metadata
+
+
+Localized CV content remains in `locales/*.json`, while app initialization now starts from `config/app.json`.
+
 ## Roadmap
 
 ### Phase 1: Product baseline
@@ -52,7 +66,20 @@ Administrative operations must be treated as protected from the beginning:
 
 ## Quick start
 
-### Recommended start in this repo
+### WebStorm
+
+This project now includes a shared WebStorm run configuration: `CV App Server`.
+
+How to run it in WebStorm:
+1. Open the project in WebStorm.
+2. Make sure the project uses the IDE-managed Node interpreter.
+3. Select `CV App Server` in the run configuration dropdown.
+4. Press `Run`.
+5. Open `http://localhost:8080`.
+
+The shared configuration launches `server.js` directly, so WebStorm can use its own built-in Node runtime without relying on `.tools/node`.
+
+### Recommended CLI start in this repo
 
 If you already have the portable Node inside `.tools/node`, run:
 
@@ -75,6 +102,28 @@ npm start
 ```powershell
 .\.tools\node\node.exe .\server.js
 ```
+
+## Configuration workflow
+
+### Add a language
+
+1. Create a new file in `locales/`, for example `locales/fr.json`.
+2. Add the language code to `config/app.json` under `languages`.
+3. If needed later, set it as `defaults.language`.
+
+### Register a theme
+
+1. Add a new object to `config/app.json` under `themes`.
+2. Give it a unique `id`, a `label`, and a `tokens` map with CSS variable values.
+3. If needed later, set it as `defaults.theme`.
+
+### Change defaults
+
+Edit `config/app.json`:
+- `defaults.language`
+- `defaults.theme`
+
+At this stage, config is changed directly by the developer or server administrator in repo/deploy assets. Protected admin access is a later roadmap phase.
 
 ## Docker
 

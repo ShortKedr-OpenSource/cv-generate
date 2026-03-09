@@ -1261,25 +1261,81 @@
             }
         };
 
+        const embeddedAppConfig = {
+            languages: ['ru', 'en', 'de'],
+            themes: [
+                {
+                    id: 'default',
+                    label: 'Default Sky',
+                    tokens: {
+                        ink: '#111827',
+                        'ink-soft': '#334155',
+                        muted: '#64748b',
+                        line: '#dbe2ef',
+                        panel: 'rgba(255, 255, 255, 0.78)',
+                        'panel-strong': '#ffffff',
+                        accent: '#0ea5e9',
+                        'accent-strong': '#0b7fc9',
+                        'bg-a': '#e0f2fe',
+                        'bg-b': '#f0f9ff',
+                        'bg-c': '#eef2ff'
+                    }
+                }
+            ],
+            defaults: {
+                language: 'ru',
+                theme: 'default'
+            },
+            profile: {
+                id: 'nikolay-nakoreshko'
+            }
+        };
+
         let translations = {};
-        let supportedLangs = [];
+        let supportedLangs = embeddedAppConfig.languages.slice();
+        let availableThemes = embeddedAppConfig.themes.slice();
+        let defaultLanguage = embeddedAppConfig.defaults.language;
+        let defaultTheme = embeddedAppConfig.defaults.theme;
         let useExternalFiles = false;
 
-        // Попытка загрузить манифест из файла
-        async function loadManifest() {
+        function syncConfigState(config) {
+            supportedLangs = Array.isArray(config.languages) && config.languages.length
+                ? config.languages
+                : embeddedAppConfig.languages.slice();
+            availableThemes = Array.isArray(config.themes) && config.themes.length
+                ? config.themes
+                : embeddedAppConfig.themes.slice();
+
+            const configuredDefaultLanguage = config.defaults && typeof config.defaults.language === 'string'
+                ? config.defaults.language
+                : embeddedAppConfig.defaults.language;
+            const configuredDefaultTheme = config.defaults && typeof config.defaults.theme === 'string'
+                ? config.defaults.theme
+                : embeddedAppConfig.defaults.theme;
+
+            defaultLanguage = supportedLangs.includes(configuredDefaultLanguage)
+                ? configuredDefaultLanguage
+                : embeddedAppConfig.defaults.language;
+            defaultTheme = availableThemes.some(theme => theme.id === configuredDefaultTheme)
+                ? configuredDefaultTheme
+                : embeddedAppConfig.defaults.theme;
+        }
+
+        async function loadAppConfig() {
             try {
-                const response = await fetch('locales/manifest.json');
+                const response = await fetch('config/app.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const manifest = await response.json();
-                supportedLangs = manifest.supportedLangs;
+
+                const config = await response.json();
+                syncConfigState(config);
                 useExternalFiles = true;
-                console.log('✓ Загрузка из внешних файлов включена');
+                console.log('✓ Application config loaded from config/app.json');
                 return true;
             } catch (e) {
-                console.log('ℹ Использование встроенных данных (CORS или файл не найден)');
-                supportedLangs = Object.keys(embeddedTranslations);
+                console.warn('ℹ Using embedded app config fallback', e);
+                syncConfigState(embeddedAppConfig);
                 translations = embeddedTranslations;
                 useExternalFiles = false;
                 return false;
@@ -1309,6 +1365,24 @@
             }
         }
 
+        function resolveTheme(themeId) {
+            return availableThemes.find(theme => theme.id === themeId)
+                || availableThemes.find(theme => theme.id === defaultTheme)
+                || embeddedAppConfig.themes[0];
+        }
+
+        function applyTheme(themeId) {
+            const theme = resolveTheme(themeId);
+            const tokens = theme && theme.tokens ? theme.tokens : {};
+            const root = document.documentElement;
+
+            Object.entries(tokens).forEach(([token, value]) => {
+                root.style.setProperty(`--${token}`, value);
+            });
+
+            root.dataset.theme = theme.id;
+        }
+
         function exportToPdf() {
             window.print();
         }
@@ -1326,10 +1400,9 @@
 
         async function changeLanguage(lang) {
             if (!supportedLangs.includes(lang)) {
-                lang = 'ru'; // Fallback to Russian
+                lang = defaultLanguage;
             }
 
-            // Если используем внешние файлы, загружаем нужный язык
             if (useExternalFiles) {
                 await loadTranslationFromFile(lang);
             }
@@ -1428,11 +1501,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            // Пытаемся загрузить манифест, если не получится - используем встроенные данные
-            await loadManifest();
+            await loadAppConfig();
+            applyTheme(defaultTheme);
             createLanguageSwitcher();
             const userLang = navigator.language.split('-')[0];
-            const lang = supportedLangs.includes(userLang) ? userLang : 'ru';
+            const lang = supportedLangs.includes(userLang) ? userLang : defaultLanguage;
             await changeLanguage(lang);
         });
     </script>
