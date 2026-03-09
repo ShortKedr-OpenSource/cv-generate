@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="title">Резюме - Николай Накорешко</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;700&display=swap');
+
+        :root {
+            --ink: #111827;
+            --ink-soft: #334155;
+            --muted: #64748b;
+            --line: #dbe2ef;
+            --panel: rgba(255, 255, 255, 0.78);
+            --panel-strong: #ffffff;
+            --accent: #0ea5e9;
+            --accent-strong: #0b7fc9;
+            --bg-a: #e0f2fe;
+            --bg-b: #f0f9ff;
+            --bg-c: #eef2ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Manrope', sans-serif;
+            color: var(--ink);
+            line-height: 1.7;
+            background:
+                radial-gradient(circle at 8% 12%, var(--bg-a) 0, transparent 35%),
+                radial-gradient(circle at 92% 88%, var(--bg-c) 0, transparent 40%),
+                linear-gradient(160deg, var(--bg-b), #ffffff);
+            padding: 32px 20px;
+        }
+
+        .shell {
+            width: min(1160px, 100%);
+            margin: 0 auto;
+        }
+
+        .container {
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 28px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            box-shadow: 0 32px 80px rgba(15, 23, 42, 0.12);
+            backdrop-filter: blur(8px);
+            background: var(--panel);
+        }
+
+        .sidebar {
+            padding: 34px 26px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 249, 255, 0.96));
+            border-right: 1px solid rgba(148, 163, 184, 0.22);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .side-card {
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .language-switcher {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .language-switcher button {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: #ffffff;
+            color: var(--ink-soft);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            padding: 7px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .language-switcher button:hover {
+            border-color: var(--accent);
+            color: var(--accent-strong);
+        }
+
+        .language-switcher button.active {
+            color: #ffffff;
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            box-shadow: 0 8px 14px rgba(14, 165, 233, 0.28);
+        }
+
+        .sidebar h2 {
+            margin: 0 0 12px;
+            font-size: 13px;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--muted);
+        }
+
+        .sidebar p {
+            margin: 0;
+            color: var(--ink-soft);
+        }
+
+        .sidebar a {
+            color: var(--accent-strong);
+            text-decoration: none;
+            border-bottom: 1px dashed transparent;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .sidebar a:hover {
+            border-color: var(--accent-strong);
+        }
+
+        .sidebar ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .sidebar ul li {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #c8d8ec;
+            background: #f8fbff;
+            color: #1d4f91;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .certifications p {
+            font-size: 14px;
+        }
+
+        .gdpr-compliance p {
+            font-size: 11px;
+            line-height: 1.55;
+            color: var(--muted);
+        }
+
+        .main-content {
+            padding: 40px 42px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 255, 0.95));
+        }
+
+        .header {
+            padding: 20px 24px;
+            border-radius: 22px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            background:
+                linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.06)),
+                #ffffff;
+            margin-bottom: 26px;
+        }
+
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            font-size: clamp(32px, 5vw, 46px);
+            line-height: 1.08;
+            margin: 0;
+            color: #0f172a;
+        }
+
+        .header .subtitle {
+            margin: 8px 0 0;
+            color: #0c4a6e;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .header .location {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 24px;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+            padding: 22px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            margin: 0 0 16px;
+            font-size: 15px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--muted);
+        }
+
+        #summary-content p {
+            margin: 0 0 12px;
+            color: #334155;
+        }
+
+        #summary-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .job {
+            position: relative;
+            border-left: 2px solid #d7e7fa;
+            margin-left: 6px;
+            padding-left: 18px;
+            margin-bottom: 16px;
+        }
+
+        .job:last-child {
+            margin-bottom: 0;
+        }
+
+        .job::before {
+            content: "";
+            position: absolute;
+            left: -7px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.16);
+        }
+
+        .job-company-date {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+
+        .job-company {
+            font-weight: 700;
+            font-size: 17px;
+            color: #0f172a;
+        }
+
+        .job-date {
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .job-title {
+            margin: 0;
+            color: #0c4a6e;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .job-description {
+            margin: 8px 0 0;
+            color: #475569;
+        }
+
+        .education-entry {
+            border: 1px solid #dae8f8;
+            border-radius: 14px;
+            padding: 16px;
+            background: #f8fbff;
+        }
+
+        .education-university {
+            margin: 0;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .education-degree {
+            margin: 8px 0 0;
+            color: #0c4a6e;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .education-date {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1000px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                border-radius: 20px;
+            }
+
+            .sidebar,
+            .main-content {
+                padding: 18px;
+            }
+
+            .section,
+            .header {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="container">
+            <aside class="sidebar">
+                <div class="language-switcher"></div>
+
+                <section class="contact-info side-card">
+                    <h2 data-translate="contact">Контакт</h2>
+                    <p><a href="mailto:shortkedr@gmail.com">shortkedr@gmail.com</a></p>
+                    <p><a href="https://www.linkedin.com/in/nikolay-nakorkeshko-283933251" target="_blank" rel="noopener noreferrer" data-translate="linkedin">LinkedIn</a></p>
+                </section>
+
+                <section class="skills side-card">
+                    <h2 data-translate="skillsTitle">Ключевые навыки</h2>
+                    <ul id="skills-list"></ul>
+                </section>
+
+                <section class="languages side-card">
+                    <h2 data-translate="languagesTitle">Языки</h2>
+                    <ul id="languages-list"></ul>
+                </section>
+
+                <section class="certifications side-card">
+                    <h2 data-translate="certificationsTitle">Сертификаты</h2>
+                    <p data-translate="certifications">EF SET English Certificate 70/100 (C1 Advanced)</p>
+                </section>
+
+                <section class="gdpr-compliance side-card">
+                    <p data-translate="gdpr">Я даю согласие на обработку моих персональных данных...</p>
+                </section>
+            </aside>
+
+            <main class="main-content">
+                <header class="header">
+                    <h1 data-translate="name"></h1>
+                    <p class="subtitle" data-translate="subtitle"></p>
+                    <p class="location" data-translate="location"></p>
+                </header>
+
+                <section class="section summary">
+                    <h2 data-translate="summaryTitle"></h2>
+                    <div id="summary-content"></div>
+                </section>
+
+                <section class="section experience">
+                    <h2 data-translate="experienceTitle"></h2>
+                    <div id="experience-content"></div>
+                </section>
+
+                <section class="section education">
+                    <h2 data-translate="educationTitle"></h2>
+                    <div class="education-entry">
+                        <p class="education-university" data-translate="education.university"></p>
+                        <h3 class="education-degree" data-translate="education.degree"></h3>
+                        <p class="education-date" data-translate="education.date"></p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Встроенные данные локализации (резервные для работы в локальном режиме без сервера)
+        const embeddedTranslations = {
+            "ru": {
+                "title": "Резюме - Николай Накорешко",
+                "contact": "Контакт",
+                "linkedin": "LinkedIn",
+                "skillsTitle": "Ключевые навыки",
+                "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
+                "languagesTitle": "Языки",
+                "languages": ["Английский (C1 Advanced)", "Русский (Родной)"],
+                "certificationsTitle": "Сертификаты",
+                "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
+                "gdpr": "Я даю согласие на обработку моих персональных данных для целей, необходимых для процесса найма (в соответствии с Законом от 10 мая 2018 г. о защите персональных данных, Вестник законов 2018 г., ст. 1000, а также в соответствии с Регламентом (ЕС) 2016/679 Европейского парламента и Совета от 27 апреля 2016 г. о защите физических лиц в отношении обработки персональных данных и о свободном перемещении таких данных, а также об отмене Директивы 95/46/ЕС - Общий регламент по защите данных).",
+                "name": "Николай Накорешко",
+                "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
+                "location": "Астана, Казахстан",
+                "summaryTitle": "Обо мне",
+                "summary": [
+                    "Unity Software Engineer, специализирующийся на создании масштабируемых геймплейных систем и инструментов для разработчиков в производственных игровых проектах.",
+                    "Моя работа часто находится на стыке геймплейной инженерии и разработки внутренних инструментов. Я проектирую системы, которые позволяют дизайнерам и не-программистам реализовывать и итерировать игровые механики без необходимости разбираться в коде движка.",
+                    "В недавних проектах я работал над основной геймплейной инфраструктурой, системами навигации, геймплейными фичами и инструментами для редактора, которые улучшают скорость разработки и поддерживаемость. Я также внес вклад в интеграцию пайплайнов и кросс-платформенные инструменты, используемые командой в производстве.",
+                    "У меня большой опыт работы с C#, архитектурой Unity, геймплейными системами и разработкой инструментов. Мне нравится решать сложные технические проблемы, сохраняя при этом гибкость и поддерживаемость систем по мере роста проектов.",
+                    "Особенно меня интересуют архитектура, инструменты для разработчиков и создание систем, которые упрощают разработку и эксплуатацию крупных игровых проектов."
+                ],
+                "experienceTitle": "Опыт работы",
+                "experience": [
+                    {"company": "Playrix", "date": "Февраль 2023 - Настоящее время", "title": "Unity Developer", "description": null},
+                    {"company": "Perfect Play", "date": "Февраль 2023 - Настоящее время", "title": "Unity Developer", "description": null},
+                    {"company": "Cyber Temple", "date": "Октябрь 2022 - Февраль 2023", "title": "Unity Developer", "description": null},
+                    {"company": "Kruplay", "date": "Сентябрь 2020 - Сентябрь 2022", "title": "Lead Unity Developer", "description": null},
+                    {"company": "Self-employed", "date": "Январь 2014 - Август 2020", "title": "Indie Game Developer", "description": "Фрилансер и одиночный разработчик игр. Создание игр для веб-порталов, небольших игровых сайтов, конкурсов."}
+                ],
+                "educationTitle": "Образование",
+                "education": {
+                    "university": "Кубанский государственный аграрный университет",
+                    "degree": "Бакалавр, Прикладная информатика в экономике",
+                    "date": "(2018 - 2022)"
+                }
+            },
+            "en": {
+                "title": "Resume - Nikolay Nakoreshko",
+                "contact": "Contact",
+                "linkedin": "LinkedIn",
+                "skillsTitle": "Key Skills",
+                "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
+                "languagesTitle": "Languages",
+                "languages": ["English (C1 Advanced)", "Russian (Native)"],
+                "certificationsTitle": "Certifications",
+                "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
+                "gdpr": "I hereby give my consent for the processing of my personal data for the purposes necessary for the recruitment process (in accordance with the Act of May 10, 2018, on the protection of personal data, Journal of Laws of 2018, item 1000, and in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC - General Data Protection Regulation).",
+                "name": "Nikolay Nakoreshko",
+                "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
+                "location": "Astana, Kazakhstan",
+                "summaryTitle": "About Me",
+                "summary": [
+                    "Unity Software Engineer specializing in creating scalable gameplay systems and developer tools for production game projects.",
+                    "My work is often at the intersection of gameplay engineering and internal tool development. I design systems that allow designers and non-programmers to implement and iterate on game mechanics without needing to delve into the engine's code.",
+                    "In recent projects, I have worked on core gameplay infrastructure, navigation systems, gameplay features, and editor tools that improve development speed and maintainability. I have also contributed to pipeline integration and cross-platform tools used by the team in production.",
+                    "I have extensive experience with C#, Unity architecture, gameplay systems, and tool development. I enjoy solving complex technical problems while maintaining system flexibility and maintainability as projects grow.",
+                    "I am particularly interested in architecture, developer tools, and creating systems that simplify the development and operation of large game projects."
+                ],
+                "experienceTitle": "Work Experience",
+                "experience": [
+                    {"company": "Playrix", "date": "February 2023 - Present", "title": "Unity Developer", "description": null},
+                    {"company": "Perfect Play", "date": "February 2023 - Present", "title": "Unity Developer", "description": null},
+                    {"company": "Cyber Temple", "date": "October 2022 - February 2023", "title": "Unity Developer", "description": null},
+                    {"company": "Kruplay", "date": "September 2020 - September 2022", "title": "Lead Unity Developer", "description": null},
+                    {"company": "Self-employed", "date": "January 2014 - August 2020", "title": "Indie Game Developer", "description": "Freelancer and solo game developer. Creating games for web portals, small gaming sites, and competitions."}
+                ],
+                "educationTitle": "Education",
+                "education": {
+                    "university": "Kuban State Agrarian University",
+                    "degree": "Bachelor, Applied Informatics in Economics",
+                    "date": "(2018 - 2022)"
+                }
+            },
+            "de": {
+                "title": "Lebenslauf - Nikolay Nakoreshko",
+                "contact": "Kontakt",
+                "linkedin": "LinkedIn",
+                "skillsTitle": "Schlüsselkompetenzen",
+                "skills": ["C#", "Unity", "Spieleentwicklung", "Softwarearchitektur", "Werkzeugentwicklung", "Git", "CI/CD", "Agile/Scrum"],
+                "languagesTitle": "Sprachen",
+                "languages": ["Englisch (C1 Fortgeschritten)", "Russisch (Muttersprache)"],
+                "certificationsTitle": "Zertifizierungen",
+                "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
+                "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
+                "name": "Nikolay Nakoreshko",
+                "subtitle": "Unity Software Engineer | Unity-Entwickler @ Playrix",
+                "location": "Astana, Kasachstan",
+                "summaryTitle": "Über mich",
+                "summary": [
+                    "Unity Software Engineer, spezialisiert auf die Erstellung skalierbarer Gameplay-Systeme und Entwicklerwerkzeuge für Produktionsspielprojekte.",
+                    "Meine Arbeit befindet sich oft an der Schnittstelle von Gameplay-Engineering und interner Werkzeugentwicklung. Ich entwerfe Systeme, die es Designern und Nicht-Programmierern ermöglichen, Spielmechaniken zu implementieren und zu iterieren, ohne sich mit dem Code der Engine befassen zu müssen.",
+                    "In jüngsten Projekten habe ich an der Kern-Gameplay-Infrastruktur, Navigationssystemen, Gameplay-Funktionen und Editor-Werkzeugen gearbeitet, die die Entwicklungsgeschwindigkeit und Wartbarkeit verbessern. Ich habe auch zur Pipeline-Integration und zu plattformübergreifenden Werkzeugen beigetragen, die vom Team in der Produktion verwendet werden.",
+                    "Ich habe umfangreiche Erfahrung mit C#, Unity-Architektur, Gameplay-Systemen und der Entwicklung von Werkzeugen. Ich löse gerne komplexe technische Probleme und achte dabei auf die Flexibilität und Wartbarkeit der Systeme, während die Projekte wachsen.",
+                    "Besonders interessiere ich mich für Architektur, Entwicklerwerkzeuge und die Erstellung von Systemen, die die Entwicklung und den Betrieb großer Spielprojekte vereinfachen."
+                ],
+                "experienceTitle": "Berufserfahrung",
+                "experience": [
+                    {"company": "Playrix", "date": "Februar 2023 - Heute", "title": "Unity-Entwickler", "description": null},
+                    {"company": "Perfect Play", "date": "Februar 2023 - Heute", "title": "Unity-Entwickler", "description": null},
+                    {"company": "Cyber Temple", "date": "Oktober 2022 - Februar 2023", "title": "Unity-Entwickler", "description": null},
+                    {"company": "Kruplay", "date": "September 2020 - September 2022", "title": "Leitender Unity-Entwickler", "description": null},
+                    {"company": "Selbstständig", "date": "Januar 2014 - August 2020", "title": "Indie-Spieleentwickler", "description": "Freiberufler und Solo-Spieleentwickler. Erstellung von Spielen für Webportale, kleine Gaming-Websites und Wettbewerbe."}
+                ],
+                "educationTitle": "Ausbildung",
+                "education": {
+                    "university": "Staatliche Agraruniversität Kuban",
+                    "degree": "Bachelor, Angewandte Informatik in der Wirtschaft",
+                    "date": "(2018 - 2022)"
+                }
+            }
+        };
+
+        let translations = {};
+        let supportedLangs = [];
+        let useExternalFiles = false;
+
+        // Попытка загрузить манифест из файла
+        async function loadManifest() {
+            try {
+                const response = await fetch('locales/manifest.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const manifest = await response.json();
+                supportedLangs = manifest.supportedLangs;
+                useExternalFiles = true;
+                console.log('✓ Загрузка из внешних файлов включена');
+                return true;
+            } catch (e) {
+                console.log('ℹ Использование встроенных данных (CORS или файл не найден)');
+                supportedLangs = Object.keys(embeddedTranslations);
+                translations = embeddedTranslations;
+                useExternalFiles = false;
+                return false;
+            }
+        }
+
+        // Загрузка конкретного языка из файла
+        async function loadTranslationFromFile(lang) {
+            if (translations[lang]) {
+                return;
+            }
+            try {
+                const response = await fetch(`locales/${lang}.json`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                translations[lang] = await response.json();
+                console.log(`✓ Загружена локализация: ${lang}`);
+            } catch (e) {
+                console.error(`✗ Не удалось загрузить ${lang}.json, использую встроенные данные`, e);
+                // Откат на встроенные данные
+                if (embeddedTranslations[lang]) {
+                    translations[lang] = embeddedTranslations[lang];
+                } else if (lang !== 'ru' && embeddedTranslations['ru']) {
+                    translations[lang] = embeddedTranslations['ru'];
+                }
+            }
+        }
+
+        function createLanguageSwitcher() {
+            const switcher = document.querySelector('.language-switcher');
+            switcher.innerHTML = '';
+            supportedLangs.forEach(lang => {
+                const button = document.createElement('button');
+                button.textContent = lang.toUpperCase();
+                button.onclick = () => changeLanguage(lang);
+                switcher.appendChild(button);
+            });
+        }
+
+        async function changeLanguage(lang) {
+            if (!supportedLangs.includes(lang)) {
+                lang = 'ru'; // Fallback to Russian
+            }
+
+            // Если используем внешние файлы, загружаем нужный язык
+            if (useExternalFiles) {
+                await loadTranslationFromFile(lang);
+            }
+
+            document.documentElement.lang = lang;
+            updateContent(lang);
+            updateLanguageSwitcher(lang);
+        }
+
+        function updateLanguageSwitcher(lang) {
+            document.querySelectorAll('.language-switcher button').forEach(button => {
+                if (button.innerText.toLowerCase() === lang) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        function updateContent(lang) {
+            const data = translations[lang];
+            if (!data) {
+                console.error(`No data for language: ${lang}`);
+                return;
+            }
+
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                const keys = key.split('.');
+                let value = data;
+                try {
+                    for (const k of keys) {
+                        value = value[k];
+                    }
+                    if (value !== undefined && typeof value === 'string') {
+                        el.innerHTML = value;
+                    } else if (value === undefined) {
+                         el.innerHTML = ''; // Clear content if key not found
+                    }
+                } catch (e) {
+                    el.innerHTML = ''; // Clear content on error
+                }
+            });
+
+            // Skills
+            const skillsList = document.getElementById('skills-list');
+            skillsList.innerHTML = '';
+            if(data.skills) {
+                data.skills.forEach(skill => {
+                    const li = document.createElement('li');
+                    li.textContent = skill;
+                    skillsList.appendChild(li);
+                });
+            }
+
+            // Languages
+            const languagesList = document.getElementById('languages-list');
+            languagesList.innerHTML = '';
+            if(data.languages) {
+                data.languages.forEach(language => {
+                    const li = document.createElement('li');
+                    li.textContent = language;
+                    languagesList.appendChild(li);
+                });
+            }
+
+            // Summary
+            const summaryContent = document.getElementById('summary-content');
+            summaryContent.innerHTML = '';
+            if(data.summary) {
+                data.summary.forEach(pText => {
+                    const p = document.createElement('p');
+                    p.textContent = pText;
+                    summaryContent.appendChild(p);
+                });
+            }
+
+            // Experience
+            const experienceContent = document.getElementById('experience-content');
+            experienceContent.innerHTML = '';
+            if(data.experience) {
+                data.experience.forEach(job => {
+                    const jobDiv = document.createElement('div');
+                    jobDiv.className = 'job';
+                    jobDiv.innerHTML = `
+                        <div class="job-company-date">
+                            <span class="job-company">${job.company}</span>
+                            <span class="job-date">${job.date}</span>
+                        </div>
+                        <h3 class="job-title">${job.title}</h3>
+                        ${job.description ? `<p class="job-description">${job.description}</p>` : ''}
+                    `;
+                    experienceContent.appendChild(jobDiv);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Пытаемся загрузить манифест, если не получится - используем встроенные данные
+            await loadManifest();
+            createLanguageSwitcher();
+            const userLang = navigator.language.split('-')[0];
+            const lang = supportedLangs.includes(userLang) ? userLang : 'ru';
+            await changeLanguage(lang);
+        });
+    </script>
+
+</body>
+</html>
+
+

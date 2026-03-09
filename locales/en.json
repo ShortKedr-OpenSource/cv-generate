@@ -1,0 +1,74 @@
+﻿{
+  "title": "Resume - Nikolay Nakoreshko",
+  "contact": "Contact",
+  "linkedin": "LinkedIn",
+  "skillsTitle": "Key Skills",
+  "skills": [
+    "C#",
+    "Unity",
+    "Game Development",
+    "Software Architecture",
+    "Tool Development",
+    "Git",
+    "CI/CD",
+    "Agile/Scrum"
+  ],
+  "languagesTitle": "Languages",
+  "languages": [
+    "English (C1 Advanced)",
+    "Russian (Native)"
+  ],
+  "certificationsTitle": "Certifications",
+  "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
+  "gdpr": "I hereby give my consent for the processing of my personal data for the purposes necessary for the recruitment process (in accordance with the Act of May 10, 2018, on the protection of personal data, Journal of Laws of 2018, item 1000, and in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC - General Data Protection Regulation).",
+  "name": "Nikolay Nakoreshko",
+  "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
+  "location": "Astana, Kazakhstan",
+  "summaryTitle": "About Me",
+  "summary": [
+    "Unity Software Engineer specializing in creating scalable gameplay systems and developer tools for production game projects.",
+    "My work is often at the intersection of gameplay engineering and internal tool development. I design systems that allow designers and non-programmers to implement and iterate on game mechanics without needing to delve into the engine's code.",
+    "In recent projects, I have worked on core gameplay infrastructure, navigation systems, gameplay features, and editor tools that improve development speed and maintainability. I have also contributed to pipeline integration and cross-platform tools used by the team in production.",
+    "I have extensive experience with C#, Unity architecture, gameplay systems, and tool development. I enjoy solving complex technical problems while maintaining system flexibility and maintainability as projects grow.",
+    "I am particularly interested in architecture, developer tools, and creating systems that simplify the development and operation of large game projects."
+  ],
+  "experienceTitle": "Work Experience",
+  "experience": [
+    {
+      "company": "Playrix",
+      "date": "February 2023 - Present",
+      "title": "Unity Developer",
+      "description": null
+    },
+    {
+      "company": "Perfect Play",
+      "date": "February 2023 - Present",
+      "title": "Unity Developer",
+      "description": null
+    },
+    {
+      "company": "Cyber Temple",
+      "date": "October 2022 - February 2023",
+      "title": "Unity Developer",
+      "description": null
+    },
+    {
+      "company": "Kruplay",
+      "date": "September 2020 - September 2022",
+      "title": "Lead Unity Developer",
+      "description": null
+    },
+    {
+      "company": "Self-employed",
+      "date": "January 2014 - August 2020",
+      "title": "Indie Game Developer",
+      "description": "Freelancer and solo game developer. Creating games for web portals, small gaming sites, and competitions."
+    }
+  ],
+  "educationTitle": "Education",
+  "education": {
+    "university": "Kuban State Agrarian University",
+    "degree": "Bachelor, Applied Informatics in Economics",
+    "date": "(2018 - 2022)"
+  }
+}

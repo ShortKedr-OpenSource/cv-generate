@@ -1,0 +1,9 @@
+{
+  "name": "cv-generated",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static CV site",
+  "scripts": {
+    "start": "set PATH=.\\.tools\\node;%PATH%&& node server.js"
+  }
+}
