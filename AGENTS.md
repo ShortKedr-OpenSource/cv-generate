@@ -29,6 +29,8 @@
 - When changing UI or layout, consider desktop, tablet, mobile, and PDF/export behavior together.
 - When adding admin-oriented capabilities, assume the first version may rely on protected HTTPS-based access to web resources or config endpoints rather than a full admin panel. The current baseline includes a protected read-only admin config route at `/admin/config/app`.
 - Follow safe defaults for any admin or config-related work.
+- Use the project server in `server.js` for local verification and agent-driven checks; do not swap in ad-hoc static servers unless the task explicitly changes the server strategy.
+- When a patch-based edit workflow is needed, prefer the local wrapper `scripts/apply-diff.ps1`, because the built-in patch tool can be unreliable in this environment.
 - For WebStorm workflow, prefer the shared run configurations `CV App Server + Browser` for full local start, `CV App Server` for server-only start, and `CV App Browser` when the server is already running.
 - Do not change the server entrypoint without updating the shared WebStorm run configuration in `.idea/runConfigurations/`.
 
@@ -43,8 +45,8 @@
 ## Run commands
 - Preferred WebStorm run configs: `CV App Server + Browser`, `CV App Server`, `CV App Browser`
 - Preferred local CLI start: `npm start`
-- Portable Node start: `.\\.tools\\node\\npm.cmd start`
-- Direct server start: `.\\.tools\\node\\node.exe .\\server.js`
+- Portable Node start: `.\.tools\node\npm.cmd start`
+- Direct server start: `.\.tools\node\node.exe .\server.js`
 - Docker start: `docker build -t cv-generated .` then `docker run --rm -p 8080:80 cv-generated`
 
 ## Validation
@@ -54,3 +56,5 @@
 - Keep screen layout and PDF export behavior aligned with product expectations.
 - Keep the app functional without a frontend build step unless the architecture is intentionally changed.
 - Keep the shared WebStorm run configuration valid when IDE workflow is part of the project.
+
+

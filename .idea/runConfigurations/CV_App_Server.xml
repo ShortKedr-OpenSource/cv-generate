@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CV App Server" type="NodeJSConfigurationType" path-to-js-file="server.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="PORT" value="8080" />
+      <env name="ADMIN_CONFIG_TOKEN" value="1234" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

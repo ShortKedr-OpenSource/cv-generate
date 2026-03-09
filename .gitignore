@@ -1,7 +1,8 @@
-.idea/
+.idea/*
+!.idea/runConfigurations/
+!.idea/runConfigurations/*.xml
 .tools/
 node_modules/
 *.log
 *.tmp
 .codex/
-
