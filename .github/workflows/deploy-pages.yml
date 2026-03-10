@@ -32,11 +32,13 @@ jobs:
       - name: Build publish directory
         run: |
           mkdir -p dist
+          mkdir -p dist/scripts
           cp index.html dist/index.html
           cp -R config dist/config
           cp -R locales dist/locales
           cp -R profiles dist/profiles
           cp -R styles dist/styles
+          cp scripts/app.js dist/scripts/app.js
 
       - name: Stamp app version with commit hash
         env:
