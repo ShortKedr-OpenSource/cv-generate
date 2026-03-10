@@ -38,4 +38,11 @@
     --active-pill-shadow: 0 8px 14px rgba(34, 160, 107, 0.22);
     --header-glow-a: rgba(34, 160, 107, 0.1);
     --header-glow-b: rgba(134, 239, 172, 0.12);
+    --selector-surface: rgba(246, 252, 247, 0.98);
+    --selector-surface-strong: #ffffff;
+    --selector-border: #cfe4d5;
+    --selector-text: #173c2d;
+    --selector-placeholder: #739182;
+    --selector-hover: #ebf7ee;
+    --selector-shadow: 0 18px 32px rgba(26, 71, 47, 0.14);
 }

@@ -7,8 +7,9 @@
 - Default language and default theme are product-level configuration, not one-off hardcoded choices.
 - Main page: `index.html`
 - App config: `config/app.json`
+- Profile content: `profiles/<id>/profile.json`, `profiles/<id>/locales/*.json`
 - Theme styles: `styles/themes/*.css`
-- Locale files: `locales/*.json`
+- System locale files: `locales/system/*.json`
 - Optional local preview helper: `scripts/static-preview.js`
 - Production hosting config: `Dockerfile`, `nginx.conf`
 
@@ -19,14 +20,15 @@
 - Keep the system extensible for future theme and language additions.
 - Configuration is file-based; do not introduce admin/runtime config editors unless explicitly requested.
 - Keep the app functional without a frontend build step unless the architecture is intentionally changed.
-- Treat `config/app.json` as the app-level source of truth for languages, theme metadata, defaults, and integrations. Keep actual theme styles in `styles/themes/*.css`.
+- Treat `config/app.json` as the app-level source of truth for languages, theme metadata, profile registration, defaults, features, and integrations. Keep actual theme styles in `styles/themes/*.css`.
 
 ## Preferred workflow for Codex
-- Prefer editing `index.html`, `package.json`, `README.md`, `AGENTS.md`, `config/app.json`, and files in `locales/`.
+- Prefer editing `index.html`, `package.json`, `README.md`, `AGENTS.md`, `config/app.json`, files in `profiles/`, and files in `locales/system/`.
 - Preserve translation support and avoid breaking existing language keys unless the change explicitly restructures the locale model.
 - Use English for commit messages and for developer-maintained project files by default.
 - Non-English content is allowed only in product-facing content such as localized strings, CV content, and other locale data.
 - Do not hardcode new themes or languages in one isolated place without updating the configuration model.
+- Do not hardcode new profiles in one isolated place without updating the configuration model.
 - When changing UI or layout, consider desktop, tablet, mobile, and PDF/export behavior together.
 - Use the optional preview helper in `scripts/static-preview.js` only for local HTTP verification; it is not part of the product runtime.
 - For WebStorm workflow, prefer the shared run configurations `CV App Preview + Browser` for local preview, `CV App Preview` for preview-only work, and `CV App Browser` when the app is already being served.
@@ -39,7 +41,7 @@
 
 ## Security guidance
 - Do not place secrets or privileged configuration in client-visible code.
-- Validate configuration inputs for languages, themes, and defaults.
+- Validate configuration inputs for profiles, languages, themes, and defaults.
 - Assume the app is hosted as public static content unless a task explicitly introduces a protected service.
 
 ## Run commands
@@ -50,7 +52,7 @@
 
 ## Validation
 - Verify that `/` returns HTTP 200 on the chosen static host or preview helper.
-- Verify that `config/app.json`, theme CSS files, and locale JSON files are served correctly.
+- Verify that `config/app.json`, profile metadata files, theme CSS files, and locale JSON files are served correctly.
 - Keep screen layout and PDF export behavior aligned with product expectations.
 - Keep the shared WebStorm run configuration valid when IDE workflow is part of the project.
 - For GitHub Pages, remember that `nginx.conf` headers do not apply; app-side validation must enforce link and theme safety.

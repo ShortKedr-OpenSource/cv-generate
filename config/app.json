@@ -27,12 +27,20 @@
     }
   ],
   "defaults": {
+    "profile": "nikolay-nakoreshko",
     "language": "en",
     "theme": "meadow"
   },
-  "profile": {
-    "id": "nikolay-nakoreshko"
+  "features": {
+    "profileSelector": true
   },
+  "profiles": [
+    {
+      "id": "nikolay-nakoreshko",
+      "label": "Nikolay Nakoreshko",
+      "path": "profiles/nikolay-nakoreshko"
+    }
+  ],
   "integrations": {
     "ats": {
       "enabled": true,

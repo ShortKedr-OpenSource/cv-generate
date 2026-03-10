@@ -11,15 +11,53 @@
 </head>
 <body>
     <div class="shell">
-        <section class="tooling-panel">
+        <section class="tooling-panel" data-collapsed="true">
             <div class="tooling-panel-header-row">
                 <div class="tooling-panel-header">
                     <h2 data-system-translate="toolingTitle">Controls</h2>
                 </div>
-                <p class="tooling-description" data-system-translate="toolingDescription">Switch language, theme, and export actions from one place.</p>
+                <div class="tooling-panel-header-actions">
+                    <p class="tooling-description" data-system-translate="toolingDescription">Switch language, theme, and export actions from one place.</p>
+                    <button
+                        class="tooling-panel-toggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="tooling-panel-controls"
+                        data-system-translate-aria-label="showControls"
+                    >
+                        <span class="tooling-panel-toggle-label" data-system-translate="showControls">Show controls</span>
+                        <span class="tooling-panel-toggle-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
             </div>
-            <div class="tooling-panel-controls">
+            <div id="tooling-panel-controls" class="tooling-panel-controls" hidden>
                 <div class="tool-group tool-group-compact">
+                    <div class="tool-subgroup profile-subgroup" hidden>
+                        <p class="tool-group-label" data-translate="profileLabel">Profile</p>
+                        <div class="profile-selector" data-open="false">
+                            <div class="profile-selector-field">
+                                <input
+                                    id="profile-selector-input"
+                                    class="profile-selector-input"
+                                    type="text"
+                                    role="combobox"
+                                    aria-autocomplete="list"
+                                    aria-expanded="false"
+                                    aria-controls="profile-selector-listbox"
+                                    aria-haspopup="listbox"
+                                    autocomplete="off"
+                                    spellcheck="false"
+                                >
+                                <button class="profile-selector-toggle" type="button" aria-label="Toggle profile selector">
+                                    <span class="profile-selector-toggle-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="profile-selector-popover" hidden>
+                                <ul id="profile-selector-listbox" class="profile-selector-list" role="listbox"></ul>
+                                <p class="profile-selector-empty" data-system-translate="profileNoResults" hidden>No matching profiles</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tool-subgroup">
                         <p class="tool-group-label" data-system-translate="languageLabel">Language</p>
                         <div class="language-switcher"></div>
@@ -50,8 +88,8 @@
             <aside class="sidebar">
                 <section class="contact-info side-card">
                     <h2 data-translate="contact">Контакт</h2>
-                    <p><a href="mailto:shortkedr@gmail.com">shortkedr@gmail.com</a></p>
-                    <p><a href="https://www.linkedin.com/in/nikolay-nakorkeshko-283933251" target="_blank" rel="noopener noreferrer" data-translate="linkedin">LinkedIn</a></p>
+                    <p class="contact-email-row"><a class="profile-email-link" href="mailto:shortkedr@gmail.com">shortkedr@gmail.com</a></p>
+                    <p class="contact-linkedin-row"><a class="profile-linkedin-link" href="https://www.linkedin.com/in/nikolay-nakorkeshko-283933251" target="_blank" rel="noopener noreferrer" data-translate="linkedin">LinkedIn</a></p>
                 </section>
 
                 <section class="skills side-card">
@@ -157,232 +195,38 @@
 
     <script>
         // Встроенные данные локализации (резервные для работы в локальном режиме без сервера)
-        const embeddedCvTranslations = {
-            "ru": {
-                "title": "Резюме - Николай Накорешко",
-                "contact": "Контакт",
-                "linkedin": "LinkedIn",
-                "skillsTitle": "Ключевые навыки",
-                "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Языки",
-
-                "languages": ["Английский (C1 Advanced)", "Русский (Родной)"],
-                "certificationsTitle": "Сертификаты",
-                "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
-                "gdpr": "Я даю согласие на обработку моих персональных данных для целей, необходимых для процесса найма (в соответствии с Законом от 10 мая 2018 г. о защите персональных данных, Вестник законов 2018 г., ст. 1000, а также в соответствии с Регламентом (ЕС) 2016/679 Европейского парламента и Совета от 27 апреля 2016 г. о защите физических лиц в отношении обработки персональных данных и о свободном перемещении таких данных, а также об отмене Директивы 95/46/ЕС - Общий регламент по защите данных).",
-                "name": "Николай Накорешко",
-                "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
-                "location": "Астана, Казахстан",
-                "summaryTitle": "Обо мне",
-                "summary": [
-                    "Unity Software Engineer, специализирующийся на создании масштабируемых геймплейных систем и инструментов для разработчиков в производственных игровых проектах.",
-                    "Моя работа часто находится на стыке геймплейной инженерии и разработки внутренних инструментов. Я проектирую системы, которые позволяют дизайнерам и не-программистам реализовывать и итерировать игровые механики без необходимости разбираться в коде движка.",
-                    "В недавних проектах я работал над основной геймплейной инфраструктурой, системами навигации, геймплейными фичами и инструментами для редактора, которые улучшают скорость разработки и поддерживаемость. Я также внес вклад в интеграцию пайплайнов и кросс-платформенные инструменты, используемые командой в производстве.",
-                    "У меня большой опыт работы с C#, архитектурой Unity, геймплейными системами и разработкой инструментов. Мне нравится решать сложные технические проблемы, сохраняя при этом гибкость и поддерживаемость систем по мере роста проектов.",
-                    "Особенно меня интересуют архитектура, инструменты для разработчиков и создание систем, которые упрощают разработку и эксплуатацию крупных игровых проектов."
-                ],
-                "experienceTitle": "Опыт работы",
-                "experience": [
-                    {"company": "Playrix", "date": "Февраль 2023 - Настоящее время", "title": "Unity Developer", "description": null},
-                    {"company": "Perfect Play", "date": "Февраль 2023 - Настоящее время", "title": "Unity Developer", "description": null},
-                    {"company": "Cyber Temple", "date": "Октябрь 2022 - Февраль 2023", "title": "Unity Developer", "description": null},
-                    {"company": "Kruplay", "date": "Сентябрь 2020 - Сентябрь 2022", "title": "Lead Unity Developer", "description": null},
-                    {"company": "Self-employed", "date": "Январь 2014 - Август 2020", "title": "Indie Game Developer", "description": "Фрилансер и одиночный разработчик игр. Создание игр для веб-порталов, небольших игровых сайтов, конкурсов."}
-                ],
-                "educationTitle": "Образование",
-                "education": {
-                    "university": "Кубанский государственный аграрный университет",
-                    "degree": "Бакалавр, Прикладная информатика в экономике",
-                    "date": "(2018 - 2022)"
-                }
-            },
-            "en": {
-                "title": "Resume - Nikolay Nakoreshko",
-                "contact": "Contact",
-                "linkedin": "LinkedIn",
-                "skillsTitle": "Key Skills",
-                "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Languages",
-
-                "languages": ["English (C1 Advanced)", "Russian (Native)"],
-                "certificationsTitle": "Certifications",
-                "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
-                "gdpr": "I hereby give my consent for the processing of my personal data for the purposes necessary for the recruitment process (in accordance with the Act of May 10, 2018, on the protection of personal data, Journal of Laws of 2018, item 1000, and in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC - General Data Protection Regulation).",
-                "name": "Nikolay Nakoreshko",
-                "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
-                "location": "Astana, Kazakhstan",
-                "summaryTitle": "About Me",
-                "summary": [
-                    "Unity Software Engineer specializing in creating scalable gameplay systems and developer tools for production game projects.",
-                    "My work is often at the intersection of gameplay engineering and internal tool development. I design systems that allow designers and non-programmers to implement and iterate on game mechanics without needing to delve into the engine's code.",
-                    "In recent projects, I have worked on core gameplay infrastructure, navigation systems, gameplay features, and editor tools that improve development speed and maintainability. I have also contributed to pipeline integration and cross-platform tools used by the team in production.",
-                    "I have extensive experience with C#, Unity architecture, gameplay systems, and tool development. I enjoy solving complex technical problems while maintaining system flexibility and maintainability as projects grow.",
-                    "I am particularly interested in architecture, developer tools, and creating systems that simplify the development and operation of large game projects."
-                ],
-                "experienceTitle": "Work Experience",
-                "experience": [
-                    {"company": "Playrix", "date": "February 2023 - Present", "title": "Unity Developer", "description": null},
-                    {"company": "Perfect Play", "date": "February 2023 - Present", "title": "Unity Developer", "description": null},
-                    {"company": "Cyber Temple", "date": "October 2022 - February 2023", "title": "Unity Developer", "description": null},
-                    {"company": "Kruplay", "date": "September 2020 - September 2022", "title": "Lead Unity Developer", "description": null},
-                    {"company": "Self-employed", "date": "January 2014 - August 2020", "title": "Indie Game Developer", "description": "Freelancer and solo game developer. Creating games for web portals, small gaming sites, and competitions."}
-                ],
-                "educationTitle": "Education",
-                "education": {
-                    "university": "Kuban State Agrarian University",
-                    "degree": "Bachelor, Applied Informatics in Economics",
-                    "date": "(2018 - 2022)"
-                }
-            },
-            "de": {
-                "title": "Lebenslauf - Nikolay Nakoreshko",
-                "contact": "Kontakt",
-                "linkedin": "LinkedIn",
-                "skillsTitle": "Schlüsselkompetenzen",
-                "skills": ["C#", "Unity", "Spieleentwicklung", "Softwarearchitektur", "Werkzeugentwicklung", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Sprachen",
-
-                "languages": ["Englisch (C1 Fortgeschritten)", "Russisch (Muttersprache)"],
-                "certificationsTitle": "Zertifizierungen",
-                "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
-                "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
-                "name": "Nikolay Nakoreshko",
-                "subtitle": "Unity Software Engineer | Unity-Entwickler @ Playrix",
-                "location": "Astana, Kasachstan",
-                "summaryTitle": "Über mich",
-                "summary": [
-                    "Unity Software Engineer, spezialisiert auf die Erstellung skalierbarer Gameplay-Systeme und Entwicklerwerkzeuge für Produktionsspielprojekte.",
-                    "Meine Arbeit befindet sich oft an der Schnittstelle von Gameplay-Engineering und interner Werkzeugentwicklung. Ich entwerfe Systeme, die es Designern und Nicht-Programmierern ermöglichen, Spielmechaniken zu implementieren und zu iterieren, ohne sich mit dem Code der Engine befassen zu müssen.",
-                    "In jüngsten Projekten habe ich an der Kern-Gameplay-Infrastruktur, Navigationssystemen, Gameplay-Funktionen und Editor-Werkzeugen gearbeitet, die die Entwicklungsgeschwindigkeit und Wartbarkeit verbessern. Ich habe auch zur Pipeline-Integration und zu plattformübergreifenden Werkzeugen beigetragen, die vom Team in der Produktion verwendet werden.",
-                    "Ich habe umfangreiche Erfahrung mit C#, Unity-Architektur, Gameplay-Systemen und der Entwicklung von Werkzeugen. Ich löse gerne komplexe technische Probleme und achte dabei auf die Flexibilität und Wartbarkeit der Systeme, während die Projekte wachsen.",
-                    "Besonders interessiere ich mich für Architektur, Entwicklerwerkzeuge und die Erstellung von Systemen, die die Entwicklung und den Betrieb großer Spielprojekte vereinfachen."
-                ],
-                "experienceTitle": "Berufserfahrung",
-                "experience": [
-                    {"company": "Playrix", "date": "Februar 2023 - Heute", "title": "Unity-Entwickler", "description": null},
-                    {"company": "Perfect Play", "date": "Februar 2023 - Heute", "title": "Unity-Entwickler", "description": null},
-                    {"company": "Cyber Temple", "date": "Oktober 2022 - Februar 2023", "title": "Unity-Entwickler", "description": null},
-                    {"company": "Kruplay", "date": "September 2020 - September 2022", "title": "Leitender Unity-Entwickler", "description": null},
-                    {"company": "Selbstständig", "date": "Januar 2014 - August 2020", "title": "Indie-Spieleentwickler", "description": "Freiberufler und Solo-Spieleentwickler. Erstellung von Spielen für Webportale, kleine Gaming-Websites und Wettbewerbe."}
-                ],
-                "educationTitle": "Ausbildung",
-                "education": {
-                    "university": "Staatliche Agraruniversität Kuban",
-                    "degree": "Bachelor, Angewandte Informatik in der Wirtschaft",
-                    "date": "(2018 - 2022)"
-                }
-            }
-        };
-
-        const embeddedSystemTranslations = {
-            "ru": {
-                "exportPdf": "Скачать PDF",
-                "toolingTitle": "Управление",
-                "toolingDescription": "переключайте язык, тему и варианты экспорта в одном блоке.",
-                "languageLabel": "Язык",
-                "themeLabel": "Тема",
-                "actionsLabel": "Действия",
-                "exportAtsPdf": "Скачать ATS PDF",
-                "atsTitle": "ATS Score",
-                "atsAction": "Проверить ATS Score",
-                "atsDescription": "Проверьте, как резюме выглядит для ATS, через внешний resume checker.",
-                "atsHintUseCurrentPdf": "Используйте PDF, который вы экспортировали с этой страницы.",
-                "atsExternalNotice": "Проверка выполняется на внешнем сервисе Enhancv в новой вкладке.",
-                "atsUnavailable": "ATS-проверка сейчас недоступна.",
-                "themeLoadError": "Не удалось загрузить тему оформления. Проверьте файл стилей и попробуйте снова."
-            },
-            "en": {
-                "exportPdf": "Export PDF",
-                "toolingTitle": "Controls",
-                "toolingDescription": "Switch language, theme, and export actions from one place.",
-                "languageLabel": "Language",
-                "themeLabel": "Theme",
-                "actionsLabel": "Actions",
-                "exportAtsPdf": "Export ATS PDF",
-                "atsTitle": "ATS Score",
-                "atsAction": "Check ATS Score",
-                "atsDescription": "See how this resume performs for ATS with an external resume checker.",
-                "atsHintUseCurrentPdf": "Use the PDF exported from this page.",
-                "atsExternalNotice": "The analysis runs on the external Enhancv service in a new tab.",
-                "atsUnavailable": "ATS checking is currently unavailable.",
-                "themeLoadError": "Could not load the visual theme. Check the stylesheet file and try again."
-            },
-            "de": {
-                "exportPdf": "PDF exportieren",
-                "toolingTitle": "Steuerung",
-                "toolingDescription": "Sprache, Thema und Exportoptionen an einer Stelle wechseln.",
-                "languageLabel": "Sprache",
-                "themeLabel": "Thema",
-                "actionsLabel": "Aktionen",
-                "exportAtsPdf": "ATS-PDF exportieren",
-                "atsTitle": "ATS Score",
-                "atsAction": "ATS Score prüfen",
-                "atsDescription": "Prüfen Sie mit einem externen Resume-Checker, wie gut dieses Profil für ATS geeignet ist.",
-                "atsHintUseCurrentPdf": "Verwenden Sie die PDF-Datei, die Sie von dieser Seite exportiert haben.",
-                "atsExternalNotice": "Die Analyse wird im externen Enhancv-Dienst in einem neuen Tab ausgeführt.",
-                "atsUnavailable": "Die ATS-Prüfung ist derzeit nicht verfügbar.",
-                "themeLoadError": "Das visuelle Thema konnte nicht geladen werden. Prüfen Sie die Stylesheet-Datei und versuchen Sie es erneut."
-            }
-        };
-
-        const embeddedAppConfig = {
-            languages: ['ru', 'en', 'de'],
-            themes: [
-                { id: 'default', label: 'Sky', stylesheet: 'styles/themes/default.css' },
-                { id: 'graphite', label: 'Graphite', stylesheet: 'styles/themes/graphite.css' },
-                { id: 'sand', label: 'Sand', stylesheet: 'styles/themes/sand.css' },
-                { id: 'meadow', label: 'Meadow', stylesheet: 'styles/themes/meadow.css' }
-            ],
-            defaults: {
-                language: 'ru',
-                theme: 'default'
-            },
-            integrations: {
-                ats: {
-                    enabled: true,
-                    providerId: 'enhancv',
-                    providers: [
-                        {
-                            id: 'enhancv',
-                            label: 'Enhancv ATS Score',
-                            url: 'https://enhancv.com/resources/resume-checker/',
-                            openInNewTab: true,
-                            requiresPdf: true,
-                            showDisclaimer: true
-                        }
-                    ]
-                }
-            },
-            profile: {
-                id: 'nikolay-nakoreshko'
-            }
-        };
-
         const THEME_STORAGE_KEY = 'cv-app-theme';
+        const LANGUAGE_STORAGE_KEY = 'cv-app-language';
+        const CONTROLS_PANEL_STORAGE_KEY = 'cv-app-controls-collapsed';
         const LANGUAGE_CODE_PATTERN = /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i;
         const THEME_ID_PATTERN = /^[a-z0-9-]+$/i;
+        const PROFILE_QUERY_PARAM = 'profile';
         let cvTranslations = {};
+        let profileMetadata = {};
         let systemTranslations = {};
-        let supportedLangs = embeddedAppConfig.languages.slice();
-        let availableThemes = embeddedAppConfig.themes.slice();
-        let defaultLanguage = embeddedAppConfig.defaults.language;
-        let defaultTheme = embeddedAppConfig.defaults.theme;
-        let selectedTheme = embeddedAppConfig.defaults.theme;
-        let atsIntegration = normalizeAtsIntegration(getEmbeddedAtsConfig());
-        let useExternalFiles = false;
-        let activeLanguage = embeddedAppConfig.defaults.language;
-
-        function getEmbeddedAtsConfig() {
-            return embeddedAppConfig.integrations && embeddedAppConfig.integrations.ats
-                ? embeddedAppConfig.integrations.ats
-                : { enabled: false, providerId: '', providers: [] };
-        }
+        let supportedLangs = [];
+        let availableThemes = [];
+        let availableProfiles = [];
+        let defaultLanguage = 'en';
+        let defaultTheme = 'default';
+        let defaultProfileId = '';
+        let selectedTheme = '';
+        let atsIntegration = normalizeAtsIntegration(null);
+        let profileSelectorEnabled = false;
+        let activeLanguage = '';
+        let activeProfileId = '';
+        let filteredProfiles = [];
+        let highlightedProfileIndex = -1;
 
         function isSafeLanguageCode(value) {
             return typeof value === 'string' && LANGUAGE_CODE_PATTERN.test(value);
         }
 
         function isSafeThemeId(value) {
+            return typeof value === 'string' && THEME_ID_PATTERN.test(value);
+        }
+
+        function isSafeProfileId(value) {
             return typeof value === 'string' && THEME_ID_PATTERN.test(value);
         }
 
@@ -410,6 +254,22 @@
             }
         }
 
+        function isSafeEmail(value) {
+            return typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+
+        function isSafeProfilePath(value) {
+            if (typeof value !== 'string' || !value.startsWith('profiles/')) {
+                return false;
+            }
+
+            if (value.includes('..') || value.includes('\\')) {
+                return false;
+            }
+
+            return !/^(?:[a-z]+:)?\/\//i.test(value) && !value.startsWith('/');
+        }
+
         function normalizeTheme(theme) {
             if (!theme || typeof theme !== 'object') {
                 return null;
@@ -430,14 +290,358 @@
             };
         }
 
+        function normalizeProfile(profile) {
+            if (!profile || typeof profile !== 'object') {
+                return null;
+            }
+
+            if (!isSafeProfileId(profile.id) || typeof profile.label !== 'string' || !profile.label.trim()) {
+                return null;
+            }
+
+            if (!isSafeProfilePath(profile.path)) {
+                return null;
+            }
+
+            return {
+                id: profile.id,
+                label: profile.label,
+                path: profile.path.replace(/\/+$/, '')
+            };
+        }
+
+        function normalizeProfileMeta(profileId, data, fallbackConfig) {
+            const source = data && typeof data === 'object' ? data : {};
+            const languages = Array.isArray(source.languages)
+                ? source.languages.filter(isSafeLanguageCode)
+                : supportedLangs.slice();
+            const defaultProfileLanguage = typeof source.defaultLanguage === 'string' && languages.includes(source.defaultLanguage)
+                ? source.defaultLanguage
+                : null;
+            const contacts = source.contacts && typeof source.contacts === 'object' ? source.contacts : {};
+
+            return {
+                id: profileId,
+                label: typeof source.label === 'string' && source.label.trim()
+                    ? source.label
+                    : fallbackConfig.label,
+                contacts: {
+                    email: isSafeEmail(contacts.email) ? contacts.email : '',
+                    linkedin: isSafeHttpsUrl(contacts.linkedin) ? contacts.linkedin : ''
+                },
+                languages: languages.length ? languages : supportedLangs.slice(),
+                defaultLanguage: defaultProfileLanguage || defaultLanguage,
+                assetsPath: typeof source.assetsPath === 'string' ? source.assetsPath : 'assets/'
+            };
+        }
+
+        function getFallbackProfileLanguage(meta) {
+            if (meta && meta.defaultLanguage && supportedLangs.includes(meta.defaultLanguage)) {
+                return meta.defaultLanguage;
+            }
+
+            if (supportedLangs.includes(defaultLanguage)) {
+                return defaultLanguage;
+            }
+
+            return supportedLangs[0] || 'en';
+        }
+
         function clearChildren(element) {
             if (element) {
                 element.replaceChildren();
             }
         }
 
+        function getProfileConfig(profileId) {
+            return availableProfiles.find(profile => profile.id === profileId)
+                || availableProfiles.find(profile => profile.id === defaultProfileId)
+                || availableProfiles[0]
+                || null;
+        }
+
+        function getRequestedProfileId() {
+            try {
+                const url = new URL(window.location.href);
+                const requestedProfileId = url.searchParams.get(PROFILE_QUERY_PARAM);
+                return isSafeProfileId(requestedProfileId) ? requestedProfileId : null;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function syncProfileUrl(profileId) {
+            try {
+                const url = new URL(window.location.href);
+                url.searchParams.set(PROFILE_QUERY_PARAM, profileId);
+                window.history.replaceState({}, '', url.toString());
+            } catch (error) {
+                console.warn('Profile URL could not be updated', error);
+            }
+        }
+
+        function getActiveProfileMeta() {
+            return profileMetadata[activeProfileId] || null;
+        }
+
+        function getProfileSelectorElements() {
+            return {
+                root: document.querySelector('.profile-selector'),
+                input: document.querySelector('.profile-selector-input'),
+                toggle: document.querySelector('.profile-selector-toggle'),
+                popover: document.querySelector('.profile-selector-popover'),
+                list: document.querySelector('.profile-selector-list'),
+                empty: document.querySelector('.profile-selector-empty')
+            };
+        }
+
+        function getToolingPanelElements() {
+            return {
+                panel: document.querySelector('.tooling-panel'),
+                controls: document.querySelector('.tooling-panel-controls'),
+                toggle: document.querySelector('.tooling-panel-toggle'),
+                toggleLabel: document.querySelector('.tooling-panel-toggle-label')
+            };
+        }
+
+        function updateProfileSelectorPopoverPosition() {
+            const { root, field, popover } = getProfileSelectorElements();
+            if (!root || !field || !popover || root.dataset.open !== 'true' || popover.hidden) {
+                return;
+            }
+
+            const fieldRect = field.getBoundingClientRect();
+            const viewportPadding = 12;
+            const minWidth = 220;
+            const availableWidth = Math.max(minWidth, window.innerWidth - (viewportPadding * 2));
+            const popoverWidth = Math.min(Math.max(fieldRect.width, minWidth), availableWidth);
+            const left = Math.min(
+                Math.max(viewportPadding, fieldRect.left),
+                Math.max(viewportPadding, window.innerWidth - viewportPadding - popoverWidth)
+            );
+            const top = Math.min(
+                fieldRect.bottom + 8,
+                Math.max(viewportPadding, window.innerHeight - viewportPadding - 48)
+            );
+            const maxHeight = Math.max(160, window.innerHeight - top - viewportPadding);
+
+            popover.style.left = `${left}px`;
+            popover.style.top = `${top}px`;
+            popover.style.width = `${popoverWidth}px`;
+            popover.style.maxHeight = `${maxHeight}px`;
+        }
+
+        function setProfileSelectorOpen(isOpen) {
+            const { root, input, popover } = getProfileSelectorElements();
+            if (!root || !input || !popover) {
+                return;
+            }
+
+            root.dataset.open = isOpen ? 'true' : 'false';
+            input.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            popover.hidden = !isOpen;
+            popover.toggleAttribute('hidden', !isOpen);
+
+            if (isOpen) {
+                updateProfileSelectorPopoverPosition();
+            } else {
+                popover.style.removeProperty('left');
+                popover.style.removeProperty('top');
+                popover.style.removeProperty('width');
+                popover.style.removeProperty('max-height');
+            }
+        }
+
+        function getProfileFilterValue() {
+            const { input } = getProfileSelectorElements();
+            return input ? input.value.trim().toLowerCase() : '';
+        }
+
+        function syncProfileSelectorInputValue() {
+            const { input } = getProfileSelectorElements();
+            const activeProfile = getProfileConfig(activeProfileId);
+            if (!input || !activeProfile) {
+                return;
+            }
+
+            input.value = activeProfile.label;
+            input.dataset.selectedLabel = activeProfile.label;
+        }
+
+        function highlightProfileOption(index) {
+            const { list, input } = getProfileSelectorElements();
+            if (!list || !input) {
+                return;
+            }
+
+            highlightedProfileIndex = index;
+            Array.from(list.querySelectorAll('[role="option"]')).forEach((option, optionIndex) => {
+                const isActive = optionIndex === index;
+                option.classList.toggle('active', isActive);
+                option.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                if (isActive) {
+                    input.setAttribute('aria-activedescendant', option.id);
+                    option.scrollIntoView({ block: 'nearest' });
+                }
+            });
+
+            if (index < 0) {
+                input.removeAttribute('aria-activedescendant');
+            }
+        }
+
+        function renderProfileSelectorOptions(filterValue) {
+            const { list, empty } = getProfileSelectorElements();
+            if (!list || !empty) {
+                return;
+            }
+
+            const normalizedFilter = (filterValue || '').trim().toLowerCase();
+            filteredProfiles = availableProfiles.filter(profile =>
+                !normalizedFilter || profile.label.toLowerCase().includes(normalizedFilter)
+            );
+
+            clearChildren(list);
+            if (!filteredProfiles.length) {
+                empty.hidden = false;
+                highlightProfileOption(-1);
+                return;
+            }
+
+            empty.hidden = true;
+            filteredProfiles.forEach((profile, index) => {
+                const option = document.createElement('li');
+                option.id = `profile-option-${profile.id}`;
+                option.className = 'profile-selector-option';
+                option.role = 'option';
+                option.textContent = profile.label;
+                option.dataset.profileId = profile.id;
+                option.setAttribute('aria-selected', profile.id === activeProfileId ? 'true' : 'false');
+                option.onmousedown = event => {
+                    event.preventDefault();
+                    void changeProfile(profile.id);
+                    setProfileSelectorOpen(false);
+                };
+                option.onmousemove = () => {
+                    highlightProfileOption(index);
+                };
+                list.appendChild(option);
+            });
+
+            const activeIndex = filteredProfiles.findIndex(profile => profile.id === activeProfileId);
+            highlightProfileOption(activeIndex >= 0 ? activeIndex : 0);
+        }
+
+        function handleProfileSelectorInput() {
+            renderProfileSelectorOptions(getProfileFilterValue());
+            setProfileSelectorOpen(true);
+        }
+
+        function resetProfileSelector() {
+            syncProfileSelectorInputValue();
+            renderProfileSelectorOptions('');
+            setProfileSelectorOpen(false);
+        }
+
+        async function selectHighlightedProfile() {
+            if (highlightedProfileIndex < 0 || highlightedProfileIndex >= filteredProfiles.length) {
+                return;
+            }
+
+            await changeProfile(filteredProfiles[highlightedProfileIndex].id);
+            setProfileSelectorOpen(false);
+        }
+
+        function bindProfileSelectorEvents() {
+            const { root, input, toggle } = getProfileSelectorElements();
+            if (!root || !input || !toggle || root.dataset.bound === 'true') {
+                return;
+            }
+
+            root.dataset.bound = 'true';
+            input.addEventListener('focus', () => {
+                renderProfileSelectorOptions(input.value);
+                setProfileSelectorOpen(true);
+            });
+            input.addEventListener('input', handleProfileSelectorInput);
+            input.addEventListener('keydown', event => {
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    if (filteredProfiles.length) {
+                        const nextIndex = highlightedProfileIndex < filteredProfiles.length - 1
+                            ? highlightedProfileIndex + 1
+                            : 0;
+                        highlightProfileOption(nextIndex);
+                        setProfileSelectorOpen(true);
+                    }
+                    return;
+                }
+
+                if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    if (filteredProfiles.length) {
+                        const nextIndex = highlightedProfileIndex > 0
+                            ? highlightedProfileIndex - 1
+                            : filteredProfiles.length - 1;
+                        highlightProfileOption(nextIndex);
+                        setProfileSelectorOpen(true);
+                    }
+                    return;
+                }
+
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    void selectHighlightedProfile();
+                    return;
+                }
+
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    resetProfileSelector();
+                }
+            });
+            input.addEventListener('blur', () => {
+                window.setTimeout(() => resetProfileSelector(), 120);
+            });
+            toggle.addEventListener('click', () => {
+                const isOpen = root.dataset.open === 'true';
+                if (isOpen) {
+                    resetProfileSelector();
+                } else {
+                    renderProfileSelectorOptions(input.value);
+                    setProfileSelectorOpen(true);
+                    input.focus();
+                    input.select();
+                }
+            });
+            window.addEventListener('resize', updateProfileSelectorPopoverPosition);
+            window.addEventListener('scroll', updateProfileSelectorPopoverPosition, true);
+        }
+
+        function resolveProfileLanguage(profileId, requestedLanguage) {
+            const meta = profileMetadata[profileId];
+            const availableLanguages = meta && meta.languages && meta.languages.length
+                ? meta.languages
+                : supportedLangs.slice();
+
+            if (availableLanguages.includes(requestedLanguage)) {
+                return requestedLanguage;
+            }
+
+            const fallbackProfileLanguage = getFallbackProfileLanguage(meta);
+            if (availableLanguages.includes(fallbackProfileLanguage)) {
+                return fallbackProfileLanguage;
+            }
+
+            if (availableLanguages.includes(defaultLanguage)) {
+                return defaultLanguage;
+            }
+
+            return availableLanguages[0] || defaultLanguage;
+        }
+
         function normalizeAtsIntegration(config) {
-            const fallback = getEmbeddedAtsConfig();
+            const fallback = { enabled: false, providerId: '', providers: [] };
             const source = config && typeof config === 'object' ? config : fallback;
             const providers = Array.isArray(source.providers)
                 ? source.providers.filter(provider => provider
@@ -471,82 +675,144 @@
         function syncConfigState(config) {
             supportedLangs = Array.isArray(config.languages)
                 ? config.languages.filter(isSafeLanguageCode)
-                : embeddedAppConfig.languages.slice();
+                : [];
 
             if (!supportedLangs.length) {
-                supportedLangs = embeddedAppConfig.languages.slice();
+                throw new Error('No valid languages configured');
             }
 
             availableThemes = Array.isArray(config.themes)
                 ? config.themes.map(normalizeTheme).filter(Boolean)
-                : embeddedAppConfig.themes.slice();
+                : [];
 
             if (!availableThemes.length) {
-                availableThemes = embeddedAppConfig.themes.slice();
+                throw new Error('No valid themes configured');
+            }
+
+            availableProfiles = Array.isArray(config.profiles)
+                ? config.profiles.map(normalizeProfile).filter(Boolean)
+                : [];
+
+            if (!availableProfiles.length) {
+                throw new Error('No valid profiles configured');
             }
 
             const configuredDefaultLanguage = config.defaults && typeof config.defaults.language === 'string'
                 ? config.defaults.language
-                : embeddedAppConfig.defaults.language;
+                : supportedLangs[0];
             const configuredDefaultTheme = config.defaults && typeof config.defaults.theme === 'string'
                 ? config.defaults.theme
-                : embeddedAppConfig.defaults.theme;
+                : availableThemes[0].id;
+            const configuredDefaultProfile = config.defaults && typeof config.defaults.profile === 'string'
+                ? config.defaults.profile
+                : availableProfiles[0].id;
 
             defaultLanguage = supportedLangs.includes(configuredDefaultLanguage)
                 ? configuredDefaultLanguage
-                : embeddedAppConfig.defaults.language;
+                : supportedLangs[0];
             defaultTheme = availableThemes.some(theme => theme.id === configuredDefaultTheme)
                 ? configuredDefaultTheme
-                : embeddedAppConfig.defaults.theme;
+                : availableThemes[0].id;
+            defaultProfileId = availableProfiles.some(profile => profile.id === configuredDefaultProfile)
+                ? configuredDefaultProfile
+                : availableProfiles[0].id;
 
             atsIntegration = normalizeAtsIntegration(config.integrations && config.integrations.ats);
+            profileSelectorEnabled = config.features && config.features.profileSelector === true;
         }
 
         async function loadAppConfig() {
+            const response = await fetch('config/app.json', { cache: 'no-cache' });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const config = await response.json();
+            syncConfigState(config);
+            cvTranslations = {};
+            profileMetadata = {};
+            systemTranslations = {};
+            selectedTheme = defaultTheme;
+            activeLanguage = defaultLanguage;
+            activeProfileId = defaultProfileId;
+            console.log('✓ Application config loaded from config/app.json');
+        }
+
+        async function loadProfileMetaFromFile(profileId) {
+            const profile = getProfileConfig(profileId);
+            if (!profile) {
+                return null;
+            }
+
+            if (profileMetadata[profileId]) {
+                return profileMetadata[profileId];
+            }
+
             try {
-                const response = await fetch('config/app.json');
+                const response = await fetch(`${profile.path}/profile.json`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const config = await response.json();
-                syncConfigState(config);
-                useExternalFiles = true;
-                console.log('✓ Application config loaded from config/app.json');
-                return true;
-            } catch (e) {
-                console.warn('ℹ Using embedded app config fallback', e);
-                syncConfigState(embeddedAppConfig);
-                cvTranslations = embeddedCvTranslations;
-                systemTranslations = embeddedSystemTranslations;
-                useExternalFiles = false;
-                return false;
+                const data = await response.json();
+                profileMetadata[profileId] = normalizeProfileMeta(profileId, data, profile);
+                return profileMetadata[profileId];
+            } catch (error) {
+                throw new Error(`Could not load profile metadata for ${profileId}`);
             }
         }
 
-        async function loadCvTranslationFromFile(lang) {
+        async function loadCvTranslationFromFile(profileId, lang) {
             if (!isSafeLanguageCode(lang)) {
                 throw new Error(`Unsupported language code: ${lang}`);
             }
 
-            if (cvTranslations[lang]) {
-                return;
+            const profile = getProfileConfig(profileId);
+            if (!profile) {
+                return false;
             }
+
+            cvTranslations[profileId] = cvTranslations[profileId] || {};
+            if (cvTranslations[profileId][lang]) {
+                return true;
+            }
+
             try {
-                const response = await fetch(`locales/${lang}.json`);
+                const response = await fetch(`${profile.path}/locales/${lang}.json`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                cvTranslations[lang] = await response.json();
-                console.log(`✓ Загружена локализация: ${lang}`);
+
+                cvTranslations[profileId][lang] = await response.json();
+                console.log(`✓ Profile localization loaded: ${profileId}/${lang}`);
+                return true;
             } catch (e) {
-                console.error(`✗ Не удалось загрузить ${lang}.json, использую встроенные данные`, e);
-                if (embeddedCvTranslations[lang]) {
-                    cvTranslations[lang] = embeddedCvTranslations[lang];
-                } else if (lang !== 'ru' && embeddedCvTranslations['ru']) {
-                    cvTranslations[lang] = embeddedCvTranslations['ru'];
+                console.error(`✗ Could not load ${profileId}/${lang}.json`, e);
+                return false;
+            }
+        }
+
+        async function ensureCvTranslation(profileId, lang) {
+            const meta = await loadProfileMetaFromFile(profileId);
+            const availableLanguages = meta && meta.languages && meta.languages.length
+                ? meta.languages
+                : supportedLangs.slice();
+            const candidates = Array.from(new Set([
+                lang,
+                meta ? meta.defaultLanguage : null,
+                defaultLanguage,
+                ...availableLanguages
+            ].filter(Boolean)));
+
+            for (const candidate of candidates) {
+                const didLoad = await loadCvTranslationFromFile(profileId, candidate);
+
+                if (didLoad) {
+                    return candidate;
                 }
             }
+
+            return null;
         }
 
         async function loadSystemTranslationFromFile(lang) {
@@ -565,27 +831,20 @@
                 systemTranslations[lang] = await response.json();
                 console.log(`✓ System localization loaded: ${lang}`);
             } catch (e) {
-                console.error(`✗ Could not load locales/system/${lang}.json, using embedded system data`, e);
-                if (embeddedSystemTranslations[lang]) {
-                    systemTranslations[lang] = embeddedSystemTranslations[lang];
-                } else if (lang !== 'ru' && embeddedSystemTranslations['ru']) {
-                    systemTranslations[lang] = embeddedSystemTranslations['ru'];
-                }
+                throw new Error(`Could not load system translation for ${lang}`);
             }
         }
 
         function getSystemTranslation(lang) {
             return systemTranslations[lang]
-                || embeddedSystemTranslations[lang]
-                || embeddedSystemTranslations[defaultLanguage]
-                || embeddedSystemTranslations.ru
                 || {};
         }
 
         function resolveTheme(themeId) {
             return availableThemes.find(theme => theme.id === themeId)
                 || availableThemes.find(theme => theme.id === defaultTheme)
-                || embeddedAppConfig.themes[0];
+                || availableThemes[0]
+                || null;
         }
 
         function getStoredTheme() {
@@ -601,6 +860,39 @@
                 window.localStorage.setItem(THEME_STORAGE_KEY, themeId);
             } catch (e) {
                 console.warn('Theme preference could not be saved', e);
+            }
+        }
+
+        function getStoredLanguage() {
+            try {
+                return window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function persistLanguage(lang) {
+            try {
+                window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+            } catch (e) {
+                console.warn('Language preference could not be saved', e);
+            }
+        }
+
+        function getStoredControlsCollapsed() {
+            try {
+                const storedValue = window.localStorage.getItem(CONTROLS_PANEL_STORAGE_KEY);
+                return storedValue === null ? true : storedValue !== 'false';
+            } catch (e) {
+                return true;
+            }
+        }
+
+        function persistControlsCollapsed(isCollapsed) {
+            try {
+                window.localStorage.setItem(CONTROLS_PANEL_STORAGE_KEY, isCollapsed ? 'true' : 'false');
+            } catch (e) {
+                console.warn('Controls panel preference could not be saved', e);
             }
         }
 
@@ -626,6 +918,76 @@
 
             status.hidden = true;
             status.textContent = '';
+        }
+
+        function createProfileSwitcher() {
+            const subgroup = document.querySelector('.profile-subgroup');
+            const { root, input, empty } = getProfileSelectorElements();
+            if (!subgroup || !root || !input || !empty) {
+                return;
+            }
+
+            subgroup.hidden = !profileSelectorEnabled;
+            subgroup.toggleAttribute('hidden', !profileSelectorEnabled);
+            root.hidden = !profileSelectorEnabled;
+
+            if (!profileSelectorEnabled) {
+                return;
+            }
+
+            empty.hidden = true;
+            bindProfileSelectorEvents();
+            syncProfileSelectorInputValue();
+            renderProfileSelectorOptions('');
+            setProfileSelectorOpen(false);
+        }
+
+        function updateToolingPanelToggleText(isCollapsed) {
+            const { toggle, toggleLabel } = getToolingPanelElements();
+            const systemData = getSystemTranslation(activeLanguage || defaultLanguage);
+            const label = isCollapsed
+                ? (systemData.showControls || 'Show controls')
+                : (systemData.hideControls || 'Hide controls');
+
+            if (toggleLabel) {
+                toggleLabel.textContent = label;
+            }
+
+            if (toggle) {
+                toggle.setAttribute('aria-label', label);
+            }
+        }
+
+        function setToolingPanelCollapsed(isCollapsed) {
+            const { panel, controls, toggle } = getToolingPanelElements();
+            if (!panel || !controls || !toggle) {
+                return;
+            }
+
+            panel.dataset.collapsed = isCollapsed ? 'true' : 'false';
+            controls.hidden = isCollapsed;
+            controls.toggleAttribute('hidden', isCollapsed);
+            controls.setAttribute('aria-hidden', isCollapsed ? 'true' : 'false');
+            toggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+            updateToolingPanelToggleText(isCollapsed);
+
+            if (isCollapsed) {
+                setProfileSelectorOpen(false);
+            }
+        }
+
+        function bindToolingPanelToggle() {
+            const { toggle, panel } = getToolingPanelElements();
+            if (!toggle || !panel || toggle.dataset.bound === 'true') {
+                return;
+            }
+
+            toggle.dataset.bound = 'true';
+            toggle.addEventListener('click', () => {
+                const nextCollapsed = panel.dataset.collapsed !== 'true';
+                setToolingPanelCollapsed(nextCollapsed);
+                persistControlsCollapsed(nextCollapsed);
+            });
         }
 
         function createLanguageSwitcher() {
@@ -667,6 +1029,42 @@
             document.querySelectorAll('.theme-switcher button').forEach(button => {
                 button.classList.toggle('active', button.dataset.themeId === themeId);
             });
+        }
+
+        function updateProfileSwitcher(profileId) {
+            activeProfileId = profileId;
+            syncProfileSelectorInputValue();
+            renderProfileSelectorOptions('');
+        }
+
+        function updateProfileContactInfo(cvData) {
+            const meta = getActiveProfileMeta();
+            const emailLink = document.querySelector('.profile-email-link');
+            const linkedinLink = document.querySelector('.profile-linkedin-link');
+            const emailRow = document.querySelector('.contact-email-row');
+            const linkedinRow = document.querySelector('.contact-linkedin-row');
+            const email = meta && meta.contacts ? meta.contacts.email : '';
+            const linkedin = meta && meta.contacts ? meta.contacts.linkedin : '';
+
+            if (emailLink && emailRow) {
+                emailRow.hidden = !email;
+                if (email) {
+                    emailLink.href = `mailto:${email}`;
+                } else {
+                    emailLink.removeAttribute('href');
+                }
+                emailLink.textContent = email || '';
+            }
+
+            if (linkedinLink && linkedinRow) {
+                linkedinRow.hidden = !linkedin;
+                if (linkedin) {
+                    linkedinLink.href = linkedin;
+                } else {
+                    linkedinLink.removeAttribute('href');
+                }
+                linkedinLink.textContent = cvData.linkedin || 'LinkedIn';
+            }
         }
 
         async function loadThemeStylesheet(theme) {
@@ -723,7 +1121,7 @@
             } catch (error) {
                 console.error(`Theme "${theme.id}" could not be loaded`, error);
                 const systemData = getSystemTranslation(activeLanguage);
-                const themeLoadError = systemData.themeLoadError || embeddedSystemTranslations.ru.themeLoadError;
+                const themeLoadError = systemData.themeLoadError || 'Could not load the visual theme. Check the stylesheet file and try again.';
                 showThemeStatus(`${themeLoadError} (${theme.label})`);
                 updateThemeSwitcher(selectedTheme || defaultTheme);
                 return false;
@@ -776,29 +1174,46 @@
             }
         }
 
+        async function changeProfile(profileId) {
+            const profile = getProfileConfig(profileId);
+            if (!profile) {
+                return;
+            }
+
+            await loadProfileMetaFromFile(profile.id);
+            activeProfileId = profile.id;
+            updateProfileSwitcher(profile.id);
+            syncProfileUrl(profile.id);
+            await changeLanguage(activeLanguage);
+        }
+
         async function changeLanguage(lang) {
-            if (!supportedLangs.includes(lang)) {
-                lang = defaultLanguage;
+            const requestedLanguage = supportedLangs.includes(lang) ? lang : defaultLanguage;
+
+            await loadSystemTranslationFromFile(requestedLanguage);
+
+            const resolvedLanguage = resolveProfileLanguage(activeProfileId, requestedLanguage);
+            const availableLanguage = await ensureCvTranslation(activeProfileId, resolvedLanguage);
+
+            if (!availableLanguage) {
+                console.error(`No profile data available for profile: ${activeProfileId}`);
+                return;
             }
 
-            if (useExternalFiles) {
-                await Promise.all([
-                    loadCvTranslationFromFile(lang),
-                    loadSystemTranslationFromFile(lang)
-                ]);
-            }
+            await loadSystemTranslationFromFile(availableLanguage);
 
-            activeLanguage = lang;
-            document.documentElement.lang = lang;
-            updateContent(lang);
-            updateLanguageSwitcher(lang);
+            activeLanguage = availableLanguage;
+            document.documentElement.lang = availableLanguage;
+            persistLanguage(availableLanguage);
+            updateContent(availableLanguage);
+            updateLanguageSwitcher(availableLanguage);
         }
 
         function updateContent(lang) {
-            const cvData = cvTranslations[lang];
+            const cvData = cvTranslations[activeProfileId] && cvTranslations[activeProfileId][lang];
             const systemData = getSystemTranslation(lang);
             if (!cvData) {
-                console.error(`No data for language: ${lang}`);
+                console.error(`No data for profile/language: ${activeProfileId}/${lang}`);
                 return;
             }
 
@@ -826,7 +1241,17 @@
                 el.textContent = typeof value === 'string' ? value : '';
             });
 
+            document.querySelectorAll('[data-system-translate-aria-label]').forEach(el => {
+                const key = el.getAttribute('data-system-translate-aria-label');
+                const value = systemData[key];
+                if (typeof value === 'string' && value) {
+                    el.setAttribute('aria-label', value);
+                }
+            });
+
+            updateProfileContactInfo(cvData);
             updateAtsPrintView(cvData);
+            updateToolingPanelToggleText(document.querySelector('.tooling-panel')?.dataset.collapsed === 'true');
 
             const atsButton = document.querySelector('.ats-button');
             const atsInfo = document.querySelector('.ats-info');
@@ -936,8 +1361,8 @@
         }
 
         function updateAtsPrintView(cvData) {
-            const emailLink = document.querySelector('.contact-info a[href^="mailto:"]');
-            const linkedInLink = document.querySelector('.contact-info a[href*="linkedin.com"]');
+            const emailLink = document.querySelector('.profile-email-link');
+            const linkedInLink = document.querySelector('.profile-linkedin-link');
             const experienceContainer = document.querySelector('.ats-print-experience');
             const summaryContainer = document.querySelector('.ats-print-summary');
 
@@ -1015,18 +1440,38 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            setExportMode('default');
-            await loadAppConfig();
-            createLanguageSwitcher();
-            createThemeSwitcher();
+            try {
+                setExportMode('default');
+                await loadAppConfig();
+                const requestedProfileId = getRequestedProfileId();
+                const initialProfile = getProfileConfig(requestedProfileId) || getProfileConfig(defaultProfileId);
+                if (!initialProfile) {
+                    throw new Error('No initial profile is available');
+                }
 
-            const storedTheme = getStoredTheme();
-            const initialTheme = availableThemes.some(theme => theme.id === storedTheme) ? storedTheme : defaultTheme;
-            await applyTheme(initialTheme);
+                activeProfileId = initialProfile.id;
+                const activeProfileMeta = await loadProfileMetaFromFile(activeProfileId);
+                syncProfileUrl(activeProfileId);
+                bindToolingPanelToggle();
+                createProfileSwitcher();
+                createLanguageSwitcher();
+                createThemeSwitcher();
+                setToolingPanelCollapsed(getStoredControlsCollapsed());
 
-            const userLang = navigator.language.split('-')[0];
-            const lang = supportedLangs.includes(userLang) ? userLang : defaultLanguage;
-            await changeLanguage(lang);
+                const storedTheme = getStoredTheme();
+                const initialTheme = availableThemes.some(theme => theme.id === storedTheme) ? storedTheme : defaultTheme;
+                await applyTheme(initialTheme);
+                updateProfileSwitcher(activeProfileId);
+
+                const storedLanguage = getStoredLanguage();
+                const initialLanguage = storedLanguage && supportedLangs.includes(storedLanguage)
+                    ? storedLanguage
+                    : getFallbackProfileLanguage(activeProfileMeta);
+                await changeLanguage(initialLanguage);
+            } catch (error) {
+                console.error('Application bootstrap failed', error);
+                showThemeStatus('Could not load application data. Check the static files and try again.');
+            }
         });
     </script>
 

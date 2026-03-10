@@ -35,6 +35,7 @@ jobs:
           cp index.html dist/index.html
           cp -R config dist/config
           cp -R locales dist/locales
+          cp -R profiles dist/profiles
           cp -R styles dist/styles
 
       - name: Upload Pages artifact

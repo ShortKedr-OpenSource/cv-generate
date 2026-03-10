@@ -37,6 +37,13 @@
     --active-pill-shadow: 0 8px 14px rgba(14, 165, 233, 0.28);
     --header-glow-a: rgba(14, 165, 233, 0.1);
     --header-glow-b: rgba(99, 102, 241, 0.06);
+    --selector-surface: rgba(255, 255, 255, 0.96);
+    --selector-surface-strong: #ffffff;
+    --selector-border: #cfdceb;
+    --selector-text: #0f172a;
+    --selector-placeholder: #7c8ea5;
+    --selector-hover: #eef6ff;
+    --selector-shadow: 0 18px 32px rgba(15, 23, 42, 0.12);
 }
 
 * {
@@ -1446,6 +1453,13 @@ body {
     display: block;
 }
 
+.tooling-panel-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
 .tooling-panel-header h2 {
     margin: 0;
     color: var(--header-title);
@@ -1463,11 +1477,61 @@ body {
     text-wrap: pretty;
 }
 
+.tooling-panel-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 9px 14px;
+    border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+    border-radius: 999px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--control-surface) 88%, white), color-mix(in srgb, var(--chip-bg) 92%, white));
+    color: var(--header-title);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tooling-panel-toggle:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+.tooling-panel-toggle-icon {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.2s ease;
+}
+
+.tooling-panel[data-collapsed="false"] .tooling-panel-toggle-icon {
+    transform: rotate(-135deg) translateY(-1px);
+}
+
+.tooling-panel[data-collapsed="true"] {
+    gap: 0;
+}
+
+.tooling-panel[data-collapsed="true"] .tooling-panel-header-row {
+    align-items: center;
+}
+
 .tooling-panel-controls {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.9fr) minmax(260px, 1fr);
     gap: 14px;
     align-items: stretch;
+}
+
+.tooling-panel-controls[hidden] {
+    display: none !important;
 }
 
 .tool-group,
@@ -1520,6 +1584,123 @@ body {
 
 .tooling-panel .theme-status {
     margin-top: 0;
+}
+
+.profile-selector {
+    position: relative;
+}
+
+.profile-selector-field {
+    position: relative;
+}
+
+.profile-selector-input {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 44px 10px 14px;
+    border: 1px solid var(--selector-border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, var(--selector-surface), color-mix(in srgb, var(--selector-surface-strong) 86%, transparent));
+    color: var(--selector-text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 65%, transparent);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.profile-selector-input::placeholder {
+    color: var(--selector-placeholder);
+}
+
+.profile-selector-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+        inset 0 1px 0 color-mix(in srgb, #ffffff 72%, transparent);
+}
+
+.profile-selector-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.profile-selector-toggle:hover {
+    background: color-mix(in srgb, var(--selector-hover) 80%, transparent);
+    color: var(--accent-strong);
+}
+
+.profile-selector-toggle-icon {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.2s ease;
+}
+
+.profile-selector[data-open="true"] .profile-selector-toggle-icon {
+    transform: rotate(-135deg) translateY(-1px);
+}
+
+.profile-selector-popover {
+    position: fixed;
+    z-index: 2000;
+    padding: 8px;
+    border: 1px solid color-mix(in srgb, var(--selector-border) 88%, transparent);
+    border-radius: 16px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--selector-surface-strong) 96%, transparent), color-mix(in srgb, var(--selector-surface) 96%, transparent));
+    box-shadow: var(--selector-shadow);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+}
+
+.profile-selector-list {
+    max-height: min(220px, 40vh);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    display: grid;
+    gap: 4px;
+}
+
+.profile-selector-option {
+    padding: 10px 12px;
+    border-radius: 12px;
+    color: var(--selector-text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.profile-selector-option:hover,
+.profile-selector-option.active {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--selector-hover)), color-mix(in srgb, var(--selector-hover) 92%, transparent));
+    color: var(--accent-strong);
+}
+
+.profile-selector-empty {
+    margin: 0;
+    padding: 10px 12px 4px;
+    color: var(--detail-text);
+    font-size: 13px;
 }
 
 .tool-group-actions {
@@ -1586,6 +1767,11 @@ body {
         gap: 6px;
     }
 
+    .tooling-panel-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     .tooling-panel-controls {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -1614,6 +1800,31 @@ body {
     .tooling-panel-info {
         padding: 12px;
         border-radius: 14px;
+    }
+
+    .tooling-panel-toggle {
+        width: 100%;
+        justify-content: space-between;
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .profile-selector-input {
+        min-height: 40px;
+        padding-left: 12px;
+        padding-right: 40px;
+        font-size: 13px;
+    }
+
+    .profile-selector-popover {
+        padding: 6px;
+        border-radius: 14px;
+    }
+
+    .profile-selector-option {
+        padding: 9px 10px;
+        font-size: 13px;
     }
 
     .tool-subgroup + .tool-subgroup {
