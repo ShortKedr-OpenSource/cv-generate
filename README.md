@@ -191,27 +191,11 @@ When changing runtime or config-related behavior, verify:
 - theme CSS files are served correctly
 - screen rendering, mobile rendering, and PDF export remain aligned
 
-## Patch workflow
-
-If the Codex built-in `apply_patch` tool is unstable in this environment, use the local wrapper in `scripts/apply-diff.ps1`.
-
-Apply a patch file:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\apply-diff.ps1 .\my-change.diff
-```
-
-Validate a patch without applying it:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\apply-diff.ps1 .\my-change.diff -Check
-```
-
-## Development notes
+## Contributor notes
 
 - Keep the app functional without requiring a frontend build step unless the architecture is intentionally changed.
 - Keep product-facing content in locale files when possible.
-- Do not hardcode new languages or themes in one isolated place without updating the configuration model.
+- Keep language and theme registration centralized in `config/app.json` rather than in isolated hardcoded runtime logic.
 - Keep `config/app.json` as the app-level source of truth for languages, theme metadata, defaults, and integrations.
 
 ## Related docs
