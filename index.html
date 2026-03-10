@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -11,23 +11,43 @@
 </head>
 <body>
     <div class="shell">
-        <div class="container">
-            <aside class="sidebar">
-                <div class="language-switcher"></div>
-                <div class="theme-switcher"></div>
-                <div class="theme-status" role="status" aria-live="polite" hidden></div>
-                <div class="actions">
-                    <button class="export-button" type="button" data-system-translate="exportPdf" onclick="exportPdf('default')">Export to PDF</button>
-                    <button class="export-button export-button-secondary" type="button" data-system-translate="exportAtsPdf" onclick="exportPdf('ats')">Export ATS PDF</button>
-                    <button class="ats-button" type="button" onclick="openAtsChecker()" hidden>Check ATS Score</button>
+        <section class="tooling-panel">
+            <div class="tooling-panel-header-row">
+                <div class="tooling-panel-header">
+                    <h2 data-system-translate="toolingTitle">Controls</h2>
                 </div>
-                <div class="ats-info side-card" role="note" hidden>
+                <p class="tooling-description" data-system-translate="toolingDescription">Switch language, theme, and export actions from one place.</p>
+            </div>
+            <div class="tooling-panel-controls">
+                <div class="tool-group tool-group-compact">
+                    <div class="tool-subgroup">
+                        <p class="tool-group-label" data-system-translate="languageLabel">Language</p>
+                        <div class="language-switcher"></div>
+                    </div>
+                    <div class="tool-subgroup tool-subgroup-theme">
+                        <p class="tool-group-label" data-system-translate="themeLabel">Theme</p>
+                        <div class="theme-switcher"></div>
+                        <div class="theme-status" role="status" aria-live="polite" hidden></div>
+                    </div>
+                </div>
+                <div class="tool-group tool-group-actions">
+                    <p class="tool-group-label" data-system-translate="actionsLabel">Actions</p>
+                    <div class="actions">
+                        <button class="export-button" type="button" data-system-translate="exportPdf" onclick="exportPdf('default')">Export to PDF</button>
+                        <button class="export-button export-button-secondary" type="button" data-system-translate="exportAtsPdf" onclick="exportPdf('ats')">Export ATS PDF</button>
+                        <button class="ats-button" type="button" data-system-translate="atsAction" onclick="openAtsChecker()" hidden>Check ATS Score</button>
+                    </div>
+                </div>
+                <div class="ats-info tooling-panel-info" role="note" hidden>
                     <p class="ats-info-title" data-system-translate="atsTitle">ATS Score</p>
                     <p class="ats-info-description" data-system-translate="atsDescription"></p>
                     <p class="ats-info-hint" data-system-translate="atsHintUseCurrentPdf"></p>
                     <p class="ats-info-notice" data-system-translate="atsExternalNotice"></p>
                 </div>
-
+            </div>
+        </section>
+        <div class="container">
+            <aside class="sidebar">
                 <section class="contact-info side-card">
                     <h2 data-translate="contact">Контакт</h2>
                     <p><a href="mailto:shortkedr@gmail.com">shortkedr@gmail.com</a></p>
@@ -144,7 +164,8 @@
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Ключевые навыки",
                 "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Языки",
+                "languagesTitle": "Языки",
+
                 "languages": ["Английский (C1 Advanced)", "Русский (Родной)"],
                 "certificationsTitle": "Сертификаты",
                 "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
@@ -181,7 +202,8 @@
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Key Skills",
                 "skills": ["C#", "Unity", "Game Development", "Software Architecture", "Tool Development", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Languages",
+                "languagesTitle": "Languages",
+
                 "languages": ["English (C1 Advanced)", "Russian (Native)"],
                 "certificationsTitle": "Certifications",
                 "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
@@ -218,7 +240,8 @@
                 "linkedin": "LinkedIn",
                 "skillsTitle": "Schlüsselkompetenzen",
                 "skills": ["C#", "Unity", "Spieleentwicklung", "Softwarearchitektur", "Werkzeugentwicklung", "Git", "CI/CD", "Agile/Scrum"],
-                "languagesTitle": "Sprachen",
+                "languagesTitle": "Sprachen",
+
                 "languages": ["Englisch (C1 Fortgeschritten)", "Russisch (Muttersprache)"],
                 "certificationsTitle": "Zertifizierungen",
                 "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
@@ -254,6 +277,11 @@
         const embeddedSystemTranslations = {
             "ru": {
                 "exportPdf": "Скачать PDF",
+                "toolingTitle": "Управление",
+                "toolingDescription": "переключайте язык, тему и варианты экспорта в одном блоке.",
+                "languageLabel": "Язык",
+                "themeLabel": "Тема",
+                "actionsLabel": "Действия",
                 "exportAtsPdf": "Скачать ATS PDF",
                 "atsTitle": "ATS Score",
                 "atsAction": "Проверить ATS Score",
@@ -265,6 +293,11 @@
             },
             "en": {
                 "exportPdf": "Export PDF",
+                "toolingTitle": "Controls",
+                "toolingDescription": "Switch language, theme, and export actions from one place.",
+                "languageLabel": "Language",
+                "themeLabel": "Theme",
+                "actionsLabel": "Actions",
                 "exportAtsPdf": "Export ATS PDF",
                 "atsTitle": "ATS Score",
                 "atsAction": "Check ATS Score",
@@ -276,6 +309,11 @@
             },
             "de": {
                 "exportPdf": "PDF exportieren",
+                "toolingTitle": "Steuerung",
+                "toolingDescription": "Sprache, Thema und Exportoptionen an einer Stelle wechseln.",
+                "languageLabel": "Sprache",
+                "themeLabel": "Thema",
+                "actionsLabel": "Aktionen",
                 "exportAtsPdf": "ATS-PDF exportieren",
                 "atsTitle": "ATS Score",
                 "atsAction": "ATS Score prüfen",
@@ -292,7 +330,8 @@
             themes: [
                 { id: 'default', label: 'Sky', stylesheet: 'styles/themes/default.css' },
                 { id: 'graphite', label: 'Graphite', stylesheet: 'styles/themes/graphite.css' },
-                { id: 'sand', label: 'Sand', stylesheet: 'styles/themes/sand.css' }
+                { id: 'sand', label: 'Sand', stylesheet: 'styles/themes/sand.css' },
+                { id: 'meadow', label: 'Meadow', stylesheet: 'styles/themes/meadow.css' }
             ],
             defaults: {
                 language: 'ru',
@@ -896,6 +935,7 @@
 
 </body>
 </html>
+
 
 
 

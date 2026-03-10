@@ -1,5 +1,10 @@
 {
   "exportPdf": "Скачать PDF",
+  "toolingTitle": "Управление",
+  "toolingDescription": "переключайте язык, тему и варианты экспорта в одном блоке.",
+  "languageLabel": "Язык",
+  "themeLabel": "Тема",
+  "actionsLabel": "Действия",
   "atsTitle": "ATS Score",
   "atsAction": "Проверить ATS Score",
   "atsDescription": "Проверьте, как резюме выглядит для ATS, через внешний resume checker.",

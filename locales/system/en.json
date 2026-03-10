@@ -1,5 +1,10 @@
 {
   "exportPdf": "Export PDF",
+  "toolingTitle": "Controls",
+  "toolingDescription": "Switch language, theme, and export actions from one place.",
+  "languageLabel": "Language",
+  "themeLabel": "Theme",
+  "actionsLabel": "Actions",
   "atsTitle": "ATS Score",
   "atsAction": "Check ATS Score",
   "atsDescription": "See how this resume performs for ATS with an external resume checker.",

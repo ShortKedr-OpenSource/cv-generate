@@ -1,5 +1,10 @@
 {
   "exportPdf": "PDF exportieren",
+  "toolingTitle": "Steuerung",
+  "toolingDescription": "Sprache, Thema und Exportoptionen an einer Stelle wechseln.",
+  "languageLabel": "Sprache",
+  "themeLabel": "Thema",
+  "actionsLabel": "Aktionen",
   "atsTitle": "ATS Score",
   "atsAction": "ATS Score prüfen",
   "atsDescription": "Prüfen Sie mit einem externen Resume-Checker, wie gut dieses Profil für ATS geeignet ist.",

@@ -63,6 +63,8 @@ body {
 .shell {
     width: min(1160px, 100%);
     margin: 0 auto;
+    display: grid;
+    gap: 18px;
 }
 
 .container {
@@ -1421,3 +1423,207 @@ body {
 
 
 
+
+.tooling-panel {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    box-shadow: var(--container-shadow);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 96%, transparent), color-mix(in srgb, var(--surface-top) 96%, transparent));
+    backdrop-filter: blur(8px);
+}
+
+.tooling-panel-header-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 8px 16px;
+}
+
+.tooling-panel-header {
+    display: block;
+}
+
+.tooling-panel-header h2 {
+    margin: 0;
+    color: var(--header-title);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.tooling-description {
+    margin: 0;
+    color: var(--detail-text);
+    font-size: 13px;
+    line-height: 1.35;
+    text-wrap: pretty;
+}
+
+.tooling-panel-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.9fr) minmax(260px, 1fr);
+    gap: 14px;
+    align-items: stretch;
+}
+
+.tool-group,
+.tooling-panel-info {
+    min-width: 0;
+    min-height: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+    background: color-mix(in srgb, var(--control-surface) 82%, var(--panel-strong));
+}
+
+.tool-group {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+}
+
+.tool-group-compact {
+    gap: 12px;
+}
+
+.tool-subgroup {
+    display: grid;
+    gap: 8px;
+}
+
+.tool-subgroup + .tool-subgroup {
+    padding-top: 10px;
+    border-top: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+}
+
+.tool-group-label {
+    margin: 0;
+    color: var(--muted);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.tooling-panel .language-switcher,
+.tooling-panel .theme-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+}
+
+.tooling-panel .theme-status {
+    margin-top: 0;
+}
+
+.tool-group-actions {
+    min-width: 0;
+}
+
+.tooling-panel .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.tooling-panel .export-button,
+.tooling-panel .ats-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 14px;
+}
+
+.tooling-panel-info {
+    display: grid;
+    align-content: start;
+    gap: 0;
+}
+
+.tooling-panel .ats-info-title {
+    margin: 0 0 6px;
+}
+
+.tooling-panel .ats-info-description,
+.tooling-panel .ats-info-hint,
+.tooling-panel .ats-info-notice {
+    margin: 0;
+}
+
+.tooling-panel .ats-info-hint,
+.tooling-panel .ats-info-notice {
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+@media print {
+    .tooling-panel {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .shell {
+        display: grid;
+        gap: 16px;
+    }
+
+    .tooling-panel {
+        margin: 0 22px;
+        padding: 14px;
+    }
+
+    .tooling-panel-header-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 6px;
+    }
+
+    .tooling-panel-controls {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .tooling-panel {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .shell {
+        gap: 12px;
+    }
+
+    .tooling-panel {
+        margin: 0 14px;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .tool-group,
+    .tooling-panel-info {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .tool-subgroup + .tool-subgroup {
+        padding-top: 12px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .tooling-panel {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+}

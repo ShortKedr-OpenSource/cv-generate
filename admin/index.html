@@ -12,36 +12,41 @@
     <div class="shell">
         <div class="panel">
             <section class="hero">
-                <h1>CV Admin Config</h1>
-                <p>Minimal read-only admin page for the protected config route. Provide an admin token at runtime, load the current server config, and inspect what the public app is using.</p>
+                <div class="hero-header">
+                    <div>
+                        <h1 data-admin-translate="pageTitle">CV Admin Config</h1>
+                        <p data-admin-translate="pageDescription">Minimal read-only admin page for the protected config route. Provide an admin token at runtime, load the current server config, and inspect what the public app is using.</p>
+                    </div>
+                    <div class="language-panel">
+                        <p class="language-panel-label" data-admin-translate="languageLabel">Language</p>
+                        <div class="language-switcher" aria-label="Language switcher"></div>
+                    </div>
+                </div>
             </section>
 
             <div class="grid">
                 <section class="controls">
                     <div class="stack">
                         <div class="field">
-                            <label for="admin-route">Admin route</label>
+                            <label for="admin-route" data-admin-translate="adminRouteLabel">Admin route</label>
                             <input id="admin-route" type="text" value="/admin/config/app" autocomplete="off">
                         </div>
 
                         <div class="field">
-                            <label for="admin-token">Admin token</label>
-                            <input id="admin-token" type="password" placeholder="Enter ADMIN_CONFIG_TOKEN" autocomplete="off">
+                            <label for="admin-token" data-admin-translate="adminTokenLabel">Admin token</label>
+                            <input id="admin-token" type="password" data-admin-placeholder="adminTokenPlaceholder" placeholder="Enter ADMIN_CONFIG_TOKEN" autocomplete="off">
                         </div>
 
                         <div class="toolbar">
-                            <button id="load-button" class="primary" type="button">Load config</button>
-                            <button id="clear-button" class="ghost" type="button">Clear token</button>
+                            <button id="load-button" class="primary" type="button" data-admin-translate="loadButton">Load config</button>
+                            <button id="clear-button" class="ghost" type="button" data-admin-translate="clearButton">Clear token</button>
                         </div>
 
-                        <div id="status" class="status warn">
-                            <strong>Waiting for request.</strong><br>
-                            The page itself is public, but the config route stays protected and deny-by-default.
-                        </div>
+                        <div id="status" class="status warn"></div>
 
                         <div class="card">
-                            <h2>Usage</h2>
-                            <p class="hint">Local development only needs plain HTTP on <code>localhost</code>. For non-local access the route expects HTTPS and a valid admin token.</p>
+                            <h2 data-admin-translate="usageTitle">Usage</h2>
+                            <p class="hint" data-admin-translate="usageText">Local development only needs plain HTTP on localhost. For non-local access the route expects HTTPS and a valid admin token.</p>
                         </div>
                     </div>
                 </section>
@@ -49,20 +54,20 @@
                 <section class="viewer">
                     <div class="stack">
                         <div class="card">
-                            <h2>Response summary</h2>
+                            <h2 data-admin-translate="responseSummaryTitle">Response summary</h2>
                             <div class="meta-list">
-                                <div><span>Route</span><span id="meta-route">-</span></div>
-                                <div><span>Mode</span><span id="meta-mode">-</span></div>
-                                <div><span>Profile</span><span id="meta-profile">-</span></div>
-                                <div><span>Languages</span><span id="meta-languages">-</span></div>
-                                <div><span>Themes</span><span id="meta-themes">-</span></div>
-                                <div><span>Defaults</span><span id="meta-defaults">-</span></div>
+                                <div><span data-admin-translate="summaryRoute">Route</span><span id="meta-route">-</span></div>
+                                <div><span data-admin-translate="summaryMode">Mode</span><span id="meta-mode">-</span></div>
+                                <div><span data-admin-translate="summaryProfile">Profile</span><span id="meta-profile">-</span></div>
+                                <div><span data-admin-translate="summaryLanguages">Languages</span><span id="meta-languages">-</span></div>
+                                <div><span data-admin-translate="summaryThemes">Themes</span><span id="meta-themes">-</span></div>
+                                <div><span data-admin-translate="summaryDefaults">Defaults</span><span id="meta-defaults">-</span></div>
                             </div>
                         </div>
 
                         <div class="card">
-                            <h2>Raw JSON</h2>
-                            <pre id="config-output">Load the protected config to inspect it here.</pre>
+                            <h2 data-admin-translate="rawJsonTitle">Raw JSON</h2>
+                            <pre id="config-output"></pre>
                         </div>
                     </div>
                 </section>
@@ -72,6 +77,107 @@
 
     <script>
         const TOKEN_STORAGE_KEY = 'cv-admin-token';
+        const ADMIN_LANGUAGE_STORAGE_KEY = 'cv-admin-language';
+        const DEFAULT_SUPPORTED_LANGS = ['ru', 'en', 'de'];
+        const embeddedAdminTranslations = {
+            ru: {
+                pageTitle: 'CV Admin Config',
+                pageDescription: 'Минимальная read-only страница для защищенного маршрута конфигурации. Укажите admin token во время выполнения, загрузите текущую конфигурацию сервера и посмотрите, что использует публичное приложение.',
+                languageLabel: 'Язык',
+                adminRouteLabel: 'Админ-маршрут',
+                adminTokenLabel: 'Токен администратора',
+                adminTokenPlaceholder: 'Введите ADMIN_CONFIG_TOKEN',
+                loadButton: 'Загрузить конфиг',
+                clearButton: 'Очистить токен',
+                usageTitle: 'Использование',
+                usageText: 'Для локальной разработки достаточно обычного HTTP на localhost. Для нелокального доступа маршрут требует HTTPS и валидный admin token.',
+                responseSummaryTitle: 'Сводка ответа',
+                summaryRoute: 'Маршрут',
+                summaryMode: 'Режим',
+                summaryProfile: 'Профиль',
+                summaryLanguages: 'Языки',
+                summaryThemes: 'Темы',
+                summaryDefaults: 'Значения по умолчанию',
+                rawJsonTitle: 'Сырой JSON',
+                outputPlaceholder: 'Загрузите защищенную конфигурацию, чтобы увидеть её здесь.',
+                statusWaitingTitle: 'Ожидание запроса.',
+                statusWaitingMessage: 'Сама страница публичная, но маршрут конфигурации остаётся защищённым и по умолчанию закрыт.',
+                statusTokenRequiredTitle: 'Нужен токен',
+                statusTokenRequiredMessage: 'Введите admin token перед загрузкой защищённой конфигурации.',
+                statusLoadingTitle: 'Загрузка...',
+                statusLoadingMessage: 'Запрашиваю защищённый маршрут конфигурации.',
+                statusLoadedTitle: 'Конфигурация загружена',
+                statusLoadedMessage: 'Защищённая конфигурация успешно получена.',
+                statusFailedTitle: 'Запрос завершился ошибкой',
+                statusTokenClearedTitle: 'Токен очищен',
+                statusTokenClearedMessage: 'Сохранённый session token удалён из админской страницы.'
+            },
+            en: {
+                pageTitle: 'CV Admin Config',
+                pageDescription: 'Minimal read-only admin page for the protected config route. Provide an admin token at runtime, load the current server config, and inspect what the public app is using.',
+                languageLabel: 'Language',
+                adminRouteLabel: 'Admin route',
+                adminTokenLabel: 'Admin token',
+                adminTokenPlaceholder: 'Enter ADMIN_CONFIG_TOKEN',
+                loadButton: 'Load config',
+                clearButton: 'Clear token',
+                usageTitle: 'Usage',
+                usageText: 'Local development only needs plain HTTP on localhost. For non-local access the route expects HTTPS and a valid admin token.',
+                responseSummaryTitle: 'Response summary',
+                summaryRoute: 'Route',
+                summaryMode: 'Mode',
+                summaryProfile: 'Profile',
+                summaryLanguages: 'Languages',
+                summaryThemes: 'Themes',
+                summaryDefaults: 'Defaults',
+                rawJsonTitle: 'Raw JSON',
+                outputPlaceholder: 'Load the protected config to inspect it here.',
+                statusWaitingTitle: 'Waiting for request.',
+                statusWaitingMessage: 'The page itself is public, but the config route stays protected and deny-by-default.',
+                statusTokenRequiredTitle: 'Token required',
+                statusTokenRequiredMessage: 'Enter an admin token before loading the protected config.',
+                statusLoadingTitle: 'Loading...',
+                statusLoadingMessage: 'Requesting the protected config route.',
+                statusLoadedTitle: 'Config loaded',
+                statusLoadedMessage: 'Protected config was fetched successfully.',
+                statusFailedTitle: 'Request failed',
+                statusTokenClearedTitle: 'Token cleared',
+                statusTokenClearedMessage: 'Stored session token was removed from the admin page.'
+            },
+            de: {
+                pageTitle: 'CV-Admin-Konfiguration',
+                pageDescription: 'Minimale schreibgeschützte Admin-Seite für die geschützte Konfigurationsroute. Geben Sie zur Laufzeit ein Admin-Token an, laden Sie die aktuelle Serverkonfiguration und prüfen Sie, was die öffentliche App verwendet.',
+                languageLabel: 'Sprache',
+                adminRouteLabel: 'Admin-Route',
+                adminTokenLabel: 'Admin-Token',
+                adminTokenPlaceholder: 'ADMIN_CONFIG_TOKEN eingeben',
+                loadButton: 'Konfiguration laden',
+                clearButton: 'Token löschen',
+                usageTitle: 'Verwendung',
+                usageText: 'Für die lokale Entwicklung reicht normales HTTP auf localhost. Für nicht-lokalen Zugriff erwartet die Route HTTPS und ein gültiges Admin-Token.',
+                responseSummaryTitle: 'Antwortübersicht',
+                summaryRoute: 'Route',
+                summaryMode: 'Modus',
+                summaryProfile: 'Profil',
+                summaryLanguages: 'Sprachen',
+                summaryThemes: 'Themen',
+                summaryDefaults: 'Standardwerte',
+                rawJsonTitle: 'Rohes JSON',
+                outputPlaceholder: 'Laden Sie die geschützte Konfiguration, um sie hier zu sehen.',
+                statusWaitingTitle: 'Warten auf Anfrage.',
+                statusWaitingMessage: 'Die Seite selbst ist öffentlich, aber die Konfigurationsroute bleibt geschützt und standardmäßig gesperrt.',
+                statusTokenRequiredTitle: 'Token erforderlich',
+                statusTokenRequiredMessage: 'Geben Sie ein Admin-Token ein, bevor Sie die geschützte Konfiguration laden.',
+                statusLoadingTitle: 'Wird geladen...',
+                statusLoadingMessage: 'Die geschützte Konfigurationsroute wird angefragt.',
+                statusLoadedTitle: 'Konfiguration geladen',
+                statusLoadedMessage: 'Die geschützte Konfiguration wurde erfolgreich geladen.',
+                statusFailedTitle: 'Anfrage fehlgeschlagen',
+                statusTokenClearedTitle: 'Token gelöscht',
+                statusTokenClearedMessage: 'Das gespeicherte Session-Token wurde von der Admin-Seite entfernt.'
+            }
+        };
+
         const routeInput = document.getElementById('admin-route');
         const tokenInput = document.getElementById('admin-token');
         const statusBox = document.getElementById('status');
@@ -82,9 +188,26 @@
         const metaLanguages = document.getElementById('meta-languages');
         const metaThemes = document.getElementById('meta-themes');
         const metaDefaults = document.getElementById('meta-defaults');
+        const languageSwitcher = document.querySelector('.language-switcher');
 
-        function setStatus(kind, title, message) {
+        const adminTranslations = { ...embeddedAdminTranslations };
+        let supportedLangs = DEFAULT_SUPPORTED_LANGS.slice();
+        let activeLanguage = 'en';
+        let lastStatusState = { kind: 'warn', titleKey: 'statusWaitingTitle', messageKey: 'statusWaitingMessage', fallbackMessage: '' };
+
+        function getTranslation(lang) {
+            return adminTranslations[lang] || embeddedAdminTranslations[lang] || embeddedAdminTranslations.en;
+        }
+
+        function t(key) {
+            return getTranslation(activeLanguage)[key] || embeddedAdminTranslations.en[key] || key;
+        }
+
+        function setStatus(kind, titleKey, messageKey, fallbackMessage = '') {
+            lastStatusState = { kind, titleKey, messageKey, fallbackMessage };
             statusBox.className = `status ${kind}`;
+            const title = t(titleKey);
+            const message = fallbackMessage || t(messageKey);
             statusBox.innerHTML = `<strong>${title}</strong><br>${message}`;
         }
 
@@ -120,16 +243,104 @@
             }
         }
 
+        function persistLanguage(lang) {
+            try {
+                localStorage.setItem(ADMIN_LANGUAGE_STORAGE_KEY, lang);
+            } catch (error) {
+                console.warn('Language storage is unavailable', error);
+            }
+        }
+
+        async function loadAppConfig() {
+            try {
+                const response = await fetch('/config/app.json', { cache: 'no-cache' });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const config = await response.json();
+                if (Array.isArray(config.languages) && config.languages.length) {
+                    supportedLangs = config.languages;
+                }
+
+                if (config.defaults && typeof config.defaults.language === 'string' && supportedLangs.includes(config.defaults.language)) {
+                    activeLanguage = config.defaults.language;
+                }
+            } catch (error) {
+                supportedLangs = DEFAULT_SUPPORTED_LANGS.slice();
+            }
+        }
+
+        async function loadAdminTranslation(lang) {
+            if (adminTranslations[lang] && adminTranslations[lang] !== embeddedAdminTranslations[lang]) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/locales/admin/${lang}.json`, { cache: 'no-cache' });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                adminTranslations[lang] = await response.json();
+            } catch (error) {
+                adminTranslations[lang] = embeddedAdminTranslations[lang] || embeddedAdminTranslations.en;
+            }
+        }
+
+        function renderLanguageSwitcher() {
+            languageSwitcher.innerHTML = '';
+            supportedLangs.forEach(lang => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = lang.toUpperCase();
+                button.className = 'language-button';
+                button.classList.toggle('active', lang === activeLanguage);
+                button.addEventListener('click', () => changeLanguage(lang));
+                languageSwitcher.appendChild(button);
+            });
+        }
+
+        function applyTranslations() {
+            document.documentElement.lang = activeLanguage;
+            document.title = t('pageTitle');
+
+            document.querySelectorAll('[data-admin-translate]').forEach(element => {
+                const key = element.getAttribute('data-admin-translate');
+                element.textContent = t(key);
+            });
+
+            document.querySelectorAll('[data-admin-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-admin-placeholder');
+                element.setAttribute('placeholder', t(key));
+            });
+
+            if (!output.textContent.trim() || output.dataset.state !== 'loaded' && output.dataset.state !== 'error') {
+                output.textContent = t('outputPlaceholder');
+                output.dataset.state = 'idle';
+            }
+
+            setStatus(lastStatusState.kind, lastStatusState.titleKey, lastStatusState.messageKey, lastStatusState.fallbackMessage);
+            renderLanguageSwitcher();
+        }
+
+        async function changeLanguage(lang) {
+            activeLanguage = supportedLangs.includes(lang) ? lang : 'en';
+            await loadAdminTranslation(activeLanguage);
+            persistLanguage(activeLanguage);
+            applyTranslations();
+        }
+
         async function loadConfig() {
             const route = routeInput.value.trim() || '/admin/config/app';
             const token = tokenInput.value.trim();
 
             if (!token) {
-                setStatus('warn', 'Token required', 'Enter an admin token before loading the protected config.');
+                setStatus('warn', 'statusTokenRequiredTitle', 'statusTokenRequiredMessage');
                 return;
             }
 
-            setStatus('warn', 'Loading...', 'Requesting the protected config route.');
+            setStatus('warn', 'statusLoadingTitle', 'statusLoadingMessage');
 
             try {
                 const response = await fetch(route, {
@@ -147,11 +358,13 @@
                 persistToken(token);
                 updateSummary(payload);
                 output.textContent = JSON.stringify(payload, null, 2);
-                setStatus('ok', 'Config loaded', 'Protected config was fetched successfully.');
+                output.dataset.state = 'loaded';
+                setStatus('ok', 'statusLoadedTitle', 'statusLoadedMessage');
             } catch (error) {
                 resetSummary();
                 output.textContent = 'Request failed.\n\n' + error.message;
-                setStatus('error', 'Request failed', error.message);
+                output.dataset.state = 'error';
+                setStatus('error', 'statusFailedTitle', 'statusFailedTitle', error.message);
             }
         }
 
@@ -160,18 +373,40 @@
             tokenInput.value = '';
             persistToken('');
             resetSummary();
-            output.textContent = 'Load the protected config to inspect it here.';
-            setStatus('warn', 'Token cleared', 'Stored session token was removed from the admin page.');
+            output.textContent = t('outputPlaceholder');
+            output.dataset.state = 'idle';
+            setStatus('warn', 'statusTokenClearedTitle', 'statusTokenClearedMessage');
         });
 
-        try {
-            const storedToken = sessionStorage.getItem(TOKEN_STORAGE_KEY);
-            if (storedToken) {
-                tokenInput.value = storedToken;
+        (async () => {
+            try {
+                const storedToken = sessionStorage.getItem(TOKEN_STORAGE_KEY);
+                if (storedToken) {
+                    tokenInput.value = storedToken;
+                }
+            } catch (error) {
+                console.warn('Session storage is unavailable', error);
             }
-        } catch (error) {
-            console.warn('Session storage is unavailable', error);
-        }
+
+            await loadAppConfig();
+
+            try {
+                const storedLanguage = localStorage.getItem(ADMIN_LANGUAGE_STORAGE_KEY);
+                const browserLanguage = (navigator.language || 'en').split('-')[0];
+                const preferredLanguage = storedLanguage || browserLanguage;
+                if (supportedLangs.includes(preferredLanguage)) {
+                    activeLanguage = preferredLanguage;
+                }
+            } catch (error) {
+                console.warn('Language storage is unavailable', error);
+            }
+
+            await Promise.all(supportedLangs.map(loadAdminTranslation));
+            output.textContent = t('outputPlaceholder');
+            output.dataset.state = 'idle';
+            setStatus('warn', 'statusWaitingTitle', 'statusWaitingMessage');
+            applyTranslations();
+        })();
     </script>
 </body>
 </html>
