@@ -27,8 +27,8 @@
     }
   ],
   "defaults": {
-    "language": "ru",
-    "theme": "default"
+    "language": "en",
+    "theme": "meadow"
   },
   "profile": {
     "id": "nikolay-nakoreshko"
