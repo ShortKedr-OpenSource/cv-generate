@@ -47,7 +47,7 @@
 - Preferred local CLI start: `npm start`
 - Portable Node start: `.\.tools\node\npm.cmd start`
 - Direct server start: `.\.tools\node\node.exe .\server.js`
-- Docker start: `docker build -t cv-generated .` then `docker run --rm -p 8080:80 cv-generated`
+- Docker start: `docker build -t cv-generate .` then `docker run --rm -p 8080:80 cv-generate`
 
 ## Validation
 - After server-related changes, verify that / returns HTTP 200.

@@ -1,6 +1,6 @@
-# CV Generated
+# CV Generate
 
-CV Generated is a configurable public CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and a lightweight protected admin config view.
+CV Generate is a configurable public CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and a lightweight protected admin config view.
 
 The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future protected configuration workflows.
 
@@ -100,8 +100,8 @@ Open the public app at `http://localhost:8080`.
 ### Docker
 
 ```powershell
-docker build -t cv-generated .
-docker run --rm -p 8080:80 cv-generated
+docker build -t cv-generate .
+docker run --rm -p 8080:80 cv-generate
 ```
 
 Open `http://localhost:8080`.

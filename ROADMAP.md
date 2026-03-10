@@ -1,10 +1,10 @@
 # Roadmap
 
-This document tracks the future-facing product and architecture direction for CV Generated. For the current implementation and usage details, see [README.md](./README.md).
+This document tracks the future-facing product and architecture direction for CV Generate. For the current implementation and usage details, see [README.md](./README.md).
 
 ## Direction
 
-CV Generated should continue evolving as a configurable public CV web app, not as a one-off static page. The roadmap focuses on keeping the system easy to host while making content, themes, runtime behavior, and protected configuration workflows more maintainable.
+CV Generate should continue evolving as a configurable public CV web app, not as a one-off static page. The roadmap focuses on keeping the system easy to host while making content, themes, runtime behavior, and protected configuration workflows more maintainable.
 
 ## Phase 1: Config-driven baseline
 
