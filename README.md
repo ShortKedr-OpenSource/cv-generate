@@ -1,6 +1,8 @@
 [![Deploy GitHub Pages](https://github.com/ShortKedr-OpenSource/cv-generate/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/ShortKedr-OpenSource/cv-generate/actions/workflows/deploy-pages.yml)
 # CV Generate
 
+Open app: [shortkedr-opensource.github.io/cv-generate](https://shortkedr-opensource.github.io/cv-generate/)
+
 CV Generate is a configurable static CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and file-based configuration.
 
 The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future static hosting environments.
