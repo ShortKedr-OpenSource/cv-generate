@@ -4,6 +4,7 @@
   "toolingDescription": "Switch language, theme, and export actions from one place.",
   "showControls": "Show controls",
   "hideControls": "Hide controls",
+  "profileLabel": "Profile",
   "profileNoResults": "No matching profiles",
   "languageLabel": "Language",
   "themeLabel": "Theme",

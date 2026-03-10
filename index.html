@@ -30,57 +30,59 @@
                     </button>
                 </div>
             </div>
-            <div id="tooling-panel-controls" class="tooling-panel-controls" hidden>
-                <div class="tool-group tool-group-compact">
-                    <div class="tool-subgroup profile-subgroup" hidden>
-                        <p class="tool-group-label" data-translate="profileLabel">Profile</p>
-                        <div class="profile-selector" data-open="false">
-                            <div class="profile-selector-field">
-                                <input
-                                    id="profile-selector-input"
-                                    class="profile-selector-input"
-                                    type="text"
-                                    role="combobox"
-                                    aria-autocomplete="list"
-                                    aria-expanded="false"
-                                    aria-controls="profile-selector-listbox"
-                                    aria-haspopup="listbox"
-                                    autocomplete="off"
-                                    spellcheck="false"
-                                >
-                                <button class="profile-selector-toggle" type="button" aria-label="Toggle profile selector">
-                                    <span class="profile-selector-toggle-icon" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                            <div class="profile-selector-popover" hidden>
-                                <ul id="profile-selector-listbox" class="profile-selector-list" role="listbox"></ul>
-                                <p class="profile-selector-empty" data-system-translate="profileNoResults" hidden>No matching profiles</p>
+            <div id="tooling-panel-controls" class="tooling-panel-controls" aria-hidden="true" inert>
+                <div class="tooling-panel-controls-inner">
+                    <div class="tool-group tool-group-compact">
+                        <div class="tool-subgroup profile-subgroup" hidden>
+                            <p class="tool-group-label" data-system-translate="profileLabel">Profile</p>
+                            <div class="profile-selector" data-open="false">
+                                <div class="profile-selector-field">
+                                    <input
+                                        id="profile-selector-input"
+                                        class="profile-selector-input"
+                                        type="text"
+                                        role="combobox"
+                                        aria-autocomplete="list"
+                                        aria-expanded="false"
+                                        aria-controls="profile-selector-listbox"
+                                        aria-haspopup="listbox"
+                                        autocomplete="off"
+                                        spellcheck="false"
+                                    >
+                                    <button class="profile-selector-toggle" type="button" aria-label="Toggle profile selector">
+                                        <span class="profile-selector-toggle-icon" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="profile-selector-popover" hidden>
+                                    <ul id="profile-selector-listbox" class="profile-selector-list" role="listbox"></ul>
+                                    <p class="profile-selector-empty" data-system-translate="profileNoResults" hidden>No matching profiles</p>
+                                </div>
                             </div>
                         </div>
+                        <div class="tool-subgroup">
+                            <p class="tool-group-label" data-system-translate="languageLabel">Language</p>
+                            <div class="language-switcher"></div>
+                        </div>
+                        <div class="tool-subgroup tool-subgroup-theme">
+                            <p class="tool-group-label" data-system-translate="themeLabel">Theme</p>
+                            <div class="theme-switcher"></div>
+                            <div class="theme-status" role="status" aria-live="polite" hidden></div>
+                        </div>
                     </div>
-                    <div class="tool-subgroup">
-                        <p class="tool-group-label" data-system-translate="languageLabel">Language</p>
-                        <div class="language-switcher"></div>
+                    <div class="tool-group tool-group-actions">
+                        <p class="tool-group-label" data-system-translate="actionsLabel">Actions</p>
+                        <div class="actions">
+                            <button class="export-button" type="button" data-system-translate="exportPdf" onclick="exportPdf('default')">Export to PDF</button>
+                            <button class="export-button export-button-secondary" type="button" data-system-translate="exportAtsPdf" onclick="exportPdf('ats')">Export ATS PDF</button>
+                            <button class="ats-button" type="button" data-system-translate="atsAction" onclick="openAtsChecker()" hidden>Check ATS Score</button>
+                        </div>
                     </div>
-                    <div class="tool-subgroup tool-subgroup-theme">
-                        <p class="tool-group-label" data-system-translate="themeLabel">Theme</p>
-                        <div class="theme-switcher"></div>
-                        <div class="theme-status" role="status" aria-live="polite" hidden></div>
+                    <div class="ats-info tooling-panel-info" role="note" hidden>
+                        <p class="ats-info-title" data-system-translate="atsTitle">ATS Score</p>
+                        <p class="ats-info-description" data-system-translate="atsDescription"></p>
+                        <p class="ats-info-hint" data-system-translate="atsHintUseCurrentPdf"></p>
+                        <p class="ats-info-notice" data-system-translate="atsExternalNotice"></p>
                     </div>
-                </div>
-                <div class="tool-group tool-group-actions">
-                    <p class="tool-group-label" data-system-translate="actionsLabel">Actions</p>
-                    <div class="actions">
-                        <button class="export-button" type="button" data-system-translate="exportPdf" onclick="exportPdf('default')">Export to PDF</button>
-                        <button class="export-button export-button-secondary" type="button" data-system-translate="exportAtsPdf" onclick="exportPdf('ats')">Export ATS PDF</button>
-                        <button class="ats-button" type="button" data-system-translate="atsAction" onclick="openAtsChecker()" hidden>Check ATS Score</button>
-                    </div>
-                </div>
-                <div class="ats-info tooling-panel-info" role="note" hidden>
-                    <p class="ats-info-title" data-system-translate="atsTitle">ATS Score</p>
-                    <p class="ats-info-description" data-system-translate="atsDescription"></p>
-                    <p class="ats-info-hint" data-system-translate="atsHintUseCurrentPdf"></p>
-                    <p class="ats-info-notice" data-system-translate="atsExternalNotice"></p>
                 </div>
             </div>
         </section>
@@ -198,6 +200,7 @@
         const THEME_STORAGE_KEY = 'cv-app-theme';
         const LANGUAGE_STORAGE_KEY = 'cv-app-language';
         const CONTROLS_PANEL_STORAGE_KEY = 'cv-app-controls-collapsed';
+        const CONTROLS_PANEL_ANIMATION_MS = 280;
         const LANGUAGE_CODE_PATTERN = /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i;
         const THEME_ID_PATTERN = /^[a-z0-9-]+$/i;
         const PROFILE_QUERY_PARAM = 'profile';
@@ -414,7 +417,7 @@
             const viewportPadding = 12;
             const minWidth = 220;
             const availableWidth = Math.max(minWidth, window.innerWidth - (viewportPadding * 2));
-            const popoverWidth = Math.min(Math.max(fieldRect.width, minWidth), availableWidth);
+            const popoverWidth = Math.round(Math.min(Math.max(fieldRect.width, minWidth), availableWidth));
             const left = Math.min(
                 Math.max(viewportPadding, fieldRect.left),
                 Math.max(viewportPadding, window.innerWidth - viewportPadding - popoverWidth)
@@ -454,7 +457,15 @@
 
         function getProfileFilterValue() {
             const { input } = getProfileSelectorElements();
-            return input ? input.value.trim().toLowerCase() : '';
+            if (!input) {
+                return '';
+            }
+
+            const currentValue = input.value.trim();
+            const selectedLabel = (input.dataset.selectedLabel || '').trim();
+            return currentValue && currentValue !== selectedLabel
+                ? currentValue.toLowerCase()
+                : '';
         }
 
         function syncProfileSelectorInputValue() {
@@ -560,7 +571,11 @@
 
             root.dataset.bound = 'true';
             input.addEventListener('focus', () => {
-                renderProfileSelectorOptions(input.value);
+                renderProfileSelectorOptions('');
+                setProfileSelectorOpen(true);
+            });
+            input.addEventListener('click', () => {
+                renderProfileSelectorOptions('');
                 setProfileSelectorOpen(true);
             });
             input.addEventListener('input', handleProfileSelectorInput);
@@ -608,7 +623,7 @@
                 if (isOpen) {
                     resetProfileSelector();
                 } else {
-                    renderProfileSelectorOptions(input.value);
+                    renderProfileSelectorOptions('');
                     setProfileSelectorOpen(true);
                     input.focus();
                     input.select();
@@ -958,22 +973,99 @@
             }
         }
 
-        function setToolingPanelCollapsed(isCollapsed) {
+        function stopToolingPanelAnimation(controls) {
+            if (!controls) {
+                return;
+            }
+
+            controls.dataset.animating = 'false';
+
+            if (controls._toolingPanelTransitionEndHandler) {
+                controls.removeEventListener('transitionend', controls._toolingPanelTransitionEndHandler);
+                controls._toolingPanelTransitionEndHandler = null;
+            }
+        }
+
+        function setToolingPanelCollapsed(isCollapsed, options = {}) {
             const { panel, controls, toggle } = getToolingPanelElements();
             if (!panel || !controls || !toggle) {
                 return;
             }
 
+            const animate = options.animate !== false;
+            stopToolingPanelAnimation(controls);
+
+            if (!animate) {
+                panel.dataset.collapsed = isCollapsed ? 'true' : 'false';
+                controls.setAttribute('aria-hidden', isCollapsed ? 'true' : 'false');
+                controls.inert = isCollapsed;
+                controls.dataset.animating = 'false';
+                controls.style.transition = 'none';
+                controls.style.height = isCollapsed ? '0px' : 'auto';
+                controls.style.opacity = isCollapsed ? '0' : '1';
+                controls.style.transform = isCollapsed ? 'translateY(-8px)' : 'translateY(0)';
+                controls.style.pointerEvents = isCollapsed ? 'none' : 'auto';
+                void controls.offsetHeight;
+                controls.style.removeProperty('transition');
+                toggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+                updateToolingPanelToggleText(isCollapsed);
+
+                if (isCollapsed) {
+                    setProfileSelectorOpen(false);
+                }
+
+                return;
+            }
+
+            const currentHeight = Math.max(0, Math.round(controls.getBoundingClientRect().height || controls.scrollHeight));
+
+            controls.style.height = `${currentHeight}px`;
+            controls.style.opacity = isCollapsed ? '1' : '0';
+            controls.style.transform = isCollapsed ? 'translateY(0)' : 'translateY(-8px)';
+            controls.style.pointerEvents = 'none';
+            controls.inert = false;
+            controls.setAttribute('aria-hidden', 'false');
+            controls.dataset.animating = 'true';
+
+            void controls.offsetHeight;
             panel.dataset.collapsed = isCollapsed ? 'true' : 'false';
-            controls.hidden = isCollapsed;
-            controls.toggleAttribute('hidden', isCollapsed);
-            controls.setAttribute('aria-hidden', isCollapsed ? 'true' : 'false');
             toggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
             updateToolingPanelToggleText(isCollapsed);
 
             if (isCollapsed) {
                 setProfileSelectorOpen(false);
             }
+
+            const targetHeight = isCollapsed
+                ? 0
+                : Math.max(0, Math.round(controls.scrollHeight));
+
+            controls.style.height = `${targetHeight}px`;
+            controls.style.opacity = isCollapsed ? '0' : '1';
+            controls.style.transform = isCollapsed ? 'translateY(-8px)' : 'translateY(0)';
+
+            const onTransitionEnd = event => {
+                if (event.target !== controls || event.propertyName !== 'height') {
+                    return;
+                }
+
+                stopToolingPanelAnimation(controls);
+                controls.setAttribute('aria-hidden', isCollapsed ? 'true' : 'false');
+                controls.inert = isCollapsed;
+                controls.style.height = isCollapsed ? '0px' : 'auto';
+                controls.style.opacity = isCollapsed ? '0' : '1';
+                controls.style.transform = isCollapsed ? 'translateY(-8px)' : 'translateY(0)';
+                controls.style.pointerEvents = isCollapsed ? 'none' : 'auto';
+            };
+
+            controls._toolingPanelTransitionEndHandler = onTransitionEnd;
+            controls.addEventListener('transitionend', onTransitionEnd);
+
+            window.setTimeout(() => {
+                if (controls.dataset.animating === 'true') {
+                    onTransitionEnd({ target: controls, propertyName: 'height' });
+                }
+            }, CONTROLS_PANEL_ANIMATION_MS + 40);
         }
 
         function bindToolingPanelToggle() {
@@ -1456,7 +1548,7 @@
                 createProfileSwitcher();
                 createLanguageSwitcher();
                 createThemeSwitcher();
-                setToolingPanelCollapsed(getStoredControlsCollapsed());
+                setToolingPanelCollapsed(getStoredControlsCollapsed(), { animate: false });
 
                 const storedTheme = getStoredTheme();
                 const initialTheme = availableThemes.some(theme => theme.id === storedTheme) ? storedTheme : defaultTheme;

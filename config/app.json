@@ -27,7 +27,7 @@
     }
   ],
   "defaults": {
-    "profile": "nikolay-nakoreshko",
+    "profile": "hide-the-pain-harold",
     "language": "en",
     "theme": "meadow"
   },
@@ -39,6 +39,11 @@
       "id": "nikolay-nakoreshko",
       "label": "Nikolay Nakoreshko",
       "path": "profiles/nikolay-nakoreshko"
+    },
+    {
+      "id": "hide-the-pain-harold",
+      "label": "Hide the Pain Harold",
+      "path": "profiles/hide-the-pain-harold"
     }
   ],
   "integrations": {

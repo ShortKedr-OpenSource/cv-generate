@@ -4,6 +4,7 @@
   "toolingDescription": "переключайте язык, тему и варианты экспорта в одном блоке.",
   "showControls": "Показать управление",
   "hideControls": "Скрыть управление",
+  "profileLabel": "Профиль",
   "profileNoResults": "Подходящих профилей нет",
   "languageLabel": "Язык",
   "themeLabel": "Тема",

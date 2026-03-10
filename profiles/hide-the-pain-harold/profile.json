@@ -1,0 +1,15 @@
+{
+  "id": "hide-the-pain-harold",
+  "label": "Hide the Pain Harold",
+  "defaultLanguage": "en",
+  "contacts": {
+    "email": "harold@example.com",
+    "linkedin": "https://www.linkedin.com/"
+  },
+  "languages": [
+    "ru",
+    "en",
+    "de"
+  ],
+  "assetsPath": "assets/"
+}

@@ -1524,14 +1524,27 @@ body {
 }
 
 .tooling-panel-controls {
+    overflow: hidden;
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+    transform-origin: top center;
+    will-change: height, opacity, transform;
+    transition: height 0.28s ease, opacity 0.22s ease, transform 0.28s ease;
+}
+
+.tooling-panel-controls-inner {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.9fr) minmax(260px, 1fr);
     gap: 14px;
     align-items: stretch;
+    padding-top: 2px;
 }
 
-.tooling-panel-controls[hidden] {
-    display: none !important;
+.tooling-panel[data-collapsed="true"] .tooling-panel-controls {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
 }
 
 .tool-group,
@@ -1661,6 +1674,7 @@ body {
 .profile-selector-popover {
     position: fixed;
     z-index: 2000;
+    box-sizing: border-box;
     padding: 8px;
     border: 1px solid color-mix(in srgb, var(--selector-border) 88%, transparent);
     border-radius: 16px;
@@ -1671,16 +1685,21 @@ body {
 }
 
 .profile-selector-list {
+    width: 100%;
     max-height: min(220px, 40vh);
     margin: 0;
     padding: 0;
     list-style: none;
     overflow: auto;
     display: grid;
+    justify-items: stretch;
     gap: 4px;
 }
 
 .profile-selector-option {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px 12px;
     border-radius: 12px;
     color: var(--selector-text);
@@ -1773,6 +1792,10 @@ body {
     }
 
     .tooling-panel-controls {
+        gap: 14px;
+    }
+
+    .tooling-panel-controls-inner {
         grid-template-columns: 1fr;
         gap: 14px;
     }
