@@ -3,5 +3,8 @@ npm-debug.log
 .git
 .gitignore
 .idea
+.tools
+.codex
+.github
 *.tmp
 *.log

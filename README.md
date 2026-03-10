@@ -28,6 +28,7 @@ Core files and folders:
 - `styles/themes/*.css`: theme stylesheets registered in config
 - `styles/cv.css`: shared CV layout and print styles
 - `scripts/static-preview.js`: optional local static preview helper
+- `.github/workflows/deploy-pages.yml`: GitHub Pages deployment workflow
 - `Dockerfile`, `nginx.conf`: static hosting baseline
 - `.idea/runConfigurations/`: shared WebStorm run configurations
 
@@ -48,11 +49,18 @@ Current repository baseline:
 
 - Languages: `ru`, `en`, `de`
 - Themes: `default` (`Sky`), `graphite`, `sand`, `meadow`
-- Default language: `ru`
-- Default theme: `default`
+- Default language: `en`
+- Default theme: `meadow`
 - ATS provider: `enhancv`
 
 The public app loads `config/app.json` at runtime and falls back to embedded defaults when needed. Theme registration should stay in config, while actual CSS remains in `styles/themes/*.css`.
+
+Runtime safety expectations:
+
+- language codes must stay compatible with `locales/<code>.json`
+- theme stylesheets must be relative paths under `styles/themes/`
+- ATS provider URLs must use `https`
+- invalid runtime config falls back to embedded safe defaults instead of being trusted
 
 ## Running locally
 
@@ -82,23 +90,34 @@ If Node is available globally:
 npm start
 ```
 
-If you want to use the portable Node bundled in `.tools/node`:
-
-```powershell
-.\.tools\node\npm.cmd start
-```
-
 Direct preview helper start:
 
 ```powershell
-.\.tools\node\node.exe .\scripts\static-preview.js
+node .\scripts\static-preview.js
 ```
 
 Open the public app at `http://localhost:8080`.
 
+If you keep your own untracked local tooling in `.tools`, treat it as a machine-local convenience only. It is not part of the git-tracked project baseline and is not used by the documented default workflow.
+
 ### Static hosting
 
 The supported runtime is any standard static HTTP host or CDN that serves the repository files as static assets.
+
+### GitHub Pages
+
+GitHub Pages is the primary production deployment target for this repository.
+
+- The included workflow publishes only the public runtime assets needed by the app.
+- Runtime asset and config paths are relative, so the app can work both at the domain root and at a repository subpath.
+- `nginx.conf` security headers do not apply on GitHub Pages, so client-side config validation is part of the production security model.
+
+Deployment flow:
+
+1. Enable GitHub Pages in the repository settings.
+2. Set the source to `GitHub Actions`.
+3. Push to `main`.
+4. Let `.github/workflows/deploy-pages.yml` publish the static app.
 
 ### Docker
 
@@ -108,6 +127,8 @@ docker run --rm -p 8080:80 cv-generate
 ```
 
 Open `http://localhost:8080`.
+
+Docker remains an optional static-host baseline for local or alternate hosting. It is no longer the primary production deployment path.
 
 ## Public runtime behavior
 
@@ -189,6 +210,8 @@ When changing runtime or config-related behavior, verify:
 - `config/app.json` is served correctly
 - locale JSON files are served correctly
 - theme CSS files are served correctly
+- GitHub Pages deployment publishes only `index.html`, `config/`, `locales/`, and `styles/`
+- the app works from a repository subpath as well as from `/`
 - screen rendering, mobile rendering, and PDF export remain aligned
 
 ## Contributor notes

@@ -45,8 +45,7 @@
 ## Run commands
 - Preferred WebStorm run configs: `CV App Preview + Browser`, `CV App Preview`, `CV App Browser`
 - Preferred local CLI preview: `npm start`
-- Portable Node preview: `.\.tools\node\npm.cmd start`
-- Direct preview helper start: `.\.tools\node\node.exe .\scripts\static-preview.js`
+- Direct preview helper start: `node .\scripts\static-preview.js`
 - Docker start: `docker build -t cv-generate .` then `docker run --rm -p 8080:80 cv-generate`
 
 ## Validation
@@ -54,3 +53,4 @@
 - Verify that `config/app.json`, theme CSS files, and locale JSON files are served correctly.
 - Keep screen layout and PDF export behavior aligned with product expectations.
 - Keep the shared WebStorm run configuration valid when IDE workflow is part of the project.
+- For GitHub Pages, remember that `nginx.conf` headers do not apply; app-side validation must enforce link and theme safety.

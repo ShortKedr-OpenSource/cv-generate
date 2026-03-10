@@ -1,7 +1,10 @@
 FROM nginx:1.27-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY . /usr/share/nginx/html
+COPY index.html /usr/share/nginx/html/index.html
+COPY config /usr/share/nginx/html/config
+COPY locales /usr/share/nginx/html/locales
+COPY styles /usr/share/nginx/html/styles
 
 EXPOSE 80
 

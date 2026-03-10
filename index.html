@@ -359,6 +359,8 @@
         };
 
         const THEME_STORAGE_KEY = 'cv-app-theme';
+        const LANGUAGE_CODE_PATTERN = /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i;
+        const THEME_ID_PATTERN = /^[a-z0-9-]+$/i;
         let cvTranslations = {};
         let systemTranslations = {};
         let supportedLangs = embeddedAppConfig.languages.slice();
@@ -376,6 +378,64 @@
                 : { enabled: false, providerId: '', providers: [] };
         }
 
+        function isSafeLanguageCode(value) {
+            return typeof value === 'string' && LANGUAGE_CODE_PATTERN.test(value);
+        }
+
+        function isSafeThemeId(value) {
+            return typeof value === 'string' && THEME_ID_PATTERN.test(value);
+        }
+
+        function isSafeThemeStylesheet(value) {
+            if (typeof value !== 'string' || !value.startsWith('styles/themes/')) {
+                return false;
+            }
+
+            if (!value.endsWith('.css') || value.includes('..') || value.includes('\\')) {
+                return false;
+            }
+
+            return !/^(?:[a-z]+:)?\/\//i.test(value) && !value.startsWith('/');
+        }
+
+        function isSafeHttpsUrl(value) {
+            if (typeof value !== 'string') {
+                return false;
+            }
+
+            try {
+                return new URL(value).protocol === 'https:';
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function normalizeTheme(theme) {
+            if (!theme || typeof theme !== 'object') {
+                return null;
+            }
+
+            if (!isSafeThemeId(theme.id) || typeof theme.label !== 'string' || !theme.label.trim()) {
+                return null;
+            }
+
+            if (!isSafeThemeStylesheet(theme.stylesheet)) {
+                return null;
+            }
+
+            return {
+                id: theme.id,
+                label: theme.label,
+                stylesheet: theme.stylesheet
+            };
+        }
+
+        function clearChildren(element) {
+            if (element) {
+                element.replaceChildren();
+            }
+        }
+
         function normalizeAtsIntegration(config) {
             const fallback = getEmbeddedAtsConfig();
             const source = config && typeof config === 'object' ? config : fallback;
@@ -383,7 +443,7 @@
                 ? source.providers.filter(provider => provider
                     && typeof provider.id === 'string'
                     && typeof provider.label === 'string'
-                    && typeof provider.url === 'string')
+                    && isSafeHttpsUrl(provider.url))
                 : fallback.providers;
 
             return {
@@ -409,12 +469,21 @@
         }
 
         function syncConfigState(config) {
-            supportedLangs = Array.isArray(config.languages) && config.languages.length
-                ? config.languages
+            supportedLangs = Array.isArray(config.languages)
+                ? config.languages.filter(isSafeLanguageCode)
                 : embeddedAppConfig.languages.slice();
-            availableThemes = Array.isArray(config.themes) && config.themes.length
-                ? config.themes
+
+            if (!supportedLangs.length) {
+                supportedLangs = embeddedAppConfig.languages.slice();
+            }
+
+            availableThemes = Array.isArray(config.themes)
+                ? config.themes.map(normalizeTheme).filter(Boolean)
                 : embeddedAppConfig.themes.slice();
+
+            if (!availableThemes.length) {
+                availableThemes = embeddedAppConfig.themes.slice();
+            }
 
             const configuredDefaultLanguage = config.defaults && typeof config.defaults.language === 'string'
                 ? config.defaults.language
@@ -456,6 +525,10 @@
         }
 
         async function loadCvTranslationFromFile(lang) {
+            if (!isSafeLanguageCode(lang)) {
+                throw new Error(`Unsupported language code: ${lang}`);
+            }
+
             if (cvTranslations[lang]) {
                 return;
             }
@@ -477,6 +550,10 @@
         }
 
         async function loadSystemTranslationFromFile(lang) {
+            if (!isSafeLanguageCode(lang)) {
+                throw new Error(`Unsupported language code: ${lang}`);
+            }
+
             if (systemTranslations[lang]) {
                 return;
             }
@@ -553,7 +630,7 @@
 
         function createLanguageSwitcher() {
             const switcher = document.querySelector('.language-switcher');
-            switcher.innerHTML = '';
+            clearChildren(switcher);
             supportedLangs.forEach(lang => {
                 const button = document.createElement('button');
                 button.type = 'button';
@@ -565,7 +642,7 @@
 
         function createThemeSwitcher() {
             const switcher = document.querySelector('.theme-switcher');
-            switcher.innerHTML = '';
+            clearChildren(switcher);
             availableThemes.forEach(theme => {
                 const button = document.createElement('button');
                 button.type = 'button';
@@ -593,7 +670,7 @@
         }
 
         async function loadThemeStylesheet(theme) {
-            if (!theme || !theme.stylesheet) {
+            if (!theme || !theme.stylesheet || !isSafeThemeStylesheet(theme.stylesheet)) {
                 throw new Error('Theme stylesheet is not configured');
             }
 
@@ -734,19 +811,19 @@
                         value = value[k];
                     }
                     if (value !== undefined && typeof value === 'string') {
-                        el.innerHTML = value;
+                        el.textContent = value;
                     } else if (value === undefined) {
-                        el.innerHTML = '';
+                        el.textContent = '';
                     }
                 } catch (e) {
-                    el.innerHTML = '';
+                    el.textContent = '';
                 }
             });
 
             document.querySelectorAll('[data-system-translate]').forEach(el => {
                 const key = el.getAttribute('data-system-translate');
                 const value = systemData[key];
-                el.innerHTML = typeof value === 'string' ? value : '';
+                el.textContent = typeof value === 'string' ? value : '';
             });
 
             updateAtsPrintView(cvData);
@@ -777,7 +854,7 @@
             }
 
             const skillsList = document.getElementById('skills-list');
-            skillsList.innerHTML = '';
+            clearChildren(skillsList);
             if (cvData.skills) {
                 cvData.skills.forEach(skill => {
                     const li = document.createElement('li');
@@ -787,7 +864,7 @@
             }
 
             const languagesList = document.getElementById('languages-list');
-            languagesList.innerHTML = '';
+            clearChildren(languagesList);
             if (cvData.languages) {
                 cvData.languages.forEach(language => {
                     const li = document.createElement('li');
@@ -797,7 +874,7 @@
             }
 
             const summaryContent = document.getElementById('summary-content');
-            summaryContent.innerHTML = '';
+            clearChildren(summaryContent);
             if (cvData.summary) {
                 cvData.summary.forEach(pText => {
                     const p = document.createElement('p');
@@ -807,19 +884,39 @@
             }
 
             const experienceContent = document.getElementById('experience-content');
-            experienceContent.innerHTML = '';
+            clearChildren(experienceContent);
             if (cvData.experience) {
                 cvData.experience.forEach(job => {
                     const jobDiv = document.createElement('div');
                     jobDiv.className = 'job';
-                    jobDiv.innerHTML = `
-                        <div class="job-company-date">
-                            <span class="job-company">${job.company}</span>
-                            <span class="job-date">${job.date}</span>
-                        </div>
-                        <h3 class="job-title">${job.title}</h3>
-                        ${job.description ? `<p class="job-description">${job.description}</p>` : ''}
-                    `;
+
+                    const companyDate = document.createElement('div');
+                    companyDate.className = 'job-company-date';
+
+                    const company = document.createElement('span');
+                    company.className = 'job-company';
+                    company.textContent = job.company || '';
+
+                    const date = document.createElement('span');
+                    date.className = 'job-date';
+                    date.textContent = job.date || '';
+
+                    const title = document.createElement('h3');
+                    title.className = 'job-title';
+                    title.textContent = job.title || '';
+
+                    companyDate.appendChild(company);
+                    companyDate.appendChild(date);
+                    jobDiv.appendChild(companyDate);
+                    jobDiv.appendChild(title);
+
+                    if (job.description) {
+                        const description = document.createElement('p');
+                        description.className = 'job-description';
+                        description.textContent = job.description;
+                        jobDiv.appendChild(description);
+                    }
+
                     experienceContent.appendChild(jobDiv);
                 });
             }
@@ -830,7 +927,7 @@
                 return;
             }
 
-            element.innerHTML = '';
+            clearChildren(element);
             (items || []).forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;
@@ -877,7 +974,7 @@
             setText('.ats-print-gdpr', cvData.gdpr);
 
             if (summaryContainer) {
-                summaryContainer.innerHTML = '';
+                clearChildren(summaryContainer);
                 (cvData.summary || []).forEach(item => {
                     const paragraph = document.createElement('p');
                     paragraph.textContent = item;
@@ -886,7 +983,7 @@
             }
 
             if (experienceContainer) {
-                experienceContainer.innerHTML = '';
+                clearChildren(experienceContainer);
                 (cvData.experience || []).forEach(job => {
                     const jobBlock = document.createElement('article');
                     jobBlock.className = 'ats-print-job';

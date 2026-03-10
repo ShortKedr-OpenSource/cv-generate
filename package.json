@@ -4,7 +4,7 @@
   "private": true,
   "description": "Static CV web app with multilingual support, themes, and PDF export",
   "scripts": {
-    "start": "set PATH=.\\.tools\\node;%PATH%&& node scripts/static-preview.js",
-    "preview": "set PATH=.\\.tools\\node;%PATH%&& node scripts/static-preview.js"
+    "start": "node scripts/static-preview.js",
+    "preview": "node scripts/static-preview.js"
   }
 }
