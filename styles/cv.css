@@ -67,6 +67,32 @@ body {
     padding: 32px 20px;
 }
 
+.build-watermark {
+    position: fixed;
+    right: 18px;
+    bottom: 14px;
+    z-index: 20;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--panel-strong) 62%, transparent);
+    border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+    color: color-mix(in srgb, var(--muted) 72%, transparent);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.55;
+}
+
+.build-watermark[hidden] {
+    display: none;
+}
+
 .shell {
     width: min(1160px, 100%);
     margin: 0 auto;
@@ -519,6 +545,10 @@ body {
 }
 
 @media print {
+    .build-watermark {
+        display: none !important;
+    }
+
     .ats-print-view {
         display: none !important;
     }

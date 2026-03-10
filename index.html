@@ -198,16 +198,19 @@
             <p class="ats-print-gdpr"></p>
         </section>
     </div>
+    <div class="build-watermark" aria-hidden="true" hidden></div>
 
     <script>
         // Встроенные данные локализации (резервные для работы в локальном режиме без сервера)
         const THEME_STORAGE_KEY = 'cv-app-theme';
         const LANGUAGE_STORAGE_KEY = 'cv-app-language';
         const CONTROLS_PANEL_STORAGE_KEY = 'cv-app-controls-collapsed';
+        const APP_VERSION_STORAGE_KEY = 'cv-app-build-hash';
         const CONTROLS_PANEL_ANIMATION_MS = 280;
         const LANGUAGE_CODE_PATTERN = /^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i;
         const THEME_ID_PATTERN = /^[a-z0-9-]+$/i;
         const PROFILE_QUERY_PARAM = 'profile';
+        const VERSION_QUERY_PARAM = 'v';
         let cvTranslations = {};
         let profileMetadata = {};
         let systemTranslations = {};
@@ -224,6 +227,8 @@
         let activeProfileId = '';
         let filteredProfiles = [];
         let highlightedProfileIndex = -1;
+        let appVersion = '';
+        let appBuildHash = '';
 
         function isSafeLanguageCode(value) {
             return typeof value === 'string' && LANGUAGE_CODE_PATTERN.test(value);
@@ -275,6 +280,63 @@
             }
 
             return !/^(?:[a-z]+:)?\/\//i.test(value) && !value.startsWith('/');
+        }
+
+        function appendVersionParam(path) {
+            if (typeof path !== 'string' || !path) {
+                return path;
+            }
+
+            const cacheKey = appBuildHash || appVersion;
+            if (!cacheKey) {
+                return path;
+            }
+
+            const url = new URL(path, window.location.href);
+            url.searchParams.set(VERSION_QUERY_PARAM, cacheKey);
+
+            return url.origin === window.location.origin
+                ? `${url.pathname}${url.search}${url.hash}`
+                : url.toString();
+        }
+
+        function syncProjectVersion(config) {
+            appVersion = config && typeof config.version === 'string'
+                ? config.version.trim()
+                : '';
+            appBuildHash = config && typeof config.buildHash === 'string'
+                ? config.buildHash.trim()
+                : '';
+
+            const cacheKey = appBuildHash || appVersion;
+
+            if (!cacheKey) {
+                return false;
+            }
+
+            const storedVersion = window.localStorage.getItem(APP_VERSION_STORAGE_KEY) || '';
+            const currentUrl = new URL(window.location.href);
+            const currentQueryVersion = currentUrl.searchParams.get(VERSION_QUERY_PARAM) || '';
+
+            if (storedVersion !== cacheKey || currentQueryVersion !== cacheKey) {
+                window.localStorage.setItem(APP_VERSION_STORAGE_KEY, cacheKey);
+                currentUrl.searchParams.set(VERSION_QUERY_PARAM, cacheKey);
+                window.location.replace(currentUrl.toString());
+                return true;
+            }
+
+            return false;
+        }
+
+        function updateBuildWatermark() {
+            const watermark = document.querySelector('.build-watermark');
+            if (!watermark) {
+                return;
+            }
+
+            const buildLabel = appBuildHash || appVersion;
+            watermark.textContent = buildLabel ? `build ${buildLabel}` : '';
+            watermark.hidden = !buildLabel;
         }
 
         function isSafeAssetPath(value) {
@@ -770,6 +832,9 @@
             }
 
             const config = await response.json();
+            if (syncProjectVersion(config)) {
+                return false;
+            }
             syncConfigState(config);
             cvTranslations = {};
             profileMetadata = {};
@@ -777,7 +842,9 @@
             selectedTheme = defaultTheme;
             activeLanguage = defaultLanguage;
             activeProfileId = defaultProfileId;
+            updateBuildWatermark();
             console.log('✓ Application config loaded from config/app.json');
+            return true;
         }
 
         async function loadProfileMetaFromFile(profileId) {
@@ -791,7 +858,7 @@
             }
 
             try {
-                const response = await fetch(`${profile.path}/profile.json`, { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`${profile.path}/profile.json`), { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -817,7 +884,7 @@
             cvTranslations[profileId] = cvTranslations[profileId] || {};
 
             try {
-                const response = await fetch(`${profile.path}/locales/${lang}.json`, { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`${profile.path}/locales/${lang}.json`), { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -860,7 +927,7 @@
             }
 
             try {
-                const response = await fetch(`locales/system/${lang}.json`, { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`locales/system/${lang}.json`), { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1231,7 +1298,7 @@
             photoImage.onload = () => {
                 photoImage.hidden = false;
             };
-            photoImage.src = `${photoPath}${photoPath.includes('?') ? '&' : '?'}v=${Date.now()}`;
+            photoImage.src = appendVersionParam(photoPath);
             photoImage.alt = meta && meta.label ? `${meta.label} portrait` : 'Profile portrait';
             photoDescription.textContent = description;
         }
@@ -1241,7 +1308,7 @@
                 throw new Error('Theme stylesheet is not configured');
             }
 
-            const href = theme.stylesheet;
+            const href = appendVersionParam(theme.stylesheet);
             const link = getThemeStylesheetLink();
             if (!link) {
                 throw new Error('Theme stylesheet link is missing');
@@ -1612,7 +1679,10 @@
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 setExportMode('default');
-                await loadAppConfig();
+                const didLoadConfig = await loadAppConfig();
+                if (!didLoadConfig) {
+                    return;
+                }
                 const requestedProfileId = getRequestedProfileId();
                 const initialProfile = getProfileConfig(requestedProfileId) || getProfileConfig(defaultProfileId);
                 if (!initialProfile) {

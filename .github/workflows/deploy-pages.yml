@@ -38,6 +38,12 @@ jobs:
           cp -R profiles dist/profiles
           cp -R styles dist/styles
 
+      - name: Stamp app version with commit hash
+        env:
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          node -e "const fs=require('fs'); const path='dist/config/app.json'; const data=JSON.parse(fs.readFileSync(path,'utf8')); data.buildHash=process.env.GIT_SHA.slice(0,7); fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n');"
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
