@@ -31,6 +31,11 @@
     "Ich bringe legendäre Gelassenheit in Meetings, Status-Updates und jeden anderen Moment, der irgendwie zum Meme geworden ist.",
     "Dieses Profil enthält absichtlich gut erkennbare Inhalte, damit sich ein Wechsel im Selector sofort auf der gesamten Seite nachvollziehen lässt."
   ],
+  "mediaPosts": [
+    {
+      "description": "Profilbild von Hide the Pain Harold zum Testen lokalisierter Medienbeschreibungen."
+    }
+  ],
   "experienceTitle": "Berufserfahrung",
   "experience": [
     {

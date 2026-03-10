@@ -11,5 +11,11 @@
     "en",
     "de"
   ],
-  "assetsPath": "assets/"
+  "assetsPath": "assets/",
+  "mediaPosts": [
+    {
+      "type": "image",
+      "file": "img.png"
+    }
+  ]
 }

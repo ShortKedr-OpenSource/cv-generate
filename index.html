@@ -88,6 +88,10 @@
         </section>
         <div class="container">
             <aside class="sidebar">
+                <section class="profile-photo-card side-card" hidden>
+                    <img class="profile-photo-image" alt="" hidden>
+                    <p class="profile-photo-description" hidden></p>
+                </section>
                 <section class="contact-info side-card">
                     <h2 data-translate="contact">Контакт</h2>
                     <p class="contact-email-row"><a class="profile-email-link" href="mailto:shortkedr@gmail.com">shortkedr@gmail.com</a></p>
@@ -273,6 +277,18 @@
             return !/^(?:[a-z]+:)?\/\//i.test(value) && !value.startsWith('/');
         }
 
+        function isSafeAssetPath(value) {
+            if (typeof value !== 'string' || !value.trim()) {
+                return false;
+            }
+
+            if (value.includes('..') || value.includes('\\')) {
+                return false;
+            }
+
+            return !/^(?:[a-z]+:)?\/\//i.test(value) && !value.startsWith('/');
+        }
+
         function normalizeTheme(theme) {
             if (!theme || typeof theme !== 'object') {
                 return null;
@@ -322,6 +338,15 @@
                 ? source.defaultLanguage
                 : null;
             const contacts = source.contacts && typeof source.contacts === 'object' ? source.contacts : {};
+            const mediaPosts = Array.isArray(source.mediaPosts)
+                ? source.mediaPosts
+                    .filter(post => post && typeof post === 'object')
+                    .map(post => ({
+                        type: post.type === 'image' ? 'image' : '',
+                        file: isSafeAssetPath(post.file) ? post.file : ''
+                    }))
+                    .filter(post => post.type === 'image' && post.file)
+                : [];
 
             return {
                 id: profileId,
@@ -334,7 +359,9 @@
                 },
                 languages: languages.length ? languages : supportedLangs.slice(),
                 defaultLanguage: defaultProfileLanguage || defaultLanguage,
-                assetsPath: typeof source.assetsPath === 'string' ? source.assetsPath : 'assets/'
+                assetsPath: typeof source.assetsPath === 'string' ? source.assetsPath : 'assets/',
+                mediaPosts,
+                photo: isSafeAssetPath(source.photo) ? source.photo : ''
             };
         }
 
@@ -764,7 +791,7 @@
             }
 
             try {
-                const response = await fetch(`${profile.path}/profile.json`);
+                const response = await fetch(`${profile.path}/profile.json`, { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -788,12 +815,9 @@
             }
 
             cvTranslations[profileId] = cvTranslations[profileId] || {};
-            if (cvTranslations[profileId][lang]) {
-                return true;
-            }
 
             try {
-                const response = await fetch(`${profile.path}/locales/${lang}.json`);
+                const response = await fetch(`${profile.path}/locales/${lang}.json`, { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -835,11 +859,8 @@
                 throw new Error(`Unsupported language code: ${lang}`);
             }
 
-            if (systemTranslations[lang]) {
-                return;
-            }
             try {
-                const response = await fetch(`locales/system/${lang}.json`);
+                const response = await fetch(`locales/system/${lang}.json`, { cache: 'no-cache' });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1159,6 +1180,62 @@
             }
         }
 
+        function updateProfilePhoto(cvData) {
+            const meta = getActiveProfileMeta();
+            const photoCard = document.querySelector('.profile-photo-card');
+            const photoImage = document.querySelector('.profile-photo-image');
+            const photoDescription = document.querySelector('.profile-photo-description');
+
+            if (!photoCard || !photoImage || !photoDescription) {
+                return;
+            }
+
+            const profile = getProfileConfig(activeProfileId);
+            const assetsPath = meta && typeof meta.assetsPath === 'string' ? meta.assetsPath.replace(/^\/+|\/+$/g, '') : 'assets';
+            const primaryMediaPost = meta && Array.isArray(meta.mediaPosts) && meta.mediaPosts.length
+                ? meta.mediaPosts[0]
+                : null;
+            const photoFile = primaryMediaPost && primaryMediaPost.file
+                ? primaryMediaPost.file
+                : meta && meta.photo;
+            const photoPath = photoFile && profile
+                ? `${profile.path}/${assetsPath}/${photoFile.replace(/^\/+/, '')}`
+                : '';
+            const localizedMediaPosts = cvData && Array.isArray(cvData.mediaPosts) ? cvData.mediaPosts : [];
+            const localizedPrimaryMediaPost = localizedMediaPosts.length ? localizedMediaPosts[0] : null;
+            const description = localizedPrimaryMediaPost && typeof localizedPrimaryMediaPost.description === 'string'
+                ? localizedPrimaryMediaPost.description.trim()
+                : '';
+
+            photoCard.hidden = !photoPath;
+            photoImage.hidden = !photoPath;
+            photoDescription.hidden = !description;
+
+            if (!photoPath) {
+                photoImage.removeAttribute('src');
+                photoImage.removeAttribute('alt');
+                photoDescription.textContent = '';
+                return;
+            }
+
+            photoCard.hidden = false;
+            photoImage.hidden = false;
+            photoImage.onerror = () => {
+                photoImage.hidden = true;
+                photoImage.removeAttribute('src');
+                if (!photoDescription.textContent) {
+                    photoDescription.textContent = 'Image could not be loaded.';
+                    photoDescription.hidden = false;
+                }
+            };
+            photoImage.onload = () => {
+                photoImage.hidden = false;
+            };
+            photoImage.src = `${photoPath}${photoPath.includes('?') ? '&' : '?'}v=${Date.now()}`;
+            photoImage.alt = meta && meta.label ? `${meta.label} portrait` : 'Profile portrait';
+            photoDescription.textContent = description;
+        }
+
         async function loadThemeStylesheet(theme) {
             if (!theme || !theme.stylesheet || !isSafeThemeStylesheet(theme.stylesheet)) {
                 throw new Error('Theme stylesheet is not configured');
@@ -1342,6 +1419,7 @@
             });
 
             updateProfileContactInfo(cvData);
+            updateProfilePhoto(cvData);
             updateAtsPrintView(cvData);
             updateToolingPanelToggleText(document.querySelector('.tooling-panel')?.dataset.collapsed === 'true');
 

@@ -31,6 +31,11 @@
     "I bring a legendary level of composure to meetings, status updates, and every other moment that somehow became a meme.",
     "This profile intentionally includes distinct copy so it is easy to verify that selector changes are reflected across the full page."
   ],
+  "mediaPosts": [
+    {
+      "description": "Hide the Pain Harold profile image used for testing localized media captions."
+    }
+  ],
   "experienceTitle": "Work Experience",
   "experience": [
     {
