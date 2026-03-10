@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p dist
           mkdir -p dist/scripts
+          cp favicon.ico dist/favicon.ico
           cp index.html dist/index.html
           cp -R config dist/config
           cp -R locales dist/locales
