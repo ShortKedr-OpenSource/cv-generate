@@ -858,7 +858,7 @@
             }
 
             try {
-                const response = await fetch(appendVersionParam(`${profile.path}/profile.json`), { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`${profile.path}/profile.json`));
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -884,7 +884,7 @@
             cvTranslations[profileId] = cvTranslations[profileId] || {};
 
             try {
-                const response = await fetch(appendVersionParam(`${profile.path}/locales/${lang}.json`), { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`${profile.path}/locales/${lang}.json`));
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -927,7 +927,7 @@
             }
 
             try {
-                const response = await fetch(appendVersionParam(`locales/system/${lang}.json`), { cache: 'no-cache' });
+                const response = await fetch(appendVersionParam(`locales/system/${lang}.json`));
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -1319,7 +1319,7 @@
                 return;
             }
 
-            const response = await fetch(href, { cache: 'no-cache' });
+            const response = await fetch(href);
             if (!response.ok) {
                 throw new Error(`Theme CSS request failed with status ${response.status}`);
             }
