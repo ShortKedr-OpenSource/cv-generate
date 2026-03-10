@@ -129,8 +129,9 @@ body {
 }
 
 .profile-photo-card {
-    width: 100%;
+    width: auto;
     max-width: 100%;
+    min-width: 0;
     padding: 10px;
     overflow: hidden;
     background:
@@ -143,8 +144,8 @@ body {
     width: 100%;
     max-width: 100%;
     max-height: min(42vh, 320px);
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     border-radius: 14px;
     border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
     box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
@@ -156,6 +157,7 @@ body {
     color: var(--detail-text);
     font-size: 12px;
     line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .language-switcher,
@@ -629,6 +631,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .contact-info,
     .summary,
     .experience,
@@ -1009,6 +1012,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .contact-info,
     .summary,
     .experience,
@@ -1032,14 +1036,15 @@ body {
     .actions { order: 4; }
     .ats-info { order: 5; }
     .header { order: 6; }
-    .contact-info { order: 7; }
-    .summary { order: 8; }
-    .experience { order: 9; }
-    .skills { order: 10; }
-    .languages { order: 11; }
-    .certifications { order: 12; }
-    .education { order: 13; }
-    .gdpr-compliance { order: 14; }
+    .profile-photo-card { order: 7; }
+    .contact-info { order: 8; }
+    .summary { order: 9; }
+    .experience { order: 10; }
+    .skills { order: 11; }
+    .languages { order: 12; }
+    .certifications { order: 13; }
+    .education { order: 14; }
+    .gdpr-compliance { order: 15; }
 
     .language-switcher,
     .theme-switcher {
@@ -1107,6 +1112,7 @@ body {
     }
 
     .contact-info,
+    .profile-photo-card,
     .summary,
     .experience,
     .skills,
@@ -1172,6 +1178,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .side-card,
     .section {
         padding: 16px;
@@ -1182,6 +1189,7 @@ body {
     }
 
     .contact-info,
+    .profile-photo-card,
     .summary,
     .experience,
     .skills,
@@ -1224,6 +1232,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .contact-info,
     .summary,
     .experience,
@@ -1247,14 +1256,15 @@ body {
     .actions { order: 4; }
     .ats-info { order: 5; }
     .header { order: 6; }
-    .contact-info { order: 7; }
-    .summary { order: 8; }
-    .experience { order: 9; }
-    .skills { order: 10; }
-    .languages { order: 11; }
-    .certifications { order: 12; }
-    .education { order: 13; }
-    .gdpr-compliance { order: 14; }
+    .profile-photo-card { order: 7; }
+    .contact-info { order: 8; }
+    .summary { order: 9; }
+    .experience { order: 10; }
+    .skills { order: 11; }
+    .languages { order: 12; }
+    .certifications { order: 13; }
+    .education { order: 14; }
+    .gdpr-compliance { order: 15; }
 
     .language-switcher,
     .theme-switcher {
@@ -1307,6 +1317,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .side-card,
     .section,
     .education-entry {
@@ -1314,6 +1325,7 @@ body {
     }
 
     .header,
+    .profile-photo-card,
     .side-card,
     .section {
         padding: 14px;
@@ -1327,6 +1339,7 @@ body {
     }
 
     .contact-info,
+    .profile-photo-card,
     .summary,
     .experience,
     .skills,
@@ -1341,6 +1354,10 @@ body {
 
     .gdpr-compliance {
         margin-top: 12px;
+    }
+
+    .profile-photo-image {
+        max-height: min(34vh, 240px);
     }
 
     .sidebar h2,
@@ -1840,6 +1857,10 @@ body {
         padding: 14px;
     }
 
+    .tooling-panel + .container .header {
+        margin-top: 22px;
+    }
+
     .tooling-panel-header-row {
         grid-template-columns: 1fr;
         align-items: start;
@@ -1865,6 +1886,11 @@ body {
     .tooling-panel {
         margin-left: 18px;
         margin-right: 18px;
+        padding: 16px;
+    }
+
+    .tooling-panel + .container .header {
+        margin-top: 18px;
     }
 }
 
@@ -1875,8 +1901,12 @@ body {
 
     .tooling-panel {
         margin: 0 14px;
-        padding: 12px;
+        padding: 14px;
         gap: 10px;
+    }
+
+    .tooling-panel + .container .header {
+        margin-top: 14px;
     }
 
     .tool-group,

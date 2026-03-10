@@ -1207,6 +1207,9 @@
             }
         }
 
+        window.exportPdf = exportPdf;
+        window.openAtsChecker = openAtsChecker;
+
         async function changeProfile(profileId) {
             const profile = getProfileConfig(profileId);
             if (!profile) {
