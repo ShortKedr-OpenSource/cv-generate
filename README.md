@@ -1,8 +1,8 @@
 # CV Generate
 
-CV Generate is a configurable public CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and a lightweight protected admin config view.
+CV Generate is a configurable static CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and file-based configuration.
 
-The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future protected configuration workflows.
+The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future static hosting environments.
 
 See [ROADMAP.md](./ROADMAP.md) for future product phases and planned architecture evolution.
 
@@ -15,23 +15,20 @@ See [ROADMAP.md](./ROADMAP.md) for future product phases and planned architectur
 - Default language and default theme controlled by product configuration
 - Browser print export for both the visual CV and ATS-oriented PDF layouts
 - Optional ATS checker integration configured in `config/app.json`
-- Protected read-only admin config endpoint at `/admin/config/app`
-- Minimal admin viewer page at `admin/index.html`
+- Static-host-friendly runtime with no required custom backend
 
 ## Project structure
 
 Core files and folders:
 
 - `index.html`: public CV app and client-side runtime
-- `admin/index.html`: minimal admin page for reading protected app config
 - `config/app.json`: application-level source of truth for languages, themes, defaults, profile, and integrations
 - `locales/*.json`: localized CV content
 - `locales/system/*.json`: localized system UI strings
 - `styles/themes/*.css`: theme stylesheets registered in config
 - `styles/cv.css`: shared CV layout and print styles
-- `styles/admin.css`: admin page styles
-- `server.js`: local HTTP server and protected admin config route
-- `Dockerfile`, `nginx.conf`: production hosting baseline
+- `scripts/static-preview.js`: optional local static preview helper
+- `Dockerfile`, `nginx.conf`: static hosting baseline
 - `.idea/runConfigurations/`: shared WebStorm run configurations
 
 ## Configuration model
@@ -50,7 +47,7 @@ Current top-level fields:
 Current repository baseline:
 
 - Languages: `ru`, `en`, `de`
-- Themes: `default` (`Sky`), `graphite`, `sand`
+- Themes: `default` (`Sky`), `graphite`, `sand`, `meadow`
 - Default language: `ru`
 - Default theme: `default`
 - ATS provider: `enhancv`
@@ -63,19 +60,21 @@ The public app loads `config/app.json` at runtime and falls back to embedded def
 
 Shared WebStorm run configurations are included:
 
-- `CV App Server`
+- `CV App Preview`
 - `CV App Browser`
-- `CV App Server + Browser`
+- `CV App Preview + Browser`
 
 Recommended flow:
 
 1. Open the project in WebStorm.
 2. Use the IDE-managed Node interpreter.
-3. Run `CV App Server + Browser` to start the server and open the public page.
-4. Use `CV App Server` for server-only work.
-5. Use `CV App Browser` when the server is already running.
+3. Run `CV App Preview + Browser` to start the optional static preview helper and open the public page.
+4. Use `CV App Preview` for preview-only work.
+5. Use `CV App Browser` when the app is already available at `http://localhost:8080`.
 
-### Preferred CLI start
+### Preferred CLI preview
+
+The app does not require a custom backend. For local HTTP preview, you can use the optional Node helper.
 
 If Node is available globally:
 
@@ -89,13 +88,17 @@ If you want to use the portable Node bundled in `.tools/node`:
 .\.tools\node\npm.cmd start
 ```
 
-Direct server start:
+Direct preview helper start:
 
 ```powershell
-.\.tools\node\node.exe .\server.js
+.\.tools\node\node.exe .\scripts\static-preview.js
 ```
 
 Open the public app at `http://localhost:8080`.
+
+### Static hosting
+
+The supported runtime is any standard static HTTP host or CDN that serves the repository files as static assets.
 
 ### Docker
 
@@ -132,7 +135,7 @@ Recommended browser print settings for both exports:
 
 Suggested export flow:
 
-1. Open `http://localhost:8080`.
+1. Open the app from your static host.
 2. Select the required language and theme.
 3. Click `Export PDF` or `Export ATS PDF`.
 4. In the browser print dialog, set `Margins` to `None`.
@@ -152,44 +155,6 @@ Current baseline:
 - the UI can show a disclaimer and usage hint based on provider settings
 
 If ATS integration is disabled or invalid, the public ATS checker action is hidden.
-
-## Admin config route
-
-The project includes a lightweight protected admin config endpoint:
-
-- Route: `/admin/config/app`
-- Method: `GET`
-- Access mode: read-only
-- Authentication: `Authorization: Bearer <token>` or `x-admin-token`
-- Enablement: set `ADMIN_CONFIG_TOKEN`
-- Default behavior: deny by default when no token is configured
-
-Security behavior:
-
-- non-local access requires HTTPS
-- local development on `localhost` is allowed over plain HTTP
-- invalid or missing credentials return `401 Unauthorized`
-- when admin access is not enabled, the route returns `404 Not Found`
-
-Local example:
-
-```powershell
-$env:ADMIN_CONFIG_TOKEN='dev-token'
-.\.tools\node\node.exe .\server.js
-```
-
-Then request the endpoint locally:
-
-```powershell
-Invoke-WebRequest -Uri 'http://localhost:8080/admin/config/app' -Headers @{ Authorization = 'Bearer dev-token' }
-```
-
-Or open the admin page:
-
-- [admin/index.html](./admin/index.html)
-- `http://localhost:8080/admin/`
-
-The admin page is public, but it only reads the protected route when a valid token is supplied at runtime.
 
 ## Extending the app
 
@@ -218,11 +183,9 @@ Configured defaults should always point to an existing registered language and t
 
 ## Validation checklist
 
-When changing server or config-related behavior, verify:
+When changing runtime or config-related behavior, verify:
 
-- `/` returns HTTP 200
-- `/admin/config/app` stays deny-by-default when `ADMIN_CONFIG_TOKEN` is not set
-- `/admin/config/app` returns HTTP 200 only with valid admin authentication when enabled
+- `/` returns HTTP 200 on the chosen static host or preview helper
 - `config/app.json` is served correctly
 - locale JSON files are served correctly
 - theme CSS files are served correctly
@@ -243,6 +206,7 @@ Validate a patch without applying it:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\apply-diff.ps1 .\my-change.diff -Check
 ```
+
 ## Development notes
 
 - Keep the app functional without requiring a frontend build step unless the architecture is intentionally changed.
@@ -254,6 +218,3 @@ powershell -ExecutionPolicy Bypass -File .\scripts\apply-diff.ps1 .\my-change.di
 
 - [ROADMAP.md](./ROADMAP.md): future product and architecture phases
 - [AGENTS.md](./AGENTS.md): repository-specific instructions for Codex
-
-
-

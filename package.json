@@ -2,8 +2,9 @@
   "name": "cv-generate",
   "version": "1.0.0",
   "private": true,
-  "description": "Public CV web app with multilingual support, themes, and PDF export",
+  "description": "Static CV web app with multilingual support, themes, and PDF export",
   "scripts": {
-    "start": "set PATH=.\\.tools\\node;%PATH%&& node server.js"
+    "start": "set PATH=.\\.tools\\node;%PATH%&& node scripts/static-preview.js",
+    "preview": "set PATH=.\\.tools\\node;%PATH%&& node scripts/static-preview.js"
   }
 }

@@ -4,7 +4,7 @@ This document tracks the future-facing product and architecture direction for CV
 
 ## Direction
 
-CV Generate should continue evolving as a configurable public CV web app, not as a one-off static page. The roadmap focuses on keeping the system easy to host while making content, themes, runtime behavior, and protected configuration workflows more maintainable.
+CV Generate should continue evolving as a configurable static CV web app, not as a one-off static page. The roadmap focuses on keeping the system easy to host while making content, themes, runtime behavior, and file-based configuration workflows more maintainable.
 
 ## Phase 1: Config-driven baseline
 
@@ -42,19 +42,18 @@ Goals:
 - preserve consistency across desktop, mobile, and print rendering
 - make integration-driven UI behavior, such as ATS actions, predictable and configurable
 
-## Phase 5: Protected admin and architecture evolution
+## Phase 5: Static hosting polish
 
 Goals:
 
-- extend the current protected read-only admin baseline toward safer config-management workflows
-- keep administrative operations authenticated, HTTPS-protected, and deny-by-default
-- separate public delivery, configuration access, and future admin capabilities more clearly
+- keep the supported runtime limited to standard static hosting and local preview helpers
 - reduce the amount of application logic concentrated directly in `index.html`
+- improve documentation and project structure for file-based configuration workflows
+- keep deployment artifacts aligned with static hosting only
 
 ## Ongoing constraints
 
 - no secrets in client-visible code
-- clear separation between public resources and admin/config resources
-- safe defaults for admin-related features
+- file-based configuration as the default operating model
 - compatibility across screen rendering, mobile rendering, and PDF export
 - extensibility for future languages, themes, and integrations

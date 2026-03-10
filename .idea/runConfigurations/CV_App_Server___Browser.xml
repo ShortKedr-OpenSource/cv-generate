@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CV App Server + Browser" type="CompoundRunConfigurationType">
-    <toRun name="CV App Browser" type="JavascriptDebugType" />
-    <toRun name="CV App Server" type="NodeJSConfigurationType" />
-    <method v="2" />
-  </configuration>
-</component>
