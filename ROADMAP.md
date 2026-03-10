@@ -1,6 +1,6 @@
 # Roadmap
 
-This document tracks the future-facing product and architecture direction for CV Generated. For the current implementation and usage details, see [README.md](/C:/Users/short/OneDrive/Рабочий стол/CV Generated/README.md).
+This document tracks the future-facing product and architecture direction for CV Generated. For the current implementation and usage details, see [README.md](./README.md).
 
 ## Direction
 

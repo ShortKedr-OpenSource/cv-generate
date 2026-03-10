@@ -4,7 +4,7 @@ CV Generated is a configurable public CV web app. It serves a CV as a public web
 
 The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future protected configuration workflows.
 
-See [ROADMAP.md](/C:/Users/short/OneDrive/Рабочий стол/CV Generated/ROADMAP.md) for future product phases and planned architecture evolution.
+See [ROADMAP.md](./ROADMAP.md) for future product phases and planned architecture evolution.
 
 ## Current capabilities
 
@@ -186,7 +186,7 @@ Invoke-WebRequest -Uri 'http://localhost:8080/admin/config/app' -Headers @{ Auth
 
 Or open the admin page:
 
-- [admin/index.html](/C:/Users/short/OneDrive/Рабочий стол/CV Generated/admin/index.html)
+- [admin/index.html](./admin/index.html)
 - `http://localhost:8080/admin/`
 
 The admin page is public, but it only reads the protected route when a valid token is supplied at runtime.
@@ -252,8 +252,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\apply-diff.ps1 .\my-change.di
 
 ## Related docs
 
-- [ROADMAP.md](/C:/Users/short/OneDrive/Рабочий стол/CV Generated/ROADMAP.md): future product and architecture phases
-- [AGENTS.md](/C:/Users/short/OneDrive/Рабочий стол/CV Generated/AGENTS.md): repository-specific instructions for Codex
+- [ROADMAP.md](./ROADMAP.md): future product and architecture phases
+- [AGENTS.md](./AGENTS.md): repository-specific instructions for Codex
 
 
 
