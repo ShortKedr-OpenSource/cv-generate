@@ -1,0 +1,95 @@
+.shell {
+    width: min(1160px, 100%);
+    margin: 0 auto;
+    display: grid;
+    gap: 18px;
+}
+
+.container {
+    border: 1px solid var(--line-strong);
+    border-radius: 28px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    box-shadow: var(--container-shadow);
+    backdrop-filter: blur(8px);
+    background: var(--panel);
+}
+
+.sidebar {
+    padding: 34px 26px;
+    background: linear-gradient(180deg, var(--surface-top), var(--surface-alt));
+    border-right: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.side-card {
+    background: var(--panel-strong);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--card-shadow);
+}
+
+.main-content {
+    padding: 40px 42px;
+    background: var(--main-surface);
+}
+
+.header {
+    padding: 20px 24px;
+    border-radius: 22px;
+    border: 1px solid var(--line-strong);
+    background:
+        linear-gradient(135deg, var(--header-glow-a), var(--header-glow-b)),
+        var(--header-surface);
+    margin-bottom: 26px;
+}
+
+.header h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: clamp(32px, 5vw, 46px);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--header-title);
+}
+
+.header .subtitle {
+    margin: 8px 0 0;
+    color: var(--header-subtitle);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.header .location {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.section {
+    margin-bottom: 24px;
+    background: var(--section-surface);
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    box-shadow: var(--section-shadow);
+    padding: 22px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.section h2 {
+    margin: 0 0 16px;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--muted);
+}

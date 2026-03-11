@@ -1,57 +1,57 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+    contents: read
+    pages: write
+    id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+    group: pages
+    cancel-in-progress: true
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    deploy:
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: npm
 
-      - name: Build publish directory
-        run: |
-          mkdir -p dist
-          mkdir -p dist/scripts
-          cp favicon.ico dist/favicon.ico
-          cp index.html dist/index.html
-          cp -R config dist/config
-          cp -R locales dist/locales
-          cp -R profiles dist/profiles
-          cp -R styles dist/styles
-          cp scripts/app.js dist/scripts/app.js
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Stamp app version with commit hash
-        env:
-          GIT_SHA: ${{ github.sha }}
-        run: |
-          node -e "const fs=require('fs'); const path='dist/config/app.json'; const data=JSON.parse(fs.readFileSync(path,'utf8')); data.buildHash=process.env.GIT_SHA.slice(0,7); fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n');"
+            - name: Build Vue app
+              run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+            - name: Stamp build hash into published config
+              env:
+                  GIT_SHA: ${{ github.sha }}
+              run: |
+                  node -e "const fs=require('fs'); const path='dist/config/app.json'; const data=JSON.parse(fs.readFileSync(path,'utf8')); data.buildHash=process.env.GIT_SHA.slice(0,7); fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n');"
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+            - name: Configure Pages
+              uses: actions/configure-pages@v5
+
+            - name: Upload Pages artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: dist
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4

@@ -1,0 +1,92 @@
+:root {
+    --ink: #111827;
+    --ink-soft: #334155;
+    --muted: #64748b;
+    --line: #dbe2ef;
+    --line-strong: rgba(148, 163, 184, 0.3);
+    --panel: rgba(255, 255, 255, 0.78);
+    --panel-strong: #ffffff;
+    --accent: #0ea5e9;
+    --accent-strong: #0b7fc9;
+    --bg-a: #e0f2fe;
+    --bg-b: #f0f9ff;
+    --bg-c: #eef2ff;
+    --bg-d: #ffffff;
+    --chip-border: #c8d8ec;
+    --chip-bg: #f8fbff;
+    --chip-text: #1d4f91;
+    --header-title: #0f172a;
+    --header-subtitle: #0c4a6e;
+    --surface-top: rgba(255, 255, 255, 0.98);
+    --surface-alt: rgba(244, 249, 255, 0.96);
+    --main-surface: rgba(255, 255, 255, 0.96);
+    --section-surface: #ffffff;
+    --header-surface: #ffffff;
+    --control-surface: #ffffff;
+    --detail-text: #475569;
+    --job-line: #d7e7fa;
+    --timeline-ring: rgba(14, 165, 233, 0.12);
+    --print-sidebar-bg: #f8fbff;
+    --container-shadow: 0 32px 80px rgba(15, 23, 42, 0.12);
+    --card-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+    --section-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    --accent-shadow: 0 12px 24px rgba(14, 165, 233, 0.24);
+    --accent-shadow-strong: 0 16px 28px rgba(14, 165, 233, 0.3);
+    --active-pill-shadow: 0 8px 14px rgba(14, 165, 233, 0.28);
+    --header-glow-a: rgba(14, 165, 233, 0.1);
+    --header-glow-b: rgba(99, 102, 241, 0.06);
+    --selector-surface: rgba(255, 255, 255, 0.96);
+    --selector-surface-strong: #ffffff;
+    --selector-border: #cfdceb;
+    --selector-text: #0f172a;
+    --selector-placeholder: #7c8ea5;
+    --selector-hover: #eef6ff;
+    --selector-shadow: 0 18px 32px rgba(15, 23, 42, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg-d);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Manrope", sans-serif;
+    color: var(--ink);
+    line-height: 1.7;
+    background:
+        radial-gradient(circle at 8% 12%, var(--bg-a) 0, transparent 35%),
+        radial-gradient(circle at 92% 88%, var(--bg-c) 0, transparent 40%),
+        linear-gradient(160deg, var(--bg-b), var(--bg-d));
+    padding: 32px 20px;
+}
+
+.build-watermark {
+    position: fixed;
+    right: 18px;
+    bottom: 14px;
+    z-index: 20;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--panel-strong) 62%, transparent);
+    border: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+    color: color-mix(in srgb, var(--muted) 72%, transparent);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.55;
+}
+
+.build-watermark[hidden] {
+    display: none;
+}

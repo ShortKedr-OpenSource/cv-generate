@@ -1,0 +1,381 @@
+.tooling-panel {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    box-shadow: var(--container-shadow);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--panel) 96%, transparent),
+        color-mix(in srgb, var(--surface-top) 96%, transparent)
+    );
+    backdrop-filter: blur(8px);
+}
+
+.tooling-panel-header-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: 8px 16px;
+}
+
+.tooling-panel-header {
+    display: block;
+}
+
+.tooling-panel-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tooling-panel-header h2 {
+    margin: 0;
+    color: var(--header-title);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.tooling-description {
+    margin: 0;
+    color: var(--detail-text);
+    font-size: 13px;
+    line-height: 1.35;
+    text-wrap: pretty;
+}
+
+.tooling-panel-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 9px 14px;
+    border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+    border-radius: 999px;
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--control-surface) 88%, white),
+        color-mix(in srgb, var(--chip-bg) 92%, white)
+    );
+    color: var(--header-title);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.tooling-panel-toggle:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+}
+
+.tooling-panel-toggle-icon {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.2s ease;
+}
+
+.tooling-panel[data-collapsed="false"] .tooling-panel-toggle-icon {
+    transform: rotate(-135deg) translateY(-1px);
+}
+
+.tooling-panel[data-collapsed="true"] {
+    gap: 0;
+}
+
+.tooling-panel[data-collapsed="true"] .tooling-panel-header-row {
+    align-items: center;
+}
+
+.tooling-panel-controls {
+    overflow: hidden;
+    height: 0;
+    opacity: 1;
+    transform: translateY(0);
+    transform-origin: top center;
+    will-change: height, opacity, transform;
+    transition:
+        height 0.28s ease,
+        opacity 0.22s ease,
+        transform 0.28s ease;
+}
+
+.tooling-panel-controls-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.9fr) minmax(
+            260px,
+            1fr
+        );
+    gap: 14px;
+    align-items: stretch;
+    padding-top: 2px;
+}
+
+.tooling-panel[data-collapsed="true"] .tooling-panel-controls {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+}
+
+.tool-group,
+.tooling-panel-info {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+    background: color-mix(
+        in srgb,
+        var(--control-surface) 82%,
+        var(--panel-strong)
+    );
+}
+
+.tool-group {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+}
+
+.tool-group-compact {
+    gap: 12px;
+}
+
+.tool-subgroup {
+    display: grid;
+    gap: 8px;
+}
+
+.tool-subgroup + .tool-subgroup {
+    padding-top: 10px;
+    border-top: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+}
+
+.tool-group-label {
+    margin: 0;
+    color: var(--muted);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.tooling-panel .language-switcher,
+.tooling-panel .theme-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+}
+
+.tooling-panel .theme-status {
+    margin-top: 0;
+}
+
+.profile-selector {
+    position: relative;
+    isolation: isolate;
+}
+
+.profile-selector-field {
+    position: relative;
+}
+
+.profile-selector-input {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 44px 10px 14px;
+    border: 1px solid var(--selector-border);
+    border-radius: 14px;
+    background: linear-gradient(
+        180deg,
+        var(--selector-surface),
+        color-mix(in srgb, var(--selector-surface-strong) 86%, transparent)
+    );
+    color: var(--selector-text);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, #ffffff 65%, transparent);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.profile-selector-input::placeholder {
+    color: var(--selector-placeholder);
+}
+
+.profile-selector-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+        inset 0 1px 0 color-mix(in srgb, #ffffff 72%, transparent);
+}
+
+.profile-selector-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.profile-selector-toggle:hover {
+    background: color-mix(in srgb, var(--selector-hover) 80%, transparent);
+    color: var(--accent-strong);
+}
+
+.profile-selector-toggle-icon {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.2s ease;
+}
+
+.profile-selector[data-open="true"] .profile-selector-toggle-icon {
+    transform: rotate(-135deg) translateY(-1px);
+}
+
+.profile-selector-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    border: 1px solid
+        color-mix(in srgb, var(--selector-border) 88%, transparent);
+    border-radius: 16px;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--selector-surface-strong) 96%, transparent),
+        color-mix(in srgb, var(--selector-surface) 96%, transparent)
+    );
+    box-shadow: var(--selector-shadow);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+}
+
+.profile-selector-list {
+    width: 100%;
+    max-height: min(220px, 40vh);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    display: grid;
+    justify-items: stretch;
+    gap: 4px;
+}
+
+.profile-selector-option {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 12px;
+    color: var(--selector-text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.profile-selector-option:hover,
+.profile-selector-option.active {
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--accent) 12%, var(--selector-hover)),
+        color-mix(in srgb, var(--selector-hover) 92%, transparent)
+    );
+    color: var(--accent-strong);
+}
+
+.profile-selector-empty {
+    margin: 0;
+    padding: 10px 12px 4px;
+    color: var(--detail-text);
+    font-size: 13px;
+}
+
+.tool-group-actions {
+    min-width: 0;
+}
+
+.tooling-panel .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.tooling-panel .export-button,
+.tooling-panel .ats-button {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 14px;
+}
+
+.tooling-panel-info {
+    display: grid;
+    align-content: start;
+    gap: 0;
+}
+
+.tooling-panel .ats-info-title {
+    margin: 0 0 6px;
+}
+
+.tooling-panel .ats-info {
+    margin: 0;
+}
+
+.tooling-panel .ats-info-description,
+.tooling-panel .ats-info-hint,
+.tooling-panel .ats-info-notice {
+    margin: 0;
+}
+
+.tooling-panel .ats-info-hint,
+.tooling-panel .ats-info-notice {
+    margin-top: 4px;
+    font-size: 12px;
+}

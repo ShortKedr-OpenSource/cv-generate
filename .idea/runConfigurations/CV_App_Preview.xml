@@ -1,8 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="CV App Preview" type="NodeJSConfigurationType" path-to-js-file="scripts/static-preview.js" working-dir="$PROJECT_DIR$">
-    <envs>
-      <env name="PORT" value="8080" />
-    </envs>
-    <method v="2" />
-  </configuration>
+    <configuration default="false" name="CV App Preview" type="NodeJSConfigurationType" application-parameters="--host 127.0.0.1 --port 5173 --strictPort" path-to-js-file="node_modules/vite/bin/vite.js" working-dir="$PROJECT_DIR$">
+        <method v="2" />
+    </configuration>
 </component>

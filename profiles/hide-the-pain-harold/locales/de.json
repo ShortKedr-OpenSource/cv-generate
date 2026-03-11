@@ -1,60 +1,60 @@
 {
-  "title": "Lebenslauf - Hide the Pain Harold",
-  "contact": "Kontakt",
-  "linkedin": "LinkedIn",
-  "skillsTitle": "Schlüsselkompetenzen",
-  "skills": [
-    "Belastbarkeit",
-    "Kundensupport",
-    "Bürokommunikation",
-    "Präsentationsstärke",
-    "Prozessverbesserung",
-    "Tabellenkalkulations-Überleben",
-    "Ruhe unter Druck",
-    "Höfliches Nicken"
-  ],
-  "languagesTitle": "Sprachen",
-  "languages": [
-    "Englisch (Fließend)",
-    "Ungarisch (Muttersprache)",
-    "Deutsch (Konversationssicher)"
-  ],
-  "certificationsTitle": "Zertifizierungen",
-  "certifications": "Zertifiziert darin, unerwartete Stakeholder-Meetings mit einem Lächeln zu überstehen.",
-  "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
-  "name": "Hide the Pain Harold",
-  "subtitle": "Senior Stock Photo Consultant | Professioneller Platzhalter-Mensch",
-  "location": "Budapest, Ungarn",
-  "summaryTitle": "Über mich",
-  "summary": [
-    "Freundliches Testprofil zum Validieren von Profilumschaltung, Lokalisierung, Themen und PDF-Export.",
-    "Ich bringe legendäre Gelassenheit in Meetings, Status-Updates und jeden anderen Moment, der irgendwie zum Meme geworden ist.",
-    "Dieses Profil enthält absichtlich gut erkennbare Inhalte, damit sich ein Wechsel im Selector sofort auf der gesamten Seite nachvollziehen lässt."
-  ],
-  "mediaPosts": [
-    {
-      "description": "Profilbild von Hide the Pain Harold zum Testen lokalisierter Medienbeschreibungen."
+    "title": "Lebenslauf - Hide the Pain Harold",
+    "contact": "Kontakt",
+    "linkedin": "LinkedIn",
+    "skillsTitle": "Schlüsselkompetenzen",
+    "skills": [
+        "Belastbarkeit",
+        "Kundensupport",
+        "Bürokommunikation",
+        "Präsentationsstärke",
+        "Prozessverbesserung",
+        "Tabellenkalkulations-Überleben",
+        "Ruhe unter Druck",
+        "Höfliches Nicken"
+    ],
+    "languagesTitle": "Sprachen",
+    "languages": [
+        "Englisch (Fließend)",
+        "Ungarisch (Muttersprache)",
+        "Deutsch (Konversationssicher)"
+    ],
+    "certificationsTitle": "Zertifizierungen",
+    "certifications": "Zertifiziert darin, unerwartete Stakeholder-Meetings mit einem Lächeln zu überstehen.",
+    "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
+    "name": "Hide the Pain Harold",
+    "subtitle": "Senior Stock Photo Consultant | Professioneller Platzhalter-Mensch",
+    "location": "Budapest, Ungarn",
+    "summaryTitle": "Über mich",
+    "summary": [
+        "Freundliches Testprofil zum Validieren von Profilumschaltung, Lokalisierung, Themen und PDF-Export.",
+        "Ich bringe legendäre Gelassenheit in Meetings, Status-Updates und jeden anderen Moment, der irgendwie zum Meme geworden ist.",
+        "Dieses Profil enthält absichtlich gut erkennbare Inhalte, damit sich ein Wechsel im Selector sofort auf der gesamten Seite nachvollziehen lässt."
+    ],
+    "mediaPosts": [
+        {
+            "description": "Profilbild von Hide the Pain Harold zum Testen lokalisierter Medienbeschreibungen."
+        }
+    ],
+    "experienceTitle": "Berufserfahrung",
+    "experience": [
+        {
+            "company": "Universal Stock Photos Inc.",
+            "date": "2011 - Heute",
+            "title": "Senior Office Expression Specialist",
+            "description": "Verkörperte Zuversicht, leichte Sorge und stille Ausdauer in Tausenden von Marketingmotiven."
+        },
+        {
+            "company": "Corporate Demo Systems",
+            "date": "2004 - 2011",
+            "title": "Customer Success Trainer",
+            "description": "Leitete Onboardings, verbesserte interne Dokumentation und überstand jedes Projektorproblem mit Würde."
+        }
+    ],
+    "educationTitle": "Ausbildung",
+    "education": {
+        "university": "Budapest University of Practical Smiles",
+        "degree": "Bachelor, Unternehmenskommunikation",
+        "date": "(2000 - 2004)"
     }
-  ],
-  "experienceTitle": "Berufserfahrung",
-  "experience": [
-    {
-      "company": "Universal Stock Photos Inc.",
-      "date": "2011 - Heute",
-      "title": "Senior Office Expression Specialist",
-      "description": "Verkörperte Zuversicht, leichte Sorge und stille Ausdauer in Tausenden von Marketingmotiven."
-    },
-    {
-      "company": "Corporate Demo Systems",
-      "date": "2004 - 2011",
-      "title": "Customer Success Trainer",
-      "description": "Leitete Onboardings, verbesserte interne Dokumentation und überstand jedes Projektorproblem mit Würde."
-    }
-  ],
-  "educationTitle": "Ausbildung",
-  "education": {
-    "university": "Budapest University of Practical Smiles",
-    "degree": "Bachelor, Unternehmenskommunikation",
-    "date": "(2000 - 2004)"
-  }
 }

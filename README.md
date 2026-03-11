@@ -1,136 +1,129 @@
 [![Deploy GitHub Pages](https://github.com/ShortKedr-OpenSource/cv-generate/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/ShortKedr-OpenSource/cv-generate/actions/workflows/deploy-pages.yml)
+
 # CV Generate
 
 Open app: [shortkedr-opensource.github.io/cv-generate](https://shortkedr-opensource.github.io/cv-generate/)
 
-CV Generate is a configurable static CV web app. It serves a CV as a public web page with multilingual content, selectable visual themes, browser-based PDF export, and file-based configuration.
+CV Generate is a configurable public CV web app. It presents CV content as a multilingual web experience with theme switching, profile switching, media support, and browser-based PDF export while keeping product configuration file-driven.
 
-The current implementation is intentionally lightweight, but the product is designed to remain extensible for additional languages, themes, and future static hosting environments.
+The runtime is now implemented as a Vue 3 application built with Vite and deployed as compiled static output. The product still uses file-based configuration and content so that profiles, locales, themes, and integrations remain easy to extend without adding a backend.
 
-See [ROADMAP.md](./ROADMAP.md) for future product phases and planned architecture evolution.
+See [ROADMAP.md](./ROADMAP.md) for upcoming product and architecture phases.
 
 ## Current capabilities
 
-- Public CV page served from `index.html`
+- Vue 3 + Vite frontend with static-host-friendly deployment
 - Multilingual CV content loaded from `profiles/<id>/locales/*.json`
-- System UI translations loaded from `locales/system/*.json` with embedded fallback data
-- Theme registration through `config/app.json` and stylesheet files in `styles/themes/*.css`
-- Centrally registered static profiles with optional URL-driven profile selection
-- Default language and default theme controlled by product configuration
-- Browser print export for both the visual CV and ATS-oriented PDF layouts
-- Optional ATS checker integration configured in `config/app.json`
-- Static-host-friendly runtime with no required custom backend
+- Localized system UI strings loaded from `locales/system/*.json`
+- Config-driven profile registration, defaults, feature flags, and ATS integration in `config/app.json`
+- Config-driven theme registration backed by `styles/themes/*.css`
+- Profile selector with searchable options
+- Optional media posts per profile with localized descriptions
+- Browser print export for both visual CV and ATS-oriented layouts
+- Build/version watermark and cache-busting through `version` and `buildHash`
+- GitHub Pages deployment and optional Docker-based static hosting support
 
-## Project structure
+## Architecture overview
 
-Core files and folders:
+Key files and folders:
 
-- `index.html`: public CV app and client-side runtime
-- `config/app.json`: application-level source of truth for languages, themes, defaults, profiles, features, and integrations
-- `profiles/<id>/profile.json`: per-profile metadata and future asset entrypoint
-- `profiles/<id>/locales/*.json`: profile-localized CV content
-- `profiles/<id>/assets/`: future profile media such as images and videos
-- `locales/system/*.json`: localized system UI strings
-- `styles/themes/*.css`: theme stylesheets registered in config
-- `styles/cv.css`: shared CV layout and print styles
-- `scripts/static-preview.js`: optional local static preview helper
-- `.github/workflows/deploy-pages.yml`: GitHub Pages deployment workflow
-- `Dockerfile`, `nginx.conf`: static hosting baseline
-- `.idea/runConfigurations/`: shared WebStorm run configurations
+- `index.html`: Vite app entry HTML
+- `src/`: Vue application source, components, composables, services, and utilities
+- `config/app.json`: app-level source of truth for languages, themes, profiles, defaults, features, versioning, and integrations
+- `profiles/<id>/profile.json`: per-profile metadata such as contacts, supported languages, assets path, and media post structure
+- `profiles/<id>/locales/*.json`: localized CV content and localized media captions
+- `profiles/<id>/assets/`: profile media assets
+- `locales/system/*.json`: localized UI strings
+- `styles/themes/*.css`: registered theme stylesheets
+- `src/styles/`: Vue-owned structural, responsive, and print styling layers
+- `.github/workflows/deploy-pages.yml`: GitHub Pages build and deploy workflow
+- `Dockerfile`, `nginx.conf`: optional containerized static-host baseline
+- `.idea/runConfigurations/`: shared WebStorm run configurations for local development and preview
 
 ## Configuration model
 
-`config/app.json` is the app-level source of truth for public runtime configuration.
+`config/app.json` is the public runtime source of truth.
 
 Current top-level fields:
 
-- `languages`: list of language codes exposed by the public language switcher
-- `themes`: list of registered themes with `id`, `label`, and `stylesheet`
-- `profiles`: list of registered profiles with `id`, `label`, and `path`
-- `defaults.language`: fallback and initial language
-- `defaults.theme`: fallback and initial theme
-- `defaults.profile`: fallback and initial profile
-- `features.profileSelector`: controls whether the profile selector appears in the tooling panel
+- `version`: human-readable app version
+- `buildHash`: build/release hash used for cache invalidation
+- `languages`: supported UI and content language codes
+- `themes`: registered themes with `id`, `label`, and `stylesheet`
+- `profiles`: registered profiles with `id`, `label`, and `path`
+- `defaults.profile`, `defaults.language`, `defaults.theme`: initial fallback selections
+- `features.profileSelector`: toggles the profile selector UI
 - `integrations.ats`: ATS integration settings and providers
 
 Current repository baseline:
 
-- Profiles: `nikolay-nakoreshko`
+- Profiles: `nikolay-nakoreshko`, `hide-the-pain-harold`
 - Languages: `ru`, `en`, `de`
 - Themes: `default` (`Sky`), `graphite`, `sand`, `meadow`
-- Default profile: `nikolay-nakoreshko`
+- Default profile: `hide-the-pain-harold`
 - Default language: `en`
 - Default theme: `meadow`
 - ATS provider: `enhancv`
 
-The public app loads `config/app.json` at runtime and falls back to embedded defaults when needed. Theme registration should stay in config, while actual CSS remains in `styles/themes/*.css`.
+Profile metadata and content responsibilities:
+
+- `profile.json` stores structural data such as contacts, supported languages, assets path, and media post file references
+- `locales/*.json` store localized CV copy and localized media descriptions
+- `styles/themes/*.css` remain the source of visual theme CSS, while theme registration stays centralized in config
 
 Runtime safety expectations:
 
-- language codes must stay compatible with `profiles/<id>/locales/<code>.json`
-- theme stylesheets must be relative paths under `styles/themes/`
+- language codes must match available locale files
+- theme stylesheets must remain relative paths under `styles/themes/`
 - profile ids and paths must be explicitly registered in `config/app.json`
 - ATS provider URLs must use `https`
-- invalid runtime config falls back to embedded safe defaults instead of being trusted
+- client-visible runtime data should be validated before use
 
 ## Running locally
+
+### CLI
+
+Start the Vite dev server:
+
+```powershell
+npm start
+```
+
+Open the app at `http://localhost:5173/`.
+
+Build the production output:
+
+```powershell
+npm run build
+```
+
+Preview the built `dist` output locally:
+
+```powershell
+npm run preview:local
+```
+
+Open the built app at `http://localhost:4173/`.
 
 ### WebStorm
 
 Shared WebStorm run configurations are included:
 
 - `CV App Preview`
-- `CV App Browser`
-- `CV App Preview + Browser`
+- `CV App Production Preview`
 
 Recommended flow:
 
 1. Open the project in WebStorm.
 2. Use the IDE-managed Node interpreter.
-3. Run `CV App Preview + Browser` to start the optional static preview helper and open the public page.
-4. Use `CV App Preview` for preview-only work.
-5. Use `CV App Browser` when the app is already available at `http://localhost:8080`.
-
-### Preferred CLI preview
-
-The app does not require a custom backend. For local HTTP preview, you can use the optional Node helper.
-
-If Node is available globally:
-
-```powershell
-npm start
-```
-
-Direct preview helper start:
-
-```powershell
-node .\scripts\static-preview.js
-```
-
-Open the public app at `http://localhost:8080`.
-
-If you keep your own untracked local tooling in `.tools`, treat it as a machine-local convenience only. It is not part of the git-tracked project baseline and is not used by the documented default workflow.
-
-### Static hosting
-
-The supported runtime is any standard static HTTP host or CDN that serves the repository files as static assets.
-
-### GitHub Pages
-
-GitHub Pages is the primary production deployment target for this repository.
-
-- The included workflow publishes only the public runtime assets needed by the app.
-- Runtime asset and config paths are relative, so the app can work both at the domain root and at a repository subpath.
-- `nginx.conf` security headers do not apply on GitHub Pages, so client-side config validation is part of the production security model.
-
-Deployment flow:
-
-1. Enable GitHub Pages in the repository settings.
-2. Set the source to `GitHub Actions`.
-3. Push to `main`.
-4. Let `.github/workflows/deploy-pages.yml` publish the static app.
+3. Run `CV App Preview` for local development.
+4. Open `http://localhost:5173/` in the browser.
+5. Run `npm run build` before using `CV App Production Preview` to inspect the compiled static output.
+6. Open `http://localhost:4173/` in the browser when the production preview server is running.
 
 ### Docker
+
+Build and run the compiled app through nginx:
 
 ```powershell
 docker build -t cv-generate .
@@ -139,45 +132,47 @@ docker run --rm -p 8080:80 cv-generate
 
 Open `http://localhost:8080`.
 
-Docker remains an optional static-host baseline for local or alternate hosting. It is no longer the primary production deployment path.
+Docker and nginx are still useful in this repository as an optional production-like static hosting baseline, but they are no longer required for everyday local development. The default local workflow is Vite dev/build/preview.
+
+### GitHub Pages
+
+GitHub Pages is the primary production deployment target.
+
+The workflow:
+
+- installs dependencies with `npm ci`
+- builds the Vue app with Vite
+- copies runtime config/content/assets into `dist`
+- stamps `buildHash` into the published `dist/config/app.json`
+- publishes the compiled static output
+
+Because the built asset paths are relative, the app can work both at `/` and at a repository subpath such as `/cv-generate/`.
 
 ## Public runtime behavior
 
-The public CV app:
+The app:
 
-- discovers available profiles from `config/app.json`
-- discovers available languages and themes from `config/app.json`
+- reads `config/app.json` on bootstrap
 - resolves the active profile from `?profile=<id>` or the configured default
-- loads localized CV content from `profiles/<id>/locales/<lang>.json`
 - loads per-profile metadata from `profiles/<id>/profile.json`
+- loads localized profile content from `profiles/<id>/locales/<lang>.json`
 - loads system UI strings from `locales/system/<lang>.json`
-- applies the selected theme from the registered theme stylesheet
-- remembers the selected theme in browser storage
-- picks the initial language from the browser when supported, otherwise uses the configured default
-- keeps both screen rendering and print export tied to the same profile, content, and theme selection
+- switches themes using registered theme stylesheets
+- remembers selected language, theme, and controls panel state in browser storage
+- uses `version` and `buildHash` to invalidate cached static resources
+- renders both screen and print views from the same source content
 
 ## PDF export and ATS flow
 
-The app supports two browser-print export flows:
+Two export flows are supported:
 
 - `Export PDF`: visual CV export
 - `Export ATS PDF`: ATS-oriented print layout
 
-Recommended browser print settings for both exports:
+Recommended browser print settings:
 
 - Margins: `None`
 - Background graphics: `Enabled`
-
-Suggested export flow:
-
-1. Open the app from your static host.
-2. Select the required language and theme.
-3. Click `Export PDF` or `Export ATS PDF`.
-4. In the browser print dialog, set `Margins` to `None`.
-5. Enable `Background graphics`.
-6. Save as PDF.
-
-### ATS integration
 
 ATS behavior is controlled by `config/app.json` under `integrations.ats`.
 
@@ -186,68 +181,67 @@ Current baseline:
 - ATS integration is enabled
 - the configured provider is `Enhancv ATS Score`
 - the provider opens in a new tab
-- the provider expects the user to upload the PDF exported from this app
-- the UI can show a disclaimer and usage hint based on provider settings
-
-If ATS integration is disabled or invalid, the public ATS checker action is hidden.
+- the provider expects the user to upload a PDF exported from this app
 
 ## Extending the app
 
 ### Add a profile
 
-1. Create a folder at `profiles/<id>/`.
-2. Add `profiles/<id>/profile.json` with profile metadata such as `id`, `label`, `defaultLanguage`, `languages`, and `assetsPath`.
-3. Add localized CV content at `profiles/<id>/locales/<code>.json`.
-4. Reserve `profiles/<id>/assets/` for future profile images, videos, and other media.
-5. Register the profile in `config/app.json` under `profiles`.
-6. Optionally set it as `defaults.profile`.
+1. Create `profiles/<id>/`.
+2. Add `profiles/<id>/profile.json`.
+3. Add localized content in `profiles/<id>/locales/<code>.json`.
+4. Add any media assets in `profiles/<id>/assets/`.
+5. Register the profile in `config/app.json`.
+6. Optionally update `defaults.profile`.
 
 ### Add a language
 
 1. Add localized CV content in `profiles/<id>/locales/<code>.json`.
 2. Add system UI strings in `locales/system/<code>.json`.
-3. Register the language code in `config/app.json` under `languages`.
-4. Optionally set it as `defaults.language`.
+3. Register the language in `config/app.json`.
+4. Optionally update `defaults.language`.
 
 ### Add a theme
 
-1. Create a new stylesheet in `styles/themes/`.
-2. Define the theme variables for `:root[data-theme="<id>"]`.
-3. Register the theme in `config/app.json` with a unique `id`, `label`, and `stylesheet`.
-4. Optionally set it as `defaults.theme`.
+1. Create a stylesheet in `styles/themes/`.
+2. Register it in `config/app.json`.
+3. Optionally update `defaults.theme`.
 
-### Change defaults
+### Change defaults or build metadata
 
-Update these fields in `config/app.json`:
+Update these fields in `config/app.json` as needed:
 
 - `defaults.profile`
 - `defaults.language`
 - `defaults.theme`
+- `version`
 
-Configured defaults should always point to an existing registered profile, language, and theme.
+`buildHash` is automatically stamped for GitHub Pages during deployment.
 
 ## Validation checklist
 
-When changing runtime or config-related behavior, verify:
+When changing runtime, config, or deployment behavior, verify:
 
-- `/` returns HTTP 200 on the chosen static host or preview helper
+- `/` returns HTTP 200 on the Vite dev server
+- `/` returns HTTP 200 on local built preview and Docker hosting
+- `/cv-generate/` returns HTTP 200 on GitHub Pages or other repository-subpath hosting
 - `config/app.json` is served correctly
-- profile locale JSON files are served correctly
 - profile metadata files are served correctly
+- profile locale files are served correctly
 - theme CSS files are served correctly
-- GitHub Pages deployment publishes only `index.html`, `config/`, `locales/`, `profiles/`, and `styles/`
-- `?profile=<id>` selects the expected registered profile
-- the app works from a repository subpath as well as from `/`
-- screen rendering, mobile rendering, and PDF export remain aligned
+- media assets are served correctly
+- `?profile=<id>` selects the expected profile
+- desktop, mobile, and print rendering remain aligned
 
 ## Contributor notes
 
-- Keep the app functional without requiring a frontend build step unless the architecture is intentionally changed.
-- Keep product-facing content in locale files when possible.
-- Keep language and theme registration centralized in `config/app.json` rather than in isolated hardcoded runtime logic.
-- Keep `config/app.json` as the app-level source of truth for languages, theme metadata, defaults, and integrations.
+- The app intentionally uses a frontend build step through Vue 3 + Vite.
+- Keep product-facing text in locale files whenever possible.
+- Keep profile, language, theme, default, and integration registration centralized in `config/app.json`.
+- Keep actual theme CSS in `styles/themes/*.css`.
+- Keep app-structure styling in `src/styles/` rather than rebuilding a monolithic global stylesheet.
 
 ## Related docs
 
-- [ROADMAP.md](./ROADMAP.md): future product and architecture phases
-- [AGENTS.md](./AGENTS.md): repository-specific instructions for Codex
+- [ROADMAP.md](./ROADMAP.md)
+- [AGENTS.md](./AGENTS.md)

@@ -1,74 +1,71 @@
 {
-  "title": "Lebenslauf - Nikolay Nakoreshko",
-  "contact": "Kontakt",
-  "linkedin": "LinkedIn",
-  "skillsTitle": "Schlüsselkompetenzen",
-  "skills": [
-    "C#",
-    "Unity",
-    "Spieleentwicklung",
-    "Softwarearchitektur",
-    "Werkzeugentwicklung",
-    "Git",
-    "CI/CD",
-    "Agile/Scrum"
-  ],
-  "languagesTitle": "Sprachen",
-  "languages": [
-    "Englisch (C1 Fortgeschritten)",
-    "Russisch (Muttersprache)"
-  ],
-  "certificationsTitle": "Zertifizierungen",
-  "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
-  "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
-  "name": "Nikolay Nakoreshko",
-  "subtitle": "Unity Software Engineer | Unity-Entwickler @ Playrix",
-  "location": "Astana, Kasachstan",
-  "summaryTitle": "Über mich",
-  "summary": [
-    "Unity Software Engineer, spezialisiert auf die Erstellung skalierbarer Gameplay-Systeme und Entwicklerwerkzeuge für Produktionsspielprojekte.",
-    "Meine Arbeit befindet sich oft an der Schnittstelle von Gameplay-Engineering und interner Werkzeugentwicklung. Ich entwerfe Systeme, die es Designern und Nicht-Programmierern ermöglichen, Spielmechaniken zu implementieren und zu iterieren, ohne sich mit dem Code der Engine befassen zu müssen.",
-    "In jüngsten Projekten habe ich an der Kern-Gameplay-Infrastruktur, Navigationssystemen, Gameplay-Funktionen und Editor-Werkzeugen gearbeitet, die die Entwicklungsgeschwindigkeit und Wartbarkeit verbessern. Ich habe auch zur Pipeline-Integration und zu plattformübergreifenden Werkzeugen beigetragen, die vom Team in der Produktion verwendet werden.",
-    "Ich habe umfangreiche Erfahrung mit C#, Unity-Architektur, Gameplay-Systemen und der Entwicklung von Werkzeugen. Ich löse gerne komplexe technische Probleme und achte dabei auf die Flexibilität und Wartbarkeit der Systeme, während die Projekte wachsen.",
-    "Besonders interessiere ich mich für Architektur, Entwicklerwerkzeuge und die Erstellung von Systemen, die die Entwicklung und den Betrieb großer Spielprojekte vereinfachen."
-  ],
-  "experienceTitle": "Berufserfahrung",
-  "experience": [
-    {
-      "company": "Playrix",
-      "date": "Februar 2023 - Heute",
-      "title": "Unity-Entwickler",
-      "description": null
-    },
-    {
-      "company": "Perfect Play",
-      "date": "Februar 2023 - Heute",
-      "title": "Unity-Entwickler",
-      "description": null
-    },
-    {
-      "company": "Cyber Temple",
-      "date": "Oktober 2022 - Februar 2023",
-      "title": "Unity-Entwickler",
-      "description": null
-    },
-    {
-      "company": "Kruplay",
-      "date": "September 2020 - September 2022",
-      "title": "Leitender Unity-Entwickler",
-      "description": null
-    },
-    {
-      "company": "Selbstständig",
-      "date": "Januar 2014 - August 2020",
-      "title": "Indie-Spieleentwickler",
-      "description": "Freiberufler und Solo-Spieleentwickler. Erstellung von Spielen für Webportale, kleine Gaming-Websites und Wettbewerbe."
+    "title": "Lebenslauf - Nikolay Nakoreshko",
+    "contact": "Kontakt",
+    "linkedin": "LinkedIn",
+    "skillsTitle": "Schlüsselkompetenzen",
+    "skills": [
+        "C#",
+        "Unity",
+        "Spieleentwicklung",
+        "Softwarearchitektur",
+        "Werkzeugentwicklung",
+        "Git",
+        "CI/CD",
+        "Agile/Scrum"
+    ],
+    "languagesTitle": "Sprachen",
+    "languages": ["Englisch (C1 Fortgeschritten)", "Russisch (Muttersprache)"],
+    "certificationsTitle": "Zertifizierungen",
+    "certifications": "EF SET English Certificate 70/100 (C1 Fortgeschritten)",
+    "gdpr": "Hiermit erteile ich meine Zustimmung zur Verarbeitung meiner personenbezogenen Daten für die Zwecke des Einstellungsverfahrens (gemäß dem Gesetz vom 10. Mai 2018 über den Schutz personenbezogener Daten, Gesetzblatt von 2018, Pos. 1000, sowie gemäß der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG - Datenschutz-Grundverordnung).",
+    "name": "Nikolay Nakoreshko",
+    "subtitle": "Unity Software Engineer | Unity-Entwickler @ Playrix",
+    "location": "Astana, Kasachstan",
+    "summaryTitle": "Über mich",
+    "summary": [
+        "Unity Software Engineer, spezialisiert auf die Erstellung skalierbarer Gameplay-Systeme und Entwicklerwerkzeuge für Produktionsspielprojekte.",
+        "Meine Arbeit befindet sich oft an der Schnittstelle von Gameplay-Engineering und interner Werkzeugentwicklung. Ich entwerfe Systeme, die es Designern und Nicht-Programmierern ermöglichen, Spielmechaniken zu implementieren und zu iterieren, ohne sich mit dem Code der Engine befassen zu müssen.",
+        "In jüngsten Projekten habe ich an der Kern-Gameplay-Infrastruktur, Navigationssystemen, Gameplay-Funktionen und Editor-Werkzeugen gearbeitet, die die Entwicklungsgeschwindigkeit und Wartbarkeit verbessern. Ich habe auch zur Pipeline-Integration und zu plattformübergreifenden Werkzeugen beigetragen, die vom Team in der Produktion verwendet werden.",
+        "Ich habe umfangreiche Erfahrung mit C#, Unity-Architektur, Gameplay-Systemen und der Entwicklung von Werkzeugen. Ich löse gerne komplexe technische Probleme und achte dabei auf die Flexibilität und Wartbarkeit der Systeme, während die Projekte wachsen.",
+        "Besonders interessiere ich mich für Architektur, Entwicklerwerkzeuge und die Erstellung von Systemen, die die Entwicklung und den Betrieb großer Spielprojekte vereinfachen."
+    ],
+    "experienceTitle": "Berufserfahrung",
+    "experience": [
+        {
+            "company": "Playrix",
+            "date": "Februar 2023 - Heute",
+            "title": "Unity-Entwickler",
+            "description": null
+        },
+        {
+            "company": "Perfect Play",
+            "date": "Februar 2023 - Heute",
+            "title": "Unity-Entwickler",
+            "description": null
+        },
+        {
+            "company": "Cyber Temple",
+            "date": "Oktober 2022 - Februar 2023",
+            "title": "Unity-Entwickler",
+            "description": null
+        },
+        {
+            "company": "Kruplay",
+            "date": "September 2020 - September 2022",
+            "title": "Leitender Unity-Entwickler",
+            "description": null
+        },
+        {
+            "company": "Selbstständig",
+            "date": "Januar 2014 - August 2020",
+            "title": "Indie-Spieleentwickler",
+            "description": "Freiberufler und Solo-Spieleentwickler. Erstellung von Spielen für Webportale, kleine Gaming-Websites und Wettbewerbe."
+        }
+    ],
+    "educationTitle": "Ausbildung",
+    "education": {
+        "university": "Staatliche Agraruniversität Kuban",
+        "degree": "Bachelor, Angewandte Informatik in der Wirtschaft",
+        "date": "(2018 - 2022)"
     }
-  ],
-  "educationTitle": "Ausbildung",
-  "education": {
-    "university": "Staatliche Agraruniversität Kuban",
-    "degree": "Bachelor, Angewandte Informatik in der Wirtschaft",
-    "date": "(2018 - 2022)"
-  }
 }

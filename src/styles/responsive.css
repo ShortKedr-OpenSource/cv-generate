@@ -1,0 +1,653 @@
+@media screen and (max-width: 1000px) {
+    body {
+        padding: 18px 14px;
+    }
+
+    .shell {
+        display: grid;
+        gap: 16px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 22px;
+        overflow: visible;
+        box-shadow: 0 18px 46px rgba(15, 23, 42, 0.1);
+    }
+
+    .sidebar,
+    .main-content {
+        display: contents;
+        padding: 0;
+    }
+
+    .header,
+    .profile-photo-card,
+    .contact-info,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .language-switcher,
+    .theme-switcher,
+    .theme-status,
+    .actions,
+    .ats-info {
+        margin-left: 22px;
+        margin-right: 22px;
+    }
+
+    .language-switcher {
+        order: 1;
+    }
+    .theme-switcher {
+        order: 2;
+    }
+    .theme-status {
+        order: 3;
+    }
+    .actions {
+        order: 4;
+    }
+    .ats-info {
+        order: 5;
+    }
+    .header {
+        order: 6;
+    }
+    .profile-photo-card {
+        order: 7;
+    }
+    .contact-info {
+        order: 8;
+    }
+    .summary {
+        order: 9;
+    }
+    .experience {
+        order: 10;
+    }
+    .skills {
+        order: 11;
+    }
+    .languages {
+        order: 12;
+    }
+    .certifications {
+        order: 13;
+    }
+    .education {
+        order: 14;
+    }
+    .gdpr-compliance {
+        order: 15;
+    }
+
+    .language-switcher,
+    .theme-switcher {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        margin-top: 22px;
+        margin-bottom: 6px;
+    }
+
+    .theme-switcher {
+        margin-top: 0;
+        margin-bottom: 6px;
+    }
+
+    .theme-status {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    .language-switcher button,
+    .theme-switcher button {
+        flex: 0 0 auto;
+        min-width: 46px;
+        min-height: 34px;
+        padding: 7px 10px;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+    }
+
+    .actions {
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .ats-info {
+        margin-bottom: 14px;
+    }
+
+    .export-button,
+    .ats-button {
+        min-width: 180px;
+        min-height: 44px;
+        border-radius: 999px;
+    }
+
+    .header,
+    .side-card,
+    .section,
+    .education-entry {
+        border-radius: 18px;
+    }
+
+    .header,
+    .side-card,
+    .section {
+        padding: 18px;
+    }
+
+    .header {
+        margin-top: 0;
+        margin-bottom: 18px;
+    }
+
+    .contact-info,
+    .profile-photo-card,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .section,
+    .side-card {
+        margin-bottom: 18px;
+    }
+
+    .gdpr-compliance {
+        margin-top: 18px;
+    }
+
+    .sidebar h2,
+    .section h2 {
+        font-size: 13px;
+        margin-bottom: 14px;
+    }
+
+    .header h1 {
+        font-size: clamp(28px, 9vw, 40px);
+        line-height: 1.02;
+    }
+
+    .header .subtitle {
+        font-size: 16px;
+    }
+
+    .job {
+        margin-left: 2px;
+        padding-left: 14px;
+    }
+
+    .job-company-date {
+        gap: 8px;
+    }
+
+    .tooling-panel {
+        padding: 14px;
+    }
+
+    .tooling-panel + .container .header {
+        margin-top: 22px;
+    }
+
+    .tooling-panel-header-row {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 6px;
+    }
+
+    .tooling-panel-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tooling-panel-controls-inner {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    body {
+        padding: 12px;
+    }
+
+    .header,
+    .contact-info,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .language-switcher,
+    .theme-switcher,
+    .theme-status,
+    .actions,
+    .ats-info {
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+
+    .header,
+    .profile-photo-card,
+    .side-card,
+    .section {
+        padding: 16px;
+    }
+
+    .header {
+        margin-bottom: 16px;
+    }
+
+    .contact-info,
+    .profile-photo-card,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .section,
+    .side-card {
+        margin-bottom: 16px;
+    }
+
+    .gdpr-compliance {
+        margin-top: 16px;
+    }
+
+    .job-company-date {
+        flex-wrap: wrap;
+    }
+
+    .tooling-panel {
+        padding: 16px;
+    }
+
+    .tooling-panel + .container .header {
+        margin-top: 18px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    body {
+        padding: 8px;
+        line-height: 1.55;
+    }
+
+    .shell {
+        gap: 12px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 18px;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        overflow: visible;
+    }
+
+    .sidebar,
+    .main-content {
+        display: contents;
+        padding: 0;
+    }
+
+    .header,
+    .profile-photo-card,
+    .contact-info,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .language-switcher,
+    .theme-switcher,
+    .theme-status,
+    .actions,
+    .ats-info {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .language-switcher {
+        order: 1;
+    }
+    .theme-switcher {
+        order: 2;
+    }
+    .theme-status {
+        order: 3;
+    }
+    .actions {
+        order: 4;
+    }
+    .ats-info {
+        order: 5;
+    }
+    .header {
+        order: 6;
+    }
+    .profile-photo-card {
+        order: 7;
+    }
+    .contact-info {
+        order: 8;
+    }
+    .summary {
+        order: 9;
+    }
+    .experience {
+        order: 10;
+    }
+    .skills {
+        order: 11;
+    }
+    .languages {
+        order: 12;
+    }
+    .certifications {
+        order: 13;
+    }
+    .education {
+        order: 14;
+    }
+    .gdpr-compliance {
+        order: 15;
+    }
+
+    .language-switcher,
+    .theme-switcher {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        margin-bottom: 4px;
+    }
+
+    .theme-switcher {
+        margin-top: 0;
+        margin-bottom: 4px;
+    }
+
+    .theme-status {
+        margin-top: 0;
+        margin-bottom: 6px;
+        font-size: 11px;
+    }
+
+    .language-switcher button,
+    .theme-switcher button {
+        flex: 0 0 auto;
+        min-width: 42px;
+        min-height: 30px;
+        padding: 5px 8px;
+        font-size: 9px;
+        letter-spacing: 0.03em;
+    }
+
+    .actions {
+        justify-content: flex-start;
+        margin-bottom: 8px;
+    }
+
+    .ats-info {
+        margin-bottom: 12px;
+    }
+
+    .export-button,
+    .ats-button {
+        min-width: 150px;
+        padding: 10px 14px;
+        font-size: 12px;
+        min-height: 40px;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+    }
+
+    .header,
+    .profile-photo-card,
+    .side-card,
+    .section,
+    .education-entry {
+        border-radius: 14px;
+    }
+
+    .header,
+    .profile-photo-card,
+    .side-card,
+    .section {
+        padding: 14px;
+    }
+
+    .header {
+        margin-top: 0;
+        margin-bottom: 12px;
+        border-top: 1px solid var(--line-strong);
+        padding-top: 16px;
+    }
+
+    .contact-info,
+    .profile-photo-card,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .section,
+    .side-card {
+        margin-bottom: 12px;
+    }
+
+    .gdpr-compliance {
+        margin-top: 12px;
+    }
+
+    .profile-photo-image {
+        max-height: min(34vh, 240px);
+    }
+
+    .sidebar h2,
+    .section h2 {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+    }
+
+    .header h1 {
+        font-size: clamp(24px, 10vw, 34px);
+        letter-spacing: -0.04em;
+    }
+
+    .header .subtitle {
+        margin-top: 6px;
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    .header .location {
+        margin-top: 6px;
+        font-size: 13px;
+    }
+
+    .sidebar ul {
+        gap: 6px;
+    }
+
+    .sidebar ul li {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .certifications p,
+    .sidebar p,
+    .education-date,
+    .job-date,
+    .job-description,
+    #summary-content p {
+        font-size: 13px;
+    }
+
+    #summary-content p {
+        margin-bottom: 10px;
+    }
+
+    .section {
+        margin-bottom: 12px;
+    }
+
+    .job {
+        margin-bottom: 12px;
+        margin-left: 0;
+        padding-left: 12px;
+    }
+
+    .job::before {
+        width: 9px;
+        height: 9px;
+        left: -6px;
+        box-shadow: 0 0 0 3px var(--timeline-ring);
+    }
+
+    .job-company-date {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        margin-bottom: 6px;
+    }
+
+    .job-company {
+        font-size: 15px;
+    }
+
+    .job-title {
+        font-size: 14px;
+    }
+
+    .education-entry {
+        padding: 14px;
+    }
+
+    .education-university {
+        font-size: 15px;
+    }
+
+    .education-degree {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .gdpr-compliance p {
+        font-size: 10px;
+        line-height: 1.45;
+    }
+
+    .tooling-panel {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .tooling-panel + .container .header {
+        margin-top: 14px;
+    }
+
+    .tool-group,
+    .tooling-panel-info {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .tooling-panel-toggle {
+        width: 100%;
+        justify-content: space-between;
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .profile-selector-input {
+        min-height: 40px;
+        padding-left: 12px;
+        padding-right: 40px;
+        font-size: 13px;
+    }
+
+    .profile-selector-popover {
+        padding: 6px;
+        border-radius: 14px;
+    }
+
+    .profile-selector-option {
+        padding: 9px 10px;
+        font-size: 13px;
+    }
+
+    .tool-subgroup + .tool-subgroup {
+        padding-top: 12px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    body {
+        padding: 6px;
+    }
+
+    .header,
+    .contact-info,
+    .summary,
+    .experience,
+    .skills,
+    .languages,
+    .certifications,
+    .education,
+    .gdpr-compliance,
+    .language-switcher,
+    .theme-switcher,
+    .theme-status,
+    .actions,
+    .ats-info {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .side-card,
+    .section,
+    .header,
+    .education-entry {
+        border-radius: 12px;
+    }
+
+    .side-card,
+    .section,
+    .header {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .header .subtitle {
+        font-size: 13px;
+    }
+}

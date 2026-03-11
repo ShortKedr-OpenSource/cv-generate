@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="CV App Production Preview" type="NodeJSConfigurationType" application-parameters="preview --host 127.0.0.1 --port 4173 --strictPort" path-to-js-file="node_modules/vite/bin/vite.js" working-dir="$PROJECT_DIR$">
+        <method v="2" />
+    </configuration>
+</component>

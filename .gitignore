@@ -3,6 +3,7 @@
 !.idea/runConfigurations/*.xml
 .tools/
 node_modules/
+dist/
 *.log
 *.tmp
 .codex/

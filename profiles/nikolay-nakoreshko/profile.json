@@ -1,15 +1,11 @@
 {
-  "id": "nikolay-nakoreshko",
-  "label": "Nikolay Nakoreshko",
-  "defaultLanguage": "en",
-  "contacts": {
-    "email": "shortkedr@gmail.com",
-    "linkedin": "https://www.linkedin.com/in/nikolay-nakorkeshko-283933251"
-  },
-  "languages": [
-    "ru",
-    "en",
-    "de"
-  ],
-  "assetsPath": "assets/"
+    "id": "nikolay-nakoreshko",
+    "label": "Nikolay Nakoreshko",
+    "defaultLanguage": "en",
+    "contacts": {
+        "email": "shortkedr@gmail.com",
+        "linkedin": "https://www.linkedin.com/in/nikolay-nakorkeshko-283933251"
+    },
+    "languages": ["ru", "en", "de"],
+    "assetsPath": "assets/"
 }

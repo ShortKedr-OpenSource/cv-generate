@@ -1,67 +1,63 @@
 {
-  "version": "2026-03-11-1",
-  "buildHash": "dev",
-  "languages": [
-    "ru",
-    "en",
-    "de"
-  ],
-  "themes": [
-    {
-      "id": "default",
-      "label": "Sky",
-      "stylesheet": "styles/themes/default.css"
-    },
-    {
-      "id": "graphite",
-      "label": "Graphite",
-      "stylesheet": "styles/themes/graphite.css"
-    },
-    {
-      "id": "sand",
-      "label": "Sand",
-      "stylesheet": "styles/themes/sand.css"
-    },
-    {
-      "id": "meadow",
-      "label": "Meadow",
-      "stylesheet": "styles/themes/meadow.css"
-    }
-  ],
-  "defaults": {
-    "profile": "hide-the-pain-harold",
-    "language": "en",
-    "theme": "meadow"
-  },
-  "features": {
-    "profileSelector": true
-  },
-  "profiles": [
-    {
-      "id": "nikolay-nakoreshko",
-      "label": "Nikolay Nakoreshko",
-      "path": "profiles/nikolay-nakoreshko"
-    },
-    {
-      "id": "hide-the-pain-harold",
-      "label": "Hide the Pain Harold",
-      "path": "profiles/hide-the-pain-harold"
-    }
-  ],
-  "integrations": {
-    "ats": {
-      "enabled": true,
-      "providerId": "enhancv",
-      "providers": [
+    "version": "2026-03-11-1",
+    "buildHash": "dev",
+    "languages": ["ru", "en", "de"],
+    "themes": [
         {
-          "id": "enhancv",
-          "label": "Enhancv ATS Score",
-          "url": "https://enhancv.com/resources/resume-checker/",
-          "openInNewTab": true,
-          "requiresPdf": true,
-          "showDisclaimer": true
+            "id": "default",
+            "label": "Sky",
+            "stylesheet": "styles/themes/default.css"
+        },
+        {
+            "id": "graphite",
+            "label": "Graphite",
+            "stylesheet": "styles/themes/graphite.css"
+        },
+        {
+            "id": "sand",
+            "label": "Sand",
+            "stylesheet": "styles/themes/sand.css"
+        },
+        {
+            "id": "meadow",
+            "label": "Meadow",
+            "stylesheet": "styles/themes/meadow.css"
         }
-      ]
+    ],
+    "defaults": {
+        "profile": "hide-the-pain-harold",
+        "language": "en",
+        "theme": "meadow"
+    },
+    "features": {
+        "profileSelector": true
+    },
+    "profiles": [
+        {
+            "id": "nikolay-nakoreshko",
+            "label": "Nikolay Nakoreshko",
+            "path": "profiles/nikolay-nakoreshko"
+        },
+        {
+            "id": "hide-the-pain-harold",
+            "label": "Hide the Pain Harold",
+            "path": "profiles/hide-the-pain-harold"
+        }
+    ],
+    "integrations": {
+        "ats": {
+            "enabled": true,
+            "providerId": "enhancv",
+            "providers": [
+                {
+                    "id": "enhancv",
+                    "label": "Enhancv ATS Score",
+                    "url": "https://enhancv.com/resources/resume-checker/",
+                    "openInNewTab": true,
+                    "requiresPdf": true,
+                    "showDisclaimer": true
+                }
+            ]
+        }
     }
-  }
 }
