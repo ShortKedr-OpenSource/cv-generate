@@ -254,21 +254,6 @@ export function useCvApp() {
         }
     }
 
-    function getThemeLink(): HTMLLinkElement | null {
-        const existingLink =
-            document.querySelector<HTMLLinkElement>("#theme-stylesheet");
-        if (existingLink) {
-            document.head.appendChild(existingLink);
-            return existingLink;
-        }
-
-        const createdLink = document.createElement("link");
-        createdLink.id = "theme-stylesheet";
-        createdLink.rel = "stylesheet";
-        document.head.appendChild(createdLink);
-        return createdLink;
-    }
-
     function showThemeStatus(message: string): void {
         themeStatusMessage.value = message;
         isThemeStatusVisible.value = Boolean(message);
@@ -291,48 +276,7 @@ export function useCvApp() {
             ) ||
             availableThemes.value[0];
 
-        const link = getThemeLink();
-        if (!link) {
-            showThemeStatus("Theme stylesheet link is missing.");
-            return false;
-        }
-
-        const href = versionedPath(theme.stylesheet);
-        const targetHref = new URL(href, window.location.href).href;
-        if (link.href === targetHref) {
-            selectedTheme.value = theme.id;
-            setDocumentTheme(theme.id);
-            hideThemeStatus();
-            return true;
-        }
-
         try {
-            const response = await fetch(href);
-            if (!response.ok) {
-                throw new Error(
-                    `Theme CSS request failed with status ${response.status}`,
-                );
-            }
-
-            await new Promise<void>((resolve, reject) => {
-                const handleLoad = () => {
-                    cleanup();
-                    resolve();
-                };
-                const handleError = () => {
-                    cleanup();
-                    reject(new Error("Theme stylesheet could not be applied"));
-                };
-                const cleanup = () => {
-                    link.removeEventListener("load", handleLoad);
-                    link.removeEventListener("error", handleError);
-                };
-
-                link.addEventListener("load", handleLoad);
-                link.addEventListener("error", handleError);
-                link.href = href;
-            });
-
             selectedTheme.value = theme.id;
             setDocumentTheme(theme.id);
             setStoredValue(THEME_STORAGE_KEY, theme.id);
