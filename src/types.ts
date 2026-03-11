@@ -55,6 +55,34 @@ export interface ResolvedAppConfig {
     atsIntegration: AtsIntegration;
 }
 
+export interface AppRuntimeState {
+    appVersion: string;
+    appBuildHash: string;
+    supportedLanguages: string[];
+    availableThemes: ThemeConfig[];
+    availableProfiles: ProfileConfig[];
+    defaultLanguage: string;
+    defaultTheme: string;
+    defaultProfileId: string;
+    profileSelectorEnabled: boolean;
+    atsIntegration: AtsIntegration;
+    systemTranslations: Record<string, SystemTranslation>;
+    profileMetadata: Record<string, ProfileMeta>;
+    cvTranslations: Record<string, Record<string, CvTranslation>>;
+}
+
+export interface BootstrapResult {
+    didRedirect: boolean;
+    version: string;
+    buildHash: string;
+    cacheKey: string;
+}
+
+export interface LoadCvTranslationResult {
+    language: string;
+    translation: CvTranslation;
+}
+
 export interface MediaPostMeta {
     type: "image";
     file: string;

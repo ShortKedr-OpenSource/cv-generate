@@ -4,23 +4,38 @@ import {
     PROFILE_QUERY_PARAM,
     VERSION_QUERY_PARAM,
 } from "../constants";
-import type { AppConfig } from "../types";
+import type { AppConfig, BootstrapResult } from "../types";
 import { isSafeProfileId } from "./validation";
 
-export function getStoredValue(key: string): string {
+export function readStoredValue(
+    storage: Pick<Storage, "getItem"> | null | undefined,
+    key: string,
+): string {
     try {
-        return window.localStorage.getItem(key) || "";
+        return storage?.getItem(key) || "";
     } catch {
         return "";
     }
 }
 
-export function setStoredValue(key: string, value: string): void {
+export function writeStoredValue(
+    storage: Pick<Storage, "setItem"> | null | undefined,
+    key: string,
+    value: string,
+): void {
     try {
-        window.localStorage.setItem(key, value);
+        storage?.setItem(key, value);
     } catch {
         // ignore storage errors
     }
+}
+
+export function getStoredValue(key: string): string {
+    return readStoredValue(window.localStorage, key);
+}
+
+export function setStoredValue(key: string, value: string): void {
+    writeStoredValue(window.localStorage, key, value);
 }
 
 export function getStoredControlsCollapsed(): boolean {
@@ -28,28 +43,36 @@ export function getStoredControlsCollapsed(): boolean {
 }
 
 export function getRequestedProfileId(): string | null {
-    const url = new URL(window.location.href);
+    return getRequestedProfileIdFromUrl(window.location.href);
+}
+
+export function getRequestedProfileIdFromUrl(urlValue: string): string | null {
+    const url = new URL(urlValue);
     const requestedProfileId = url.searchParams.get(PROFILE_QUERY_PARAM);
     return isSafeProfileId(requestedProfileId) ? requestedProfileId : null;
 }
 
-export function appendVersionParam(path: string, cacheKey: string): string {
+export function appendVersionParam(
+    path: string,
+    cacheKey: string,
+    currentUrl = window.location.href,
+): string {
     if (!cacheKey) {
         return path;
     }
 
-    const url = new URL(path, window.location.href);
+    const url = new URL(path, currentUrl);
     url.searchParams.set(VERSION_QUERY_PARAM, cacheKey);
-    return url.origin === window.location.origin
+    return url.origin === new URL(currentUrl).origin
         ? `${url.pathname}${url.search}${url.hash}`
         : url.toString();
 }
 
-export function syncProjectVersion(config: AppConfig): {
-    didRedirect: boolean;
-    version: string;
-    buildHash: string;
-} {
+export function resolveProjectVersionState(
+    config: AppConfig,
+    currentUrlValue: string,
+    storedVersion: string,
+): BootstrapResult & { redirectUrl: string | null } {
     const version =
         typeof config.version === "string" ? config.version.trim() : "";
     const buildHash =
@@ -57,22 +80,54 @@ export function syncProjectVersion(config: AppConfig): {
     const cacheKey = buildHash || version;
 
     if (!cacheKey) {
-        return { didRedirect: false, version, buildHash };
+        return {
+            didRedirect: false,
+            version,
+            buildHash,
+            cacheKey,
+            redirectUrl: null,
+        };
     }
 
-    const storedVersion = getStoredValue(APP_VERSION_STORAGE_KEY);
-    const currentUrl = new URL(window.location.href);
+    const currentUrl = new URL(currentUrlValue);
     const currentQueryVersion =
         currentUrl.searchParams.get(VERSION_QUERY_PARAM) || "";
 
     if (storedVersion !== cacheKey || currentQueryVersion !== cacheKey) {
-        setStoredValue(APP_VERSION_STORAGE_KEY, cacheKey);
         currentUrl.searchParams.set(VERSION_QUERY_PARAM, cacheKey);
-        window.location.replace(currentUrl.toString());
-        return { didRedirect: true, version, buildHash };
+        return {
+            didRedirect: true,
+            version,
+            buildHash,
+            cacheKey,
+            redirectUrl: currentUrl.toString(),
+        };
     }
 
-    return { didRedirect: false, version, buildHash };
+    return {
+        didRedirect: false,
+        version,
+        buildHash,
+        cacheKey,
+        redirectUrl: null,
+    };
+}
+
+export function syncProjectVersion(config: AppConfig): BootstrapResult {
+    const versionState = resolveProjectVersionState(
+        config,
+        window.location.href,
+        getStoredValue(APP_VERSION_STORAGE_KEY),
+    );
+
+    if (versionState.cacheKey) {
+        setStoredValue(APP_VERSION_STORAGE_KEY, versionState.cacheKey);
+    }
+    if (versionState.didRedirect && versionState.redirectUrl) {
+        window.location.replace(versionState.redirectUrl);
+    }
+
+    return versionState;
 }
 
 export function syncProfileUrl(profileId: string): void {
