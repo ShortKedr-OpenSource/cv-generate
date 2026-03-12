@@ -27,7 +27,7 @@
     "defaults": {
         "profile": "hide-the-pain-harold",
         "language": "en",
-        "theme": "meadow"
+        "theme": "default"
     },
     "features": {
         "profileSelector": true
