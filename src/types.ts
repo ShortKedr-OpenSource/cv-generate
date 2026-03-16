@@ -100,6 +100,7 @@ export interface ProfileMeta {
     contacts: {
         email: string;
         linkedin: string;
+        github?: string;
     };
     languages: string[];
     defaultLanguage: string;
@@ -111,13 +112,14 @@ export interface CvExperienceItem {
     company?: string;
     date?: string;
     title?: string;
-    description?: string | null;
+    description?: string | string[] | null;
 }
 
 export interface CvTranslation {
     title?: string;
     contact?: string;
     linkedin?: string;
+    github?: string;
     skillsTitle?: string;
     skills?: string[];
     languagesTitle?: string;

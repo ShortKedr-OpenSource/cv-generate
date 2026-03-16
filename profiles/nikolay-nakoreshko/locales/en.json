@@ -1,5 +1,5 @@
 {
-    "title": "Resume - Nikolay Nakoreshko",
+    "title": "Resume - Nikolay Nakorkeshko",
     "contact": "Contact",
     "linkedin": "LinkedIn",
     "skillsTitle": "Key Skills",
@@ -14,58 +14,77 @@
         "Agile/Scrum"
     ],
     "languagesTitle": "Languages",
-    "languages": ["English (C1 Advanced)", "Russian (Native)"],
+    "languages": [
+        "English (C1 Advanced)",
+        "Russian (Native)"
+    ],
     "certificationsTitle": "Certifications",
     "certifications": "EF SET English Certificate 70/100 (C1 Advanced)",
     "gdpr": "I hereby give my consent for the processing of my personal data for the purposes necessary for the recruitment process (in accordance with the Act of May 10, 2018, on the protection of personal data, Journal of Laws of 2018, item 1000, and in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of April 27, 2016, on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC - General Data Protection Regulation).",
-    "name": "Nikolay Nakoreshko",
+    "name": "Nikolay Nakorkeshko",
     "subtitle": "Unity Software Engineer | Unity Developer @ Playrix",
     "location": "Astana, Kazakhstan",
     "summaryTitle": "About Me",
     "summary": [
-        "Unity Software Engineer specializing in creating scalable gameplay systems and developer tools for production game projects.",
-        "My work is often at the intersection of gameplay engineering and internal tool development. I design systems that allow designers and non-programmers to implement and iterate on game mechanics without needing to delve into the engine's code.",
-        "In recent projects, I have worked on core gameplay infrastructure, navigation systems, gameplay features, and editor tools that improve development speed and maintainability. I have also contributed to pipeline integration and cross-platform tools used by the team in production.",
-        "I have extensive experience with C#, Unity architecture, gameplay systems, and tool development. I enjoy solving complex technical problems while maintaining system flexibility and maintainability as projects grow.",
-        "I am particularly interested in architecture, developer tools, and creating systems that simplify the development and operation of large game projects."
+        "Unity Software Engineer focused on gameplay systems, technical architecture, and developer tooling.",
+        "I enjoy building scalable systems and tools that help teams develop and iterate on game mechanics efficiently.",
+        "Interested in complex technical problems, performance optimization, and maintainable game architecture."
     ],
     "experienceTitle": "Work Experience",
     "experience": [
         {
             "company": "Playrix",
-            "date": "February 2023 - Present",
+            "date": "February 2023 - Present (3 years 2 months)",
             "title": "Unity Developer",
-            "description": null
+            "description": [
+                "Code owner of a modular Player Guidance System used across multiple gameplay contexts (locations, UI flows, quests, and dynamic gameplay features).",
+                "Redesigned the legacy architecture of the Player Guidance System and implemented async and deferred execution pipelines.",
+                "Reduced guidance request processing time 300ms → 5ms on average (~60x improvement, 50ms 1% low).",
+                "Expanded supported gameplay scenarios 6x while maintaining low guidance request latency.",
+                "Developed a high-performance alternative to Unity Gizmos API, preserving API compatibility while achieving ~6x faster rendering, enabling the Location Editor to render large amounts of debug geometry smoothly.",
+                "Led migration of the articy:draft X plugin, enabling cross-platform development workflows for macOS and Windows.",
+                "Delivered gameplay systems, UI features, and custom Unity editor tooling to support content production and game development workflows."
+            ]
         },
         {
             "company": "Perfect Play",
-            "date": "February 2023 - Present",
+            "date": "February 2023 - Present (3 years 2 months)",
             "title": "Unity Developer",
             "description": null
         },
         {
             "company": "Cyber Temple",
-            "date": "October 2022 - February 2023",
+            "date": "October 2022 - February 2023 (5 months)",
             "title": "Unity Developer",
-            "description": null
+            "description": [
+                "Implemented a CPU-bound light simulation system for gameplay features, replicating Unity built-in lighting behaviour.",
+                "Contributed to gameplay systems, tools, and general project development"
+            ]
         },
         {
             "company": "Kruplay",
-            "date": "September 2020 - September 2022",
+            "date": "September 2020 - September 2022 (2 years 1 month)",
             "title": "Lead Unity Developer",
-            "description": null
+            "description": [
+                "Led development of gameplay systems and platform integrations for two mobile F2P games in a small startup team.",
+                "Designed and implemented a modular combat system with abilities for a midcore RPG autobattler.",
+                "Integrated in-app purchases and multiple third-party SDKs including analytics, advertising, and monetization services.",
+                "Implemented backend integration with PlayFab to support live operations and player services.",
+                "Integrated native Android functionality and Java libraries for platform-specific features."
+            ]
         },
         {
             "company": "Self-employed",
-            "date": "January 2014 - August 2020",
+            "date": "January 2014 - August 2020 (6 years 8 months)",
             "title": "Indie Game Developer",
-            "description": "Freelancer and solo game developer. Creating games for web portals, small gaming sites, and competitions."
+            "description": "Freelancer, and lonely Game Developer. Creating games for Web portals, small game sites, contests"
         }
     ],
     "educationTitle": "Education",
     "education": {
         "university": "Kuban State Agrarian University",
-        "degree": "Bachelor, Applied Informatics in Economics",
+        "degree": "Bachelor's degree, Applied Informatics in Economics",
         "date": "(2018 - 2022)"
-    }
+    },
+    "github": "GitHub"
 }

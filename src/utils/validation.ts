@@ -247,6 +247,7 @@ export function createProfileMeta(
             linkedin: isSafeHttpsUrl(contacts.linkedin)
                 ? contacts.linkedin
                 : "",
+            github: isSafeHttpsUrl(contacts.github) ? contacts.github : "",
         },
         languages,
         defaultLanguage:

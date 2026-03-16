@@ -5,7 +5,17 @@
             <p class="job-date">{{ job.date || "" }}</p>
         </div>
         <h3 class="job-title">{{ job.title || "" }}</h3>
-        <p v-if="job.description" class="job-description">
+        <template v-if="Array.isArray(job.description) && job.description.length">
+            <ul class="job-description job-description-list">
+                <li
+                    v-for="(item, index) in job.description"
+                    :key="`job-description-${index}`"
+                >
+                    {{ item }}
+                </li>
+            </ul>
+        </template>
+        <p v-else-if="job.description" class="job-description">
             {{ job.description }}
         </p>
     </article>

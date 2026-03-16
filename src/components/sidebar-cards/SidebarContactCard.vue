@@ -16,6 +16,16 @@
                 {{ linkedinLabel || "LinkedIn" }}
             </a>
         </p>
+        <p v-if="contacts.github" class="contact-github-row">
+            <a
+                class="profile-github-link"
+                :href="contacts.github"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {{ githubLabel || "GitHub" }}
+            </a>
+        </p>
     </section>
 </template>
 
@@ -24,6 +34,7 @@ import type { ProfileMeta } from "../../types";
 
 defineProps<{
     title?: string;
+    githubLabel?: string;
     linkedinLabel?: string;
     contacts: ProfileMeta["contacts"];
 }>();

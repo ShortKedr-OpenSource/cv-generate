@@ -136,6 +136,7 @@ describe("app runtime", () => {
                 contacts: {
                     email: "",
                     linkedin: "",
+                    github: "",
                 },
                 languages: ["ru"],
                 defaultLanguage: "ru",

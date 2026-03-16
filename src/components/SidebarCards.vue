@@ -3,6 +3,7 @@
         <SidebarMediaCard :media-post="mediaPost" />
         <SidebarContactCard
             :contacts="meta.contacts"
+            :github-label="cvData.github"
             :linkedin-label="cvData.linkedin"
             :title="cvData.contact"
         />

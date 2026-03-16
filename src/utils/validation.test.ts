@@ -81,6 +81,7 @@ describe("validation helpers", () => {
                 contacts: {
                     email: "person@example.com",
                     linkedin: "https://linkedin.com/in/person",
+                    github: "https://github.com/person",
                 },
                 defaultLanguage: "ru",
                 languages: ["ru"],
@@ -108,6 +109,7 @@ describe("validation helpers", () => {
         expect(meta.label).toBe("Profile Label");
         expect(meta.defaultLanguage).toBe("ru");
         expect(meta.contacts.email).toBe("person@example.com");
+        expect(meta.contacts.github).toBe("https://github.com/person");
         expect(meta.mediaPosts).toEqual([
             {
                 type: "image",

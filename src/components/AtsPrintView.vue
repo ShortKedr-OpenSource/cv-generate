@@ -16,6 +16,9 @@
             <p class="ats-print-contact-linkedin">
                 {{ meta.contacts.linkedin }}
             </p>
+            <p class="ats-print-contact-github" v-if="meta.contacts.github">
+                {{ meta.contacts.github }}
+            </p>
         </section>
 
         <section
@@ -50,9 +53,25 @@
                     <p class="ats-print-job-meta">
                         {{ [job.title, job.date].filter(Boolean).join(" | ") }}
                     </p>
-                    <p v-if="job.description" class="ats-print-job-description">
-                        {{ job.description }}
-                    </p>
+                    <div
+                        v-if="job.description"
+                        class="ats-print-job-description"
+                    >
+                        <template
+                            v-if="
+                                Array.isArray(job.description) &&
+                                job.description.length
+                            "
+                        >
+                            <p
+                                v-for="(item, itemIndex) in job.description"
+                                :key="`ats-job-${index}-description-${itemIndex}`"
+                            >
+                                {{ item }}
+                            </p>
+                        </template>
+                        <p v-else>{{ job.description }}</p>
+                    </div>
                 </article>
             </div>
         </section>

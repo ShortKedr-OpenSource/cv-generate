@@ -1,7 +1,11 @@
 {
     "version": "2026-03-11-1",
     "buildHash": "dev",
-    "languages": ["ru", "en", "de"],
+    "languages": [
+        "ru",
+        "en",
+        "de"
+    ],
     "themes": [
         {
             "id": "default",
@@ -35,7 +39,7 @@
     "profiles": [
         {
             "id": "nikolay-nakoreshko",
-            "label": "Nikolay Nakoreshko",
+            "label": "Nikolay Nakorkeshko",
             "path": "profiles/nikolay-nakoreshko"
         },
         {
