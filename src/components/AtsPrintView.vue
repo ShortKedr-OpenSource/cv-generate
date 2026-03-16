@@ -57,19 +57,20 @@
                         v-if="job.description"
                         class="ats-print-job-description"
                     >
-                        <template
+                        <ul
                             v-if="
                                 Array.isArray(job.description) &&
                                 job.description.length
                             "
+                            class="ats-print-job-description-list"
                         >
-                            <p
+                            <li
                                 v-for="(item, itemIndex) in job.description"
                                 :key="`ats-job-${index}-description-${itemIndex}`"
                             >
                                 {{ item }}
-                            </p>
-                        </template>
+                            </li>
+                        </ul>
                         <p v-else>{{ job.description }}</p>
                     </div>
                 </article>
